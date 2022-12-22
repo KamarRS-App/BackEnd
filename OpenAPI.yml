@@ -28,11 +28,11 @@ tags:
     description: "Manajemen data Dokter"
   - name: Policlinics
     description: "Manajemen data Poliklinik"
-  - name: Daily Practics
+  - name: Daily Practice
     description: "Manajemen data praktek harian"
   - name: Check Up Reservations
     description: "Manajemen data reservasi checkup"
-  - name: Beds Reservations
+  - name: Beds Registrations
     description: "Manajemen data reservasi tempat tidur"
   - name: Invoice
     description: "Midtrans Callback"
@@ -185,31 +185,191 @@ paths:
         - Hospital Beds
       summary: add hospital bed
       description: Menambahkan data tempat tidur rumah sakit
+      security: 
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                hospital_id: 3
+                nama_tempat_tidur: "anggrek 1"
+                ruangan: "anggrek"
+                kelas: "kelas 2"
+                status: "available"
+      responses:
+        '201':
+          description: penambahan data berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success create beds"
+        '500':
+          description: penambahan data gagal
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "failed create beds"
 
     get:
       tags:
         - Hospital Beds
       summary: Get hospital beds
       description: Menampilkan data tempat tidur berdasarkan id rumah sakit
-  /beds/{beds_id}:
-    
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: hospital_id
+          description: "filter beds by hospital id"
+          required: false
+          in: query
+          schema: 
+            type: string
+            example: "hospital_id"
+      responses: 
+        '201':
+          description: List of beds by hospital id
+          content: 
+            application/json:
+             schema:
+              type: object
+              example:
+                status: "success"
+                message: "success get all beds"
+                data: 
+                  - id: 1
+                    hospital_id: 3
+                    nama_tempat_tidur: "anggrek 1"
+                    ruangan: "anggrek"
+                    kelas: "kelas 2"
+                    status: "available"
+                  - id: 5
+                    hospital_id: 3
+                    nama_tempat_tidur: "mawar 3"
+                    ruangan: "mawar"
+                    kelas: "kelas 3"
+                    status: "not available"
+                  - id: 15
+                    hospital_id: 3
+                    nama_tempat_tidur: "melati 2"
+                    ruangan: "melati"
+                    kelas: "kelas 2"
+                    status: "available"
+        '500':
+          $ref: '#/components/responses/500'  
+
+  /beds/{bed_id}:
     get:
       tags:
         - Hospital Beds
       summary: Get hospital beds detail
       description: Menampilkan detail data tempat tidur di suatu rumah sakit
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: bed_id
+          description: "bed_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+      responses:
+        '201':
+          description: list beds data by bed id success
+          content:
+            application/json:
+              schema:
+                type: object
+                example: 
+                  status: "Success"
+                  message: "success read beds by ID"
+                  data:
+                    id: 15
+                    hospital_id: 3
+                    nama_tempat_tidur: "melati 2"
+                    ruangan: "melati"
+                    kelas: "kelas 2"
+                    status: "available"
+        '500':
+          $ref: '#/components/responses/500'      
     
     put:
       tags:
         - Hospital Beds
       summary: Update hospital bed 
       description: Memperbarui data tempat tidur suatu rumah sakit
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: bed_id
+          description: "bed_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                hospital_id: 3
+                nama_tempat_tidur: "melati 2"
+                ruangan: "melati"
+                kelas: "kelas 2"
+                status: "available"
+      responses:
+        '201':
+          description: update hospital bed
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success update hospital bed"
+        '500':
+          $ref: '#/components/responses/500'
+      
 
     delete:
       tags:
         - Hospital Beds
       summary: Delete specific hospital bed
       description: Menghapus data tempat tidur suatu rumah sakit
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: bed_id
+          description: "bed_id"
+          required: true
+          in: path
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: delete hospitals bed status
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success delete hospital bed"
+        '500':
+          $ref: '#/components/responses/500'
 
 ##############################################################
 ##############################################################
@@ -286,32 +446,163 @@ paths:
 ##############################################################
 ##############################################################
 
-  /practics:
+  /practices:
     post:
       tags:
-        - Daily Practics
-      summary: add Daily Practics
+        - Daily Practice
+      summary: add Daily Practice
       description: Menambahkan data praktek harian
+      security: 
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                policlinic_id: 3
+                tanggal_praktik: "2022-12-27"
+                kuota_harian: 10
+                status: "available"
+      responses:
+        '201':
+          description: penambahan data berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success create beds"
+        '500':
+          description: penambahan data gagal
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "failed create beds"
 
     get:
       tags:
-        - Daily Practics
-      summary: Get Daily Practics
+        - Daily Practice
+      summary: Get Daily Practice by policlinic_id
       description: Menampilkan daftar praktek harian suatu rumah sakit
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: policlinic_id
+          description: "filter praktek harian by policlinic_id"
+          required: false
+          in: query
+          schema: 
+            type: string
+            example: "policlinic_id"
+      responses: 
+        '201':
+          description: List of praktek harian by policlinic_id
+          content: 
+            application/json:
+             schema:
+              type: object
+              example:
+                status: "success"
+                message: "success get all daily_practice"
+                data: 
+                  - id: 1
+                    policlinic_id: 3
+                    tanggal_praktik: "2022-12-27"
+                    kuota_harian: 10
+                    status: "available"
+                  - id: 2
+                    policlinic_id: 3
+                    tanggal_praktik: "2022-12-28"
+                    kuota_harian: 10
+                    status: "available"
+                  - id: 15
+                    policlinic_id: 3
+                    tanggal_praktik: "2022-12-29"
+                    kuota_harian: 10
+                    status: "not-available"
+        '500':
+          $ref: '#/components/responses/500'
 
-  /practics/{practics_id}:
+  /practices/{practice_id}:
     
     get:
       tags:
-        - Daily Practics
-      summary: Get Daily Practics's details
+        - Daily Practice
+      summary: Get Daily Practice's details
       description: Menampilkan detail praktek harian
-    
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: practice_id
+          description: "practice_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+      responses:
+        '201':
+          description: daily practice data by id success
+          content:
+            application/json:
+              schema:
+                type: object
+                example: 
+                  status: "Success"
+                  message: "success read daily_practice by ID"
+                  data:
+                    id: 15
+                    policlinic_id: 3
+                    tanggal_praktik: "2022-12-29"
+                    kuota_harian: 10
+                    status: "not-available"
+        '500':
+          $ref: '#/components/responses/500'  
     put:
       tags:
-        - Daily Practics
-      summary: Update Daily Practics's details
+        - Daily Practice
+      summary: Update Daily Practice's details
       description: Memperbarui data praktek harian
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: practice_id
+          description: "practice_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                hospital_id: 3
+                nama_tempat_tidur: "melati 2"
+                ruangan: "melati"
+                kelas: "kelas 2"
+                status: "available"
+      responses:
+        '201':
+          description: update praktik harian
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success update praktik harian"
+        '500':
+          $ref: '#/components/responses/500'
 
 ##############################################################
 ##############################################################
@@ -321,7 +612,37 @@ paths:
       tags:
         - Check Up Reservations
       summary: add reservation
-      description: Menambahkan data reservasi pasien check-up
+      description: Menambahkan data reservasi pasien check up
+      security: 
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                patient_id: 3
+                practice_id: 10
+      responses:
+        '201':
+          description: penambahan data berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success create reservations"
+        '500':
+          description: penambahan data gagal
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "failed create reservations"
 
 ##############################################################
 ##############################################################
@@ -329,29 +650,209 @@ paths:
   /registrations:
     post:
       tags:
-        - Beds Reservations
+        - Beds Registrations
       summary: add patient registration
       description: Menambahkan data registrasi pasien icu/rawat inap
+      security: 
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                hospital_id: 3
+                patient_id: 255
+                status_pasien: "pemeriksaan awal"
+                biaya_registrasi: 25000
+                order_id: "Postman-1578568851"
+                link-pembayaran: "masih tidak tahu linknya bagaimana"
+                status-pembayaran: "success"
+      responses:
+        '201':
+          description: penambahan data berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success create registrations"
+        '500':
+          description: penambahan data gagal
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "failed create registrations"
+    get:
+      tags:
+        - Beds Registrations
+      summary: Get beds registrations by hospital id
+      description: Menampilkan data pendaftaran berdasarkan id rumah sakit
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: hospital_id
+          description: "filter beds registrations by hospital_id"
+          required: false
+          in: query
+          schema: 
+            type: string
+            example: "hospital_id"
+      responses: 
+        '201':
+          description: List of beds registrations by hospital id
+          content: 
+            application/json:
+             schema:
+              type: object
+              example:
+                status: "success"
+                message: "success get all beds registrations"
+                data: 
+                  - id: 1
+                    hospital_id: 3
+                    patient_id: 176
+                    bed_id: 4
+                    status_pasien: "pemeriksaan awal"
+                    biaya_registrasi: 25000
+                    order_id: "Postman-1578568851"
+                    link-pembayaran: "masih tidak tahu linknya bagaimana"
+                    status-pembayaran: "success"
+                  - id: 5
+                    hospital_id: 3
+                    patient_id: 233
+                    bed_id: 10
+                    status_pasien: "rawat inap"
+                    biaya_registrasi: 25000
+                    order_id: "Postman-1578568851"
+                    link-pembayaran: "masih tidak tahu linknya bagaimana"
+                    status-pembayaran: "success"
+                  - id: 15
+                    hospital_id: 3
+                    patient_id: 287
+                    bed_id: 17
+                    status_pasien: "dikembalikan ke wali"
+                    biaya_registrasi: 25000
+                    order_id: "Postman-1578568851"
+                    link-pembayaran: "masih tidak tahu linknya bagaimana"
+                    status-pembayaran: "success"
+        '500':
+          $ref: '#/components/responses/500'
 
-  /registrations/{registrations_id}:
+  /registrations/{registration_id}:
+    get:
+      tags:
+        - Beds Registrations
+      summary: Get registration data
+      description: Menampilkan data registrasi pasien
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: registration_id
+          description: "registration_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+      responses:
+        '201':
+          description: list beds registrations data by registrations_id success
+          content:
+            application/json:
+              schema:
+                type: object
+                example: 
+                  status: "Success"
+                  message: "success read beds registrations by ID"
+                  data:
+                    id: 20
+                    hospital_id: 3
+                    patient_id: 255
+                    bed_id: 16
+                    status_pasien: "rawat inap"
+                    biaya_registrasi: 25000
+                    order_id: "Postman-1578568851"
+                    link-pembayaran: "masih tidak tahu linknya bagaimana"
+                    status-pembayaran: "success"
+        '500':
+          $ref: '#/components/responses/500' 
 
     put:
       tags:
-        - Beds Reservations
+        - Beds Registrations
       summary: update registration data
       description: Memperbarui data registrasi pasien
-
-    get:
-      tags:
-        - Beds Reservations
-      summary: Get registration data
-      description: Menampilkan data registrasi pasien
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: registration_id
+          description: "registration_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                hospital_id: 3
+                patient_id: 255
+                bed_id: 15
+                status_pasien: "pemeriksaan awal"
+                biaya_registrasi: 25000
+                order_id: "Postman-1578568851"
+                link-pembayaran: "masih tidak tahu linknya bagaimana"
+                status-pembayaran: "success"
+      responses:
+        '201':
+          description: update hospital bed
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success update hospital bed"
+        '500':
+          $ref: '#/components/responses/500'
 
     delete:
       tags:
-        - Beds Reservations
+        - Beds Registrations
       summary: Delete registration data
       description: Menghapus data registrasi pasien
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: registration_id
+          description: "registration_id"
+          required: true
+          in: path
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: delete beds registration status
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success delete bed registrations"
+        '500':
+          $ref: '#/components/responses/500'
 
 ##############################################################
 ##############################################################
@@ -361,7 +862,7 @@ paths:
       tags:
         - Invoice
       summary: callback
-      description: 
+      description: callback pembayaran midtrans
 
 
 
