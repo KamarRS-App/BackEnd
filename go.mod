@@ -3,11 +3,14 @@ module kamarRS
 go 1.19
 
 require (
-	github.com/aws/aws-sdk-go v1.44.165 // indirect
-	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/aws/aws-sdk-go v1.44.165
+	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/joho/godotenv v1.4.0
+	github.com/labstack/echo/v4 v4.9.1
+)
+
+require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
-	github.com/joho/godotenv v1.4.0 // indirect
-	github.com/labstack/echo/v4 v4.9.1 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
