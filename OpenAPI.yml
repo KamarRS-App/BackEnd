@@ -38,18 +38,73 @@ tags:
     description: "Midtrans Callback"
   
 paths:
-  /login/user:
+  /oauth/login/user:
     post:
       tags:
         - Auth
       summary: Login
       description: Login akun user 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                oauth:  "das&hd9asd87gdoas_sdk9sd"
+      responses:
+        '201':
+          description: Login berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Login berhasil"
+                  data:
+                      id: 1
+                      email: "teguh@mail.com"
+                      token:  "afkdnnifnnj&h3"
+                      role: "user"
+        '404' :
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
   /login/staff:
     post:
       tags:
         - Auth
       summary: Login
       description: Login akun staff
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: "suyo@siloam.com"
+                password: "123456"
+      responses:
+        '201':
+          description: Login berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Login berhasil"
+                  data:
+                      id: 1
+                      email: "suyo@siloam.com"
+                      token:  "afkdnnifnnj&h3"
+                      role: "Admin"
+        '404' :
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
      
 
 
@@ -59,25 +114,142 @@ paths:
         - Users
       summary: add user
       description: Menambah data User (register)
+      security:
+        - Oauth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                nama: "budi"
+                email:  "budi@mail.com"
+                no_nik: "7109287651997"
+                no_kk:  "7190398173764"
+                kata_sandi: "qwerty"
+                no_telepon: "081234"
+      responses:
+        '201':
+          description: Register berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "register berhasil"
+        '400':
+          description: Register gagal.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "register gagal."
+        '500':
+          $ref: '#/components/responses/500'
 
     put:
       tags:
         - Users
       summary: Update data user
       description: Memperbarui data user
+      security:
+        - Oauth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                nama: "budi"
+                email:  "budi@mail.com"
+                no_nik: "7109287651997"
+                no_kk:  "7190398173764"
+                kata_sandi: "qwerty"
+                no_telepon: "081234"
+      responses:
+        '201':
+          description: Update berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Update berhasil"
+        '400':
+          description: Update gagal.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "Update gagal."
+        '500':
+          $ref: '#/components/responses/500'
 
     get:
       tags:
         - Users
       summary: Get user by user_id
       description: Menampilkan data user yang sedang login
+      security:
+        - Oauth: []
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success get all users"
+                  data:
+                     id : 1
+                     nama: "budi"
+                     email:  "budi@mail.com"
+                     no_nik: "7109287651997"
+                     no_kk:  "7190398173764"
+                     no_telepon: "081234"
+                     pasien : 
+                      - id:  1
+                        nama: "apik"
+                      - id:  2
+                        nama: "piu"
+        '404':
+          $ref: '#/components/responses/404'
+
+        '500':
+          $ref: '#/components/responses/500'
 
     
     delete:
       tags:
         - Users
       summary: Delete data users
-      description: Menghapus data user
+      description: Menghapus data user 
+      security:
+        - JWTAuth: []
+      responses:
+        '201':
+          description: Delete berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Delete success"
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
 
 ##############################################################
 ##############################################################
@@ -87,24 +259,140 @@ paths:
         - Hospital staffs
       summary: add Hospital staffs
       description: Menambah akun untuk staff rumah sakit
+      security:
+        - Oauth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                nama: teguh
+                email: teguh@mail.com
+                kata_sandi: "12345"
+                peran: Admin
+                hospital_id: 1
+      responses:
+        '201':
+          description: Register berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "register berhasil"
+        '400':
+          description: Register gagal.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "register gagal."
+        '500':
+          $ref: '#/components/responses/500'
+
 
     put:
       tags:
         - Hospital staffs
       summary: Update staff data
       description: Memperbarui data staff Rumah sakit
+      security:
+        - Oauth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                nama: teguh
+                email: teguh@mail.com
+                kata_sandi: "12345"
+                peran: Admin
+                hospital_id: 1
+      responses:
+        '201':
+          description: Update berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "update data staff berhasil"
+        '400':
+          description: Update gagal.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "Update data gagal."
+        '500':
+          $ref: '#/components/responses/500'
+
 
     delete:
       tags:
         - Hospital staffs
       summary: Delete hospital staff account
       description: Menghapus akun staff rumah sakit
+      security:
+        - JWTAuth: []
+      responses:
+        '201':
+          description: Delete berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Delete success"
+
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
 
     get:
       tags:
         - Hospital staffs
       summary: Get staff data
       description: Menampilkan data staff rumah sakit
+      security:
+        - Oauth: []
+      responses:
+        '200':
+          description: A list of staff
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success get detail staff"
+                  data:
+                     id : 1
+                     nama: teguh
+                     email: teguh@mail.com
+                     kata_sandi: "12345"
+                     peran: Admin
+                     hospital: 
+                       id:  1
+                       nama: "RSUD dr. Chasbullah Abdulmadjid"
+                
+        '404':
+          $ref: '#/components/responses/404'
+
+        '500':
+          $ref: '#/components/responses/500'
 
 ##############################################################
 ##############################################################
@@ -150,24 +438,164 @@ paths:
         - Hospitals
       summary: Register Hospital
       description: Menambahkan Rumah sakit sebagai mitra
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                kode_rs: "3275013"
+                nama: "RSUD dr. Chasbullah Abdulmadjid"
+                foto: "http://url.jpg"
+                alamat: "Jalan Pramuka №55, Marga Jaya, Kec. Bekasi Selatan, Kota Bekasi, Jawa Barat 17141"
+                provinsi: "jawa barat"
+                kabupaten/kota: "Kota bekasi"
+                kecamatan: "Bekasi Selatan"
+                no_telepon: "021000"
+                email: "rsbekasi@mail.com"
+                kelas_rs: "Rumah Sakit Umum Kelas B"
+                pemilik/pengelola: "Pemprov"
+                jumlah_tempat_tidur: "100"
+                status_penggunaan: "RSUD Provinsi"
+                biaya_pendaftaran: "25.000"
+      responses:
+        '200':
+          description: add hospital
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success Add hospital"
+                  
+             
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
 
     put:
       tags:
         - Hospitals
       summary: Update Hospital's data
       description: Memperbarui data rumah sakit
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                kode_rs: "3275013"
+                nama: "RSUD dr. Chasbullah Abdulmadjid"
+                foto: "http://url.jpg"
+                alamat: "Jalan Pramuka №55, Marga Jaya, Kec. Bekasi Selatan, Kota Bekasi, Jawa Barat 17141"
+                provinsi: "jawa barat"
+                kabupaten/kota: "Kota bekasi"
+                kecamatan: "Bekasi Selatan"
+                no_telepon: "024400"
+                email: "rsbekasi.mail.com"
+                kelas_rs: "Rumah Sakit Umum Kelas B"
+                pemilik/pengelola: "Pemprov"
+                jumlah_tempat_tidur: "100"
+                status_penggunaan: "RSUD Provinsi"
+                biaya_pendaftaran: "25.000"
+      responses:
+        '200':
+          description: update hospital's data
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success update data hospital"
+                  
+             
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
     
     delete:
       tags:
         - Hospitals
       summary: Delete Hospital
       description: Menghapus Data Rumah sakit 
+      security:
+        - JWTAuth: []
+      responses:
+        '201':
+          description: Delete berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Delete success"
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
     
     get:
       tags:
         - Hospitals
       summary: Get All hospitals
       description: Menampilkan Daftar Rumah sakit
+      responses:
+        '200':
+          description: A list of hospitals
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success get hospitals"
+                  data:
+                    - id : 1
+                      kode_rs: "3275013"
+                      nama: "RSUD dr. Chasbullah Abdulmadjid"
+                      foto: "http://url.jpg"
+                      alamat: "Jalan Pramuka №55, Marga Jaya, Kec. Bekasi Selatan, Kota Bekasi, Jawa Barat 17141"
+                      provinsi: "jawa barat"
+                      kabupaten/kota: "Kota bekasi"
+                      kecamatan: "Bekasi Selatan"
+                      no_telepon: "024400"
+                      email: "rsbekasi.mail.com"
+                      kelas_rs: "Rumah Sakit Umum Kelas B"
+                      pemilik/pengelola: "Pemprov"
+                      jumlah_tempat_tidur: "100"
+                      status_penggunaan: "RSUD Provinsi"
+                      biaya_pendaftaran: "25.000"
+                    - id : 2
+                      kode_rs: "1174024"
+                      nama: "RS Umum Az-Zuhra "
+                      foto: "http://url.jpg"
+                      alamat: "Jl. Pasar Inpres No.2 Desa Kutablang Kec. Banda"
+                      provinsi: "sumatra"
+                      kabupaten/kota: "Aceh"
+                      kecamatan: "Banda sakti"
+                      no_telepon: "024440"
+                      email:  rsbekasi.mail.com"
+                      kelas_rs: "D"
+                      pemilik/pengelola: "perusahaan"
+                      jumlah_tempat_tidur: "30"
+                      status_penggunaan: "RSUD swasta"
+                      biaya_pendaftaran: "25.000"
+
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
 
   /hospitals/{hospital_id}:
     get:
@@ -175,6 +603,39 @@ paths:
         - Hospitals
       summary: Get Detail Hospital
       description: Menampilkan detail rumah sakit
+      responses:
+        '200':
+          description:  hospital's Details
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success get hospitals"
+                  data:
+                    id : 1
+                    kode_rs: "3275013"
+                    nama: "RSUD dr. Chasbullah Abdulmadjid"
+                    foto: "http://url.jpg"
+                    alamat: "Jalan Pramuka №55, Marga Jaya, Kec. Bekasi Selatan, Kota Bekasi, Jawa Barat 17141"
+                    provinsi: "jawa barat"
+                    kabupaten/kota: "Kota bekasi"
+                    kecamatan: "Bekasi Selatan"
+                    no_telepon: "024400"
+                    email: "rsbekasi.mail.com"
+                    kelas_rs: "Rumah Sakit Umum Kelas B"
+                    pemilik/pengelola: "Pemprov"
+                    jumlah_tempat_tidur: "100"
+                    status_penggunaan: "RSUD Provinsi"
+                    biaya_pendaftaran: "25.000"
+                    
+
+
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
 
 ##############################################################
 ##############################################################
@@ -443,3 +904,4 @@ components:
           example:
             status: "failed"
             message: "internal server error"
+
