@@ -460,7 +460,7 @@ paths:
                 pemilik/pengelola: "Pemprov"
                 jumlah_tempat_tidur: "100"
                 status_penggunaan: "RSUD Provinsi"
-                biaya_pendaftaran: "25.000"
+                biaya_pendaftaran: 25000
       responses:
         '200':
           description: add hospital
@@ -505,7 +505,7 @@ paths:
                 pemilik/pengelola: "Pemprov"
                 jumlah_tempat_tidur: "100"
                 status_penggunaan: "RSUD Provinsi"
-                biaya_pendaftaran: "25.000"
+                biaya_pendaftaran: 25000
       responses:
         '200':
           description: update hospital's data
