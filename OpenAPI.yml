@@ -1,0 +1,445 @@
+openapi:  3.0.3
+info:
+  title: CAPSTONE PROJECT kamarRS
+  version: 1.0.0
+  description:  Dokumentasi Project 
+  contact:
+    email: 
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Anti-Gen/CAPSTONE-PORJECT-kamarRS/1.0.0
+
+
+tags:
+  - name: Auth
+    description: "authentication"
+  - name: Users
+    description: "Manajemen data user"
+  - name: Hospital staffs
+    description: "Manajemen data staff Rumah sakit"
+  - name: Hospitals
+    description: "Manajemen data Rumah sakit"
+  - name: Patiens
+    description: "Manajemen data pasien"
+  - name: Hospital Beds
+    description: "Manajemen data tempat tidur di Rumah sakit"
+  - name: Doctors
+    description: "Manajemen data Dokter"
+  - name: Policlinics
+    description: "Manajemen data Poliklinik"
+  - name: Daily Practics
+    description: "Manajemen data praktek harian"
+  - name: Check Up Reservations
+    description: "Manajemen data reservasi checkup"
+  - name: Beds Reservations
+    description: "Manajemen data reservasi tempat tidur"
+  - name: Invoice
+    description: "Midtrans Callback"
+  
+paths:
+  /login/user:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: Login akun user 
+  /login/staff:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: Login akun staff
+     
+
+
+  /users:
+    post:
+      tags:
+        - Users
+      summary: add user
+      description: Menambah data User (register)
+
+    put:
+      tags:
+        - Users
+      summary: Update data user
+      description: Memperbarui data user
+
+    get:
+      tags:
+        - Users
+      summary: Get user by user_id
+      description: Menampilkan data user yang sedang login
+
+    
+    delete:
+      tags:
+        - Users
+      summary: Delete data users
+      description: Menghapus data user
+
+##############################################################
+##############################################################
+  /staffs:
+    post:
+      tags:
+        - Hospital staffs
+      summary: add Hospital staffs
+      description: Menambah akun untuk staff rumah sakit
+
+    put:
+      tags:
+        - Hospital staffs
+      summary: Update staff data
+      description: Memperbarui data staff Rumah sakit
+
+    delete:
+      tags:
+        - Hospital staffs
+      summary: Delete hospital staff account
+      description: Menghapus akun staff rumah sakit
+
+    get:
+      tags:
+        - Hospital staffs
+      summary: Get staff data
+      description: Menampilkan data staff rumah sakit
+
+##############################################################
+##############################################################
+
+  /patiens:
+    post:
+      tags:
+        - Patiens
+      summary: Patient Registration
+      description: Registrasi pasien
+ 
+    get:
+      tags:
+        - Patiens
+      summary: Get Patient Data
+      description: Menampilakn Pasien yang di daftarkan oleh user
+
+  /patiens/{patien_id}:
+    post:
+      tags:
+        - Patiens
+      summary: Update Patien Data
+      description: Memperbarui data pasien
+
+    delete:
+      tags:
+        - Patiens
+      summary: Delete patient
+      description: Menghapus data pasien 
+    
+    get:
+      tags:
+        - Patiens
+      summary: Get Detail patien
+      description: Menampilakn data detail pasien
+  
+##############################################################
+##############################################################
+
+  /hospitals:
+    post:
+      tags:
+        - Hospitals
+      summary: Register Hospital
+      description: Menambahkan Rumah sakit sebagai mitra
+
+    put:
+      tags:
+        - Hospitals
+      summary: Update Hospital's data
+      description: Memperbarui data rumah sakit
+    
+    delete:
+      tags:
+        - Hospitals
+      summary: Delete Hospital
+      description: Menghapus Data Rumah sakit 
+    
+    get:
+      tags:
+        - Hospitals
+      summary: Get All hospitals
+      description: Menampilkan Daftar Rumah sakit
+
+  /hospitals/{hospital_id}:
+    get:
+      tags:
+        - Hospitals
+      summary: Get Detail Hospital
+      description: Menampilkan detail rumah sakit
+
+##############################################################
+##############################################################
+
+  /beds:
+    post:
+      tags:
+        - Hospital Beds
+      summary: add hospital bed
+      description: Menambahkan data tempat tidur rumah sakit
+
+    get:
+      tags:
+        - Hospital Beds
+      summary: Get hospital beds
+      description: Menampilkan data tempat tidur berdasarkan id rumah sakit
+  /beds/{beds_id}:
+    
+    get:
+      tags:
+        - Hospital Beds
+      summary: Get hospital beds detail
+      description: Menampilkan detail data tempat tidur di suatu rumah sakit
+    
+    put:
+      tags:
+        - Hospital Beds
+      summary: Update hospital bed 
+      description: Memperbarui data tempat tidur suatu rumah sakit
+
+    delete:
+      tags:
+        - Hospital Beds
+      summary: Delete specific hospital bed
+      description: Menghapus data tempat tidur suatu rumah sakit
+
+##############################################################
+##############################################################
+
+  /doctors:
+    post:
+      tags:
+        - Doctors
+      summary: add doctor
+      description: Menambahkan data Dokter 
+
+    get:
+      tags:
+        - Doctors
+      summary: Get Doctors
+      description: Menampilkan data dokter yang didaftarkan oleh admin 
+
+  /doctors/{doctors_id}:
+    
+    get:
+      tags:
+        - Doctors
+      summary: Get doctor's detail 
+      description: Menampilkan detail doctor yang didaftarkan oleh admin (admin hanya bisa menampilkan dokter yang dia daftarkan)
+    
+    put:
+      tags:
+        - Doctors
+      summary: Update doctor's data
+      description: Memperbarui data doctor yang didaftarkan oleh admin (admin hanya bisa Memperbarui data dokter yang dia daftarkan)
+
+    delete:
+      tags:
+        - Doctors
+      summary: Delete specific doctor
+      description: Menghapus data tempat tidur suatu rumah sakit (admin hanya bisa menghapus dokter yang dia daftarkan)
+
+##############################################################
+##############################################################
+
+  /policlinics:
+    post:
+      tags:
+        - Policlinics
+      summary: add Policlinics
+      description: Menambahkan data Dokter 
+
+    get:
+      tags:
+        - Policlinics
+      summary: Get Policlinics
+      description: Menampilkan daftar poliklinik suatu rumah sakit
+
+  /policlinics/{policlinics_id}:
+    
+    get:
+      tags:
+        - Policlinics
+      summary: Get policlinic's details
+      description: Menampilkan detail policlinic 
+    
+    put:
+      tags:
+        - Policlinics
+      summary: Update policlinic's details
+      description: Memperbarui data policlinic
+
+    delete:
+      tags:
+        - Policlinics
+      summary: Delete specific policlinic
+      description: Menghapus data Poliklinik
+
+##############################################################
+##############################################################
+
+  /practics:
+    post:
+      tags:
+        - Daily Practics
+      summary: add Daily Practics
+      description: Menambahkan data praktek harian
+
+    get:
+      tags:
+        - Daily Practics
+      summary: Get Daily Practics
+      description: Menampilkan daftar praktek harian suatu rumah sakit
+
+  /practics/{practics_id}:
+    
+    get:
+      tags:
+        - Daily Practics
+      summary: Get Daily Practics's details
+      description: Menampilkan detail praktek harian
+    
+    put:
+      tags:
+        - Daily Practics
+      summary: Update Daily Practics's details
+      description: Memperbarui data praktek harian
+
+##############################################################
+##############################################################
+
+  /reservations:
+    post:
+      tags:
+        - Check Up Reservations
+      summary: add reservation
+      description: Menambahkan data reservasi pasien check-up
+
+##############################################################
+##############################################################
+
+  /registrations:
+    post:
+      tags:
+        - Beds Reservations
+      summary: add patient registration
+      description: Menambahkan data registrasi pasien icu/rawat inap
+
+  /registrations/{registrations_id}:
+
+    put:
+      tags:
+        - Beds Reservations
+      summary: update registration data
+      description: Memperbarui data registrasi pasien
+
+    get:
+      tags:
+        - Beds Reservations
+      summary: Get registration data
+      description: Menampilkan data registrasi pasien
+
+    delete:
+      tags:
+        - Beds Reservations
+      summary: Delete registration data
+      description: Menghapus data registrasi pasien
+
+##############################################################
+##############################################################
+
+  /midtrans:
+    put:
+      tags:
+        - Invoice
+      summary: callback
+      description: 
+
+
+
+
+
+
+
+ 
+ 
+
+
+    
+####################################
+#  COMPONENTS
+####################################
+components:
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "use Token"
+
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        role:
+          type: string
+          enum:
+            - admin
+            - user
+        status:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+
+    ResponseWithoutData:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+          example:
+            status: "failed"
+            message: "data not found"
+
+
+    '500':
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+          example:
+            status: "failed"
+            message: "internal server error"
