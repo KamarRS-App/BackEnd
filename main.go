@@ -1,6 +1,8 @@
 package main
 
 import (
+	"kamarRS/config"
+	"kamarRS/utils/database/mysql"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -8,6 +10,12 @@ import (
 )
 
 func main() {
+	cfg := config.GetConfig()
+	db := mysql.InitDB(cfg)
+	// db := posgresql.InitDB(cfg)
+
+	mysql.DBMigration(db)
+
 	e := echo.New()
 	e.Use(middleware.Logger())
 	e.GET("/hello", func(c echo.Context) error {
