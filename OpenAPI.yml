@@ -401,33 +401,367 @@ paths:
     post:
       tags:
         - Patiens
-      summary: Patient Registration
-      description: Registrasi pasien
- 
+      summary: add new patient
+      description: add new patient information to user profile
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/patientRequest"
+            example:
+              user_id: 1
+              no_kk: "321654987321654"
+              nik: "321654987321654"
+              nama_pasien: "monkey d. luffy" 
+              jenis_kelamin: "laki-laki"
+              usia: "20"
+              nama_wali: "monkey d. dragon"
+              no_telepon_wali: "081321654987"
+              email_wali: "dragon@gmail.com"
+              alamat_ktp: "wind mill village"
+              provinsi_ktp: "east blue"
+              kabupaten/kota_ktp: "doma kingdom"
+              alamat_domisili: "thousand sunny"
+              provinsi_domisili: "grand line"
+              kabupaten/kota_domisili: "always moving"
+              tanggal_lahir: "1990-08-01"
+              no_bpjs: "789456123"
+              kelas_bpjs: "kelas_1"
+              foto_ktp: "kanohhtihafnuef.jpg"
+              foto_bpjs: "kanjtquihgsa.jpg"
+      responses:
+        '201':
+          description: "success create patient info"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success add new patient"
+        '400':
+          $ref: "#/components/responses/400"
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
     get:
       tags:
         - Patiens
       summary: Get Patient Data
-      description: Menampilakn Pasien yang di daftarkan oleh user
-
-  /patiens/{patien_id}:
-    post:
+      description: menampilkan daftar pasien yang didaftarkan di suatu rumah sakit
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hospital_id:
+                  type: integer
+                  format: int64
+            example:
+              hospital_id: 1
+      responses:
+        '200':
+          description: "succes get patient list"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/ResponsePatients"
+              example:
+                status: "succes"
+                message: "success get patient data"
+                data:
+                  - user_id: 1
+                    no_kk: "321654987321654"
+                    nik: "321654987321654"
+                    nama_pasien: "monkey d. luffy" 
+                    jenis_kelamin: "laki-laki"
+                    usia: "20"
+                    nama_wali: "monkey d. dragon"
+                    no_telepon_wali: "081321654987"
+                    email_wali: "dragon@gmail.com"
+                    alamat_ktp: "wind mill village"
+                    provinsi_ktp: "east blue"
+                    kabupaten/kota_ktp: "doma kingdom"
+                    alamat_domisili: "thousand sunny"
+                    provinsi_domisili: "grand line"
+                    kabupaten/kota_domisili: "always moving"
+                    tanggal_lahir: "1990-08-01"
+                    no_bpjs: "789456123"
+                    kelas_bpjs: "kelas_1"
+                    foto_ktp: "kanohhtihafnuef.jpg"
+                    foto_bpjs: "kanjtquihgsa.jpg"
+                  - user_id: 2
+                    no_kk: "321654987321654"
+                    nik: "321654987321654"
+                    nama_pasien: "monkey d. dragon" 
+                    jenis_kelamin: "laki-laki"
+                    usia: "20"
+                    nama_wali: "monkey d. garp"
+                    no_telepon_wali: "081321654987"
+                    email_wali: "garp@gmail.com"
+                    alamat_ktp: "wind mill village"
+                    provinsi_ktp: "east blue"
+                    kabupaten/kota_ktp: "doma kingdom"
+                    alamat_domisili: "thousand sunny"
+                    provinsi_domisili: "grand line"
+                    kabupaten/kota_domisili: "always moving"
+                    tanggal_lahir: "1990-08-01"
+                    no_bpjs: "789456123"
+                    kelas_bpjs: "kelas_1"
+                    foto_ktp: "kanohhtihafnuef.jpg"
+                    foto_bpjs: "kanjtquihgsa.jpg"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+  
+  /patiens/{patient_id}:
+    put:
       tags:
         - Patiens
       summary: Update Patien Data
       description: Memperbarui data pasien
-
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id patient"
+          required: true
+          in: path
+          schema:
+            description: "id patient"
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema: 
+              $ref: "#/components/schemas/patientRequest"
+            example:
+              user_id: 1
+              no_kk: "321654987321654"
+              nik: "321654987321654"
+              nama_pasien: "monkey d. luffy" 
+              nama_wali: "monkey d. dragon"
+              jenis_kelamin: "laki-laki"
+              usia: "20"
+              no_telepon_wali: "081321654987"
+              email_wali: "dragon@gmail.com"
+              alamat_ktp: "wind mill village"
+              provinsi_ktp: "east blue"
+              kabupaten/kota_ktp: "doma kingdom"
+              alamat_domisili: "thousand sunny"
+              provinsi_domisili: "grand line"
+              kabupaten/kota_domisili: "always moving"
+              tanggal_lahir: "1990-08-01"
+              no_bpjs: "789456123"
+              kelas_bpjs: "kelas_1"
+              foto_ktp: "kanohhtihafnuef.jpg"
+              foto_bpjs: "kanjtquihgsa.jpg"
+      responses:
+        '200':
+          description: "update patientdata "
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success update patient"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
     delete:
       tags:
         - Patiens
       summary: Delete patient
       description: Menghapus data pasien 
-    
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id patient"
+          required: true
+          in: path
+          schema:
+            description: "id patient"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "delete patient data"
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success delete patient"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
     get:
       tags:
         - Patiens
       summary: Get Detail patien
       description: Menampilakn data detail pasien
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id patient"
+          required: true
+          in: path
+          schema:
+            description: "id patient"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "succes get patient by id"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/ResponsePatient"
+              example:
+                status: "succes"
+                message: "success get patient data by id"
+                data:
+                  user_id: 1
+                  no_kk: "321654987321654"
+                  nik: "321654987321654"
+                  nama_pasien: "monkey d. luffy" 
+                  jenis_kelamin: "laki-laki"
+                  usia: "20"
+                  nama_wali: "monkey d. dragon"
+                  no_telepon_wali: "081321654987"
+                  alamat_ktp: "wind mill village"
+                  provinsi_ktp: "east blue"
+                  kabupaten/kota_ktp: "doma kingdom"
+                  alamat_domisili: "thousand sunny"
+                  provinsi_domisili: "grand line"
+                  kabupaten/kota_domisili: "always moving"
+                  tanggal_lahir: "1990-08-01"
+                  no_bpjs: "789456123"
+                  kelas_bpjs: "kelas_1"
+                  foto_ktp: "kanohhtihafnuef.jpg"
+                  foto_bpjs: "kanjtquihgsa.jpg"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+  /patiens/users:
+    get:
+      tags:
+        - Patiens
+      summary: Get Patient Data
+      description: menampilkan daftar pasien yang didaftarkan oleh user
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  format: int64
+            example:
+              user_id: 1
+      responses:
+        '200':
+          description: "succes get patient list"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/ResponsePatients"
+              example:
+                status: "succes"
+                message: "success get patient data by id"
+                data:
+                  - user_id: 1
+                    no_kk: "321654987321654"
+                    nik: "321654987321654"
+                    nama_pasien: "monkey d. luffy" 
+                    jenis_kelamin: "laki-laki"
+                    usia: "20"
+                    nama_wali: "monkey d. dragon"
+                    no_telepon_wali: "081321654987"
+                    email_wali: "dragon@gmail.com"
+                    alamat_ktp: "wind mill village"
+                    provinsi_ktp: "east blue"
+                    kabupaten/kota_ktp: "doma kingdom"
+                    alamat_domisili: "thousand sunny"
+                    provinsi_domisili: "grand line"
+                    kabupaten/kota_domisili: "always moving"
+                    tanggal_lahir: "1990-08-01"
+                    no_bpjs: "789456123"
+                    kelas_bpjs: "kelas_1"
+                    foto_ktp: "kanohhtihafnuef.jpg"
+                    foto_bpjs: "kanjtquihgsa.jpg"
+                  - user_id: 2
+                    no_kk: "321654987321654"
+                    nik: "321654987321654"
+                    nama_pasien: "monkey d. dragon" 
+                    jenis_kelamin: "laki-laki"
+                    usia: "20"
+                    nama_wali: "monkey d. garp"
+                    no_telepon_wali: "081321654987"
+                    email_wali: "garp@gmail.com"
+                    alamat_ktp: "wind mill village"
+                    provinsi_ktp: "east blue"
+                    kabupaten/kota_ktp: "doma kingdom"
+                    alamat_domisili: "thousand sunny"
+                    provinsi_domisili: "grand line"
+                    kabupaten/kota_domisili: "always moving"
+                    tanggal_lahir: "1990-08-01"
+                    no_bpjs: "789456123"
+                    kelas_bpjs: "kelas_1"
+                    foto_ktp: "kanohhtihafnuef.jpg"
+                    foto_bpjs: "kanjtquihgsa.jpg"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"  
   
 ##############################################################
 ##############################################################
@@ -841,12 +1175,87 @@ paths:
         - Doctors
       summary: add doctor
       description: Menambahkan data Dokter 
-
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/doctorRequest"
+            example:
+              nama: "tonny-tonny chopper"
+              email: "chopper@mugiwara.com"
+              bidang: "dokter umum"
+              no_telpon: "634896216489"
+      responses:
+        '201':
+          description: "success create doctor info"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success add new doctor"
+        '400':
+          $ref: "#/components/responses/400"
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+      
     get:
       tags:
         - Doctors
       summary: Get Doctors
-      description: Menampilkan data dokter yang didaftarkan oleh admin 
+      description: Menampilkan data dokter yang didaftarkan oleh admin di rumah sakit tertentu
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hospital_id:
+                  type: integer
+                  format: int64
+            example:
+              hospital_id: 1
+      responses:
+        '200':
+          description: "succes get doctor list"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/responseDoctors"
+              example:
+                status: "succes"
+                message: "success get doctor data"
+                data:
+                  - doctor_id: 1
+                    nama: "tonny-tonny chopper"
+                    email: "chopper@mugiwara.com"
+                    bidang: "dokter umum"
+                    no_telpon: "634896216489"
+                  - doctor_id: 2
+                    nama: "trao"
+                    email: "trao@heart.com"
+                    bidang: "dokter umum"
+                    no_telpon: "634896216489"   
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
 
   /doctors/{doctors_id}:
     
@@ -855,19 +1264,124 @@ paths:
         - Doctors
       summary: Get doctor's detail 
       description: Menampilkan detail doctor yang didaftarkan oleh admin (admin hanya bisa menampilkan dokter yang dia daftarkan)
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id doctor"
+          required: true
+          in: path
+          schema:
+            description: "id doctor"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "succes get doctor by id"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/responseDoctor"
+              example:
+                status: "succes"
+                message: "success get doctor data by id"
+                data:
+                  doctor_id: 2
+                  nama: "trao"
+                  email: "trao@heart.com"
+                  bidang: "dokter umum"
+                  no_telpon: "634896216489" 
+                  
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
     
     put:
       tags:
         - Doctors
       summary: Update doctor's data
       description: Memperbarui data doctor yang didaftarkan oleh admin (admin hanya bisa Memperbarui data dokter yang dia daftarkan)
-
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id doctor"
+          required: true
+          in: path
+          schema:
+            description: "id doctor"
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/doctorRequest"
+            example:
+              nama: "trao"
+              email: "trao@heart.com"
+              bidang: "dokter umum"
+              no_telpon: "634896216489" 
+              
+      responses:
+        '200':
+          description: "update doctor data "
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success update doctor"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
     delete:
       tags:
         - Doctors
       summary: Delete specific doctor
       description: Menghapus data tempat tidur suatu rumah sakit (admin hanya bisa menghapus dokter yang dia daftarkan)
-
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id doctor"
+          required: true
+          in: path
+          schema:
+            description: "id doctor"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "delete doctor data"
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success delete doctor"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
 ##############################################################
 ##############################################################
 
@@ -877,12 +1391,88 @@ paths:
         - Policlinics
       summary: add Policlinics
       description: Menambahkan data Dokter 
-
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              $ref: "#/components/schemas/policlinicRequest"
+            example:
+              hospital_id: 1
+              doctors_id: 1
+              nama_poli: "poli gigi"
+              jam_praktik: "09:00--15:00"
+      responses:
+        '201':
+          description: "success create policlinic info"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success add new policlinic"
+        '400':
+          $ref: "#/components/responses/400"
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
     get:
       tags:
         - Policlinics
       summary: Get Policlinics
       description: Menampilkan daftar poliklinik suatu rumah sakit
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                hospital_id:
+                  type: integer
+                  format: int64
+            example:
+              hospital_id: 1
+      responses:
+        '200':
+          description: "succes get policlinic list"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/responsePoliclinics"
+              example:
+                status: "succes"
+                message: "success get policlinic data"
+                data:
+                  - policlinic_id: 3
+                    hospital_id: 1
+                    doctors_id: 1
+                    nama_poli: "poli gigi"
+                    jam_praktik: "09:00--15:00"
+                  - policlinic_id: 2
+                    hospital_id: 1
+                    doctors_id: 5
+                    nama_poli: "poli mata"
+                    jam_praktik: "09:00--15:00"
+                  
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
 
   /policlinics/{policlinics_id}:
     
@@ -891,18 +1481,124 @@ paths:
         - Policlinics
       summary: Get policlinic's details
       description: Menampilkan detail policlinic 
-    
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id poliklinik"
+          required: true
+          in: path
+          schema:
+            description: "id poliklinik"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "succes get policlinic by id"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/responsePoliclinic"
+              example:
+                status: "succes"
+                message: "success get policlinic data by id"
+                data:
+                    policlinic_id: 3
+                    hospital_id: 1
+                    doctors_id: 1
+                    nama_poli: "poli gigi"
+                    jam_praktik: "09:00--15:00"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
     put:
       tags:
         - Policlinics
       summary: Update policlinic's details
       description: Memperbarui data policlinic
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id poliklinik"
+          required: true
+          in: path
+          schema:
+            description: "id poliklinik"
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              $ref: "#/components/schemas/policlinicRequest"
+            example:
+              hospital_id: 1
+              doctors_id: 1
+              nama_poli: "poli gigi"
+              jam_praktik: "09:00--15:00"
+      responses:
+        '200':
+          description: "success update policlinic"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success update policlinic"
+        '400':
+          $ref: "#/components/responses/400"
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500" 
 
     delete:
       tags:
         - Policlinics
       summary: Delete specific policlinic
       description: Menghapus data Poliklinik
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: id
+          description: "id policlinic"
+          required: true
+          in: path
+          schema:
+            description: "id policlinic"
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: "delete policlinic data"
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success delete policlinic"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
 
 ##############################################################
 ##############################################################
@@ -1374,7 +2070,199 @@ components:
         created_at:
           type: string
           format: date-time
-
+    patientRequest: 
+      type: object
+      properties:
+        user_id:
+          type: integer
+          format: int64
+        no_kk:
+          type: string
+        nik: 
+          type: string
+        nama_pasien: 
+          type: string
+        jenis_kelamin:
+          type: string
+          enum:
+            - laki-laki 
+            - perempuan
+        usia:
+          type: integer
+        nama_wali:
+          type: string
+        no_telepon_wali:
+          type: string
+        email_wali:
+          type: string
+        alamat_ktp:
+          type: string
+        provinsi_ktp:
+          type: string
+        kabupaten/kota_ktp:
+          type: string
+        alamat_domisili:
+          type: string
+        provinsi_domisili:
+          type: string
+        kabupaten/kota_domisili:
+          type: string
+        tanggal_lahir:
+          type: string
+        no_bpjs:
+          type: string
+        kelas_bpjs:
+          type: string
+          enum:
+            - kelas_1
+            - kelas_2
+            - kelas_3
+        foto_ktp:
+          type: string
+          format: binary
+        foto_bpjs:
+          type: string
+          format: binary
+    patientResponse: 
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        user_id:
+          type: integer
+          format: int64
+        no_kk:
+          type: string
+        nik: 
+          type: string
+        nama_pasien: 
+          type: string
+        jenis_kelamin:
+          type: string
+          enum:
+            - laki-laki 
+            - perempuan
+        usia:
+          type: integer
+        nama_wali:
+          type: string
+        no_telepon_wali:
+          type: string
+        email_wali:
+          type: string
+        alamat_ktp:
+          type: string
+        provinsi_domisili:
+          type: string
+        kabupaten/kota_domisili:
+          type: string
+        tanggal_lahir:
+          type: string
+        no_bpjs:
+          type: string
+        kelas_bpjs:
+          type: string
+          enum:
+            - kelas_1
+            - kelas_2
+            - kelas_3
+        foto_ktp:
+          type: string
+          format: binary
+        foto_bpjs:
+          type: string
+          format: binary
+    policlinicRequest:
+      type: object
+      properties:
+        hospital_id:
+          type: integer
+          format: int64
+        doctors_id:
+          type: integer
+          format: int64
+        nama_poli:
+          type: string
+        jam_praktik:
+          type: string
+    policlinicResponse:
+      type: object
+      properties:
+        policlinic_id:
+          type: integer
+          format: int64
+        hospital_id:
+          type: integer
+          format: int64
+        doctors_id:
+          type: integer
+          format: int64
+        nama_poli:
+          type: string
+        jam_praktik:
+          type: string
+    responsePoliclinic:
+      type: object
+      properties:
+        res:
+          type: object
+          $ref: "#/components/schemas/ResponseObject"
+        data: 
+          type: object
+          $ref: "#/components/schemas/policlinicResponse"
+    responsePoliclinics:
+      type: object
+      properties:
+        res:
+          type: object
+          $ref: "#/components/schemas/ResponseArray"
+        data: 
+          type: object
+          $ref: "#/components/schemas/policlinicResponse"
+    doctorRequest:
+      type: object
+      properties:
+        nama: 
+          type: string
+        email:
+          type: string
+        bidang:
+          type: string
+        no_telepon:
+          type: string
+    doctorResponse:
+      type: object
+      properties:
+        doctors_id:
+          type: integer
+          format: int64
+        nama: 
+          type: string
+        email:
+          type: string
+        bidang:
+          type: string
+        no_telepon:
+          type: string
+    responseDoctor:
+      type: object
+      properties:
+        res:
+          type: object
+          $ref: "#/components/schemas/ResponseObject"
+        data: 
+          type: object
+          $ref: "#/components/schemas/doctorResponse"
+    responseDoctors:
+      type: object
+      properties:
+        res:
+          type: object
+          $ref: "#/components/schemas/ResponseArray"
+        data: 
+          type: object
+          $ref: "#/components/schemas/doctorResponse"
     ResponseWithoutData:
       type: object
       properties:
@@ -1382,7 +2270,69 @@ components:
           type: string
         message:
           type: string
+    ResponseObject:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data: 
+          type: object
+    ResponseArray:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: array
+          items: 
+            type: object
+    ResponsePatient:
+      type: object
+      properties:
+        res: 
+          type: object
+          $ref: '#/components/schemas/ResponseObject'
+        data:
+          type: object
+          $ref: "#/components/schemas/patientResponse"
+    ResponsePatients:
+      type: object
+      properties:
+        res: 
+          type: object
+          $ref: '#/components/schemas/ResponseArray'
+        data:
+          type: object
+          $ref: "#/components/schemas/patientResponse"
   responses:
+    '400':
+      description: "Wrong Request From User"
+      content:
+        "application/json":
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+            properties:
+              message:
+                type: string
+          example:
+            message: "Process Failed. Please check your input."
+    '401':
+      description: "Authorization information is missing or invalid."
+      content:
+        "application/json":
+          schema:
+            type: object
+            $ref: '#/components/schemas/ResponseWithoutData'
+            properties:
+              message:
+                type: string
+          example:
+            message: "Process Failed. User not authorized for this request."
     '404':
       description: Not Found
       content:
