@@ -4,11 +4,19 @@ info:
   version: 1.0.0
   description:  Dokumentasi Project 
   contact:
-    email: 
+    name: kamarRS team
+    email: lzfk0x9a@duck.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/Anti-Gen/CAPSTONE-PORJECT-kamarRS/1.0.0
+  - description: kamarRS server
+    url: http://35.198.253.37:80
+  - description: kamarRS domain
+    url: not yet decided
 
 
 tags:
@@ -682,86 +690,86 @@ paths:
         '500':
           $ref: "#/components/responses/500"
 
-  /patiens/users:
-    get:
-      tags:
-        - Patiens
-      summary: Get Patient Data
-      description: menampilkan daftar pasien yang didaftarkan oleh user
-      security:
-        - JWTAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user_id:
-                  type: integer
-                  format: int64
-            example:
-              user_id: 1
-      responses:
-        '200':
-          description: "succes get patient list"
-          content:
-            application/json:
-              schema: 
-                type: object
-                $ref: "#/components/schemas/ResponsePatients"
-              example:
-                status: "succes"
-                message: "success get patient data by id"
-                data:
-                  - user_id: 1
-                    no_kk: "321654987321654"
-                    nik: "321654987321654"
-                    nama_pasien: "monkey d. luffy" 
-                    jenis_kelamin: "laki-laki"
-                    usia: "20"
-                    nama_wali: "monkey d. dragon"
-                    no_telepon_wali: "081321654987"
-                    email_wali: "dragon@gmail.com"
-                    alamat_ktp: "wind mill village"
-                    provinsi_ktp: "east blue"
-                    kabupaten/kota_ktp: "doma kingdom"
-                    alamat_domisili: "thousand sunny"
-                    provinsi_domisili: "grand line"
-                    kabupaten/kota_domisili: "always moving"
-                    tanggal_lahir: "1990-08-01"
-                    no_bpjs: "789456123"
-                    kelas_bpjs: "kelas_1"
-                    foto_ktp: "kanohhtihafnuef.jpg"
-                    foto_bpjs: "kanjtquihgsa.jpg"
-                  - user_id: 2
-                    no_kk: "321654987321654"
-                    nik: "321654987321654"
-                    nama_pasien: "monkey d. dragon" 
-                    jenis_kelamin: "laki-laki"
-                    usia: "20"
-                    nama_wali: "monkey d. garp"
-                    no_telepon_wali: "081321654987"
-                    email_wali: "garp@gmail.com"
-                    alamat_ktp: "wind mill village"
-                    provinsi_ktp: "east blue"
-                    kabupaten/kota_ktp: "doma kingdom"
-                    alamat_domisili: "thousand sunny"
-                    provinsi_domisili: "grand line"
-                    kabupaten/kota_domisili: "always moving"
-                    tanggal_lahir: "1990-08-01"
-                    no_bpjs: "789456123"
-                    kelas_bpjs: "kelas_1"
-                    foto_ktp: "kanohhtihafnuef.jpg"
-                    foto_bpjs: "kanjtquihgsa.jpg"
-        "400" :
-          $ref : "#/components/responses/400"  
-        "401" :
-          $ref : "#/components/responses/401"  
-        "404" :
-          $ref : "#/components/responses/404"  
-        '500':
-          $ref: "#/components/responses/500"  
+  # /patiens/users:
+  #   get:
+  #     tags:
+  #       - Patiens
+  #     summary: Get Patient Data
+  #     description: menampilkan daftar pasien yang didaftarkan oleh user
+  #     security:
+  #       - JWTAuth: []
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               user_id:
+  #                 type: integer
+  #                 format: int64
+  #           example:
+  #             user_id: 1
+  #     responses:
+  #       '200':
+  #         description: "succes get patient list"
+  #         content:
+  #           application/json:
+  #             schema: 
+  #               type: object
+  #               $ref: "#/components/schemas/ResponsePatients"
+  #             example:
+  #               status: "succes"
+  #               message: "success get patient data by id"
+  #               data:
+  #                 - user_id: 1
+  #                   no_kk: "321654987321654"
+  #                   nik: "321654987321654"
+  #                   nama_pasien: "monkey d. luffy" 
+  #                   jenis_kelamin: "laki-laki"
+  #                   usia: "20"
+  #                   nama_wali: "monkey d. dragon"
+  #                   no_telepon_wali: "081321654987"
+  #                   email_wali: "dragon@gmail.com"
+  #                   alamat_ktp: "wind mill village"
+  #                   provinsi_ktp: "east blue"
+  #                   kabupaten/kota_ktp: "doma kingdom"
+  #                   alamat_domisili: "thousand sunny"
+  #                   provinsi_domisili: "grand line"
+  #                   kabupaten/kota_domisili: "always moving"
+  #                   tanggal_lahir: "1990-08-01"
+  #                   no_bpjs: "789456123"
+  #                   kelas_bpjs: "kelas_1"
+  #                   foto_ktp: "kanohhtihafnuef.jpg"
+  #                   foto_bpjs: "kanjtquihgsa.jpg"
+  #                 - user_id: 2
+  #                   no_kk: "321654987321654"
+  #                   nik: "321654987321654"
+  #                   nama_pasien: "monkey d. dragon" 
+  #                   jenis_kelamin: "laki-laki"
+  #                   usia: "20"
+  #                   nama_wali: "monkey d. garp"
+  #                   no_telepon_wali: "081321654987"
+  #                   email_wali: "garp@gmail.com"
+  #                   alamat_ktp: "wind mill village"
+  #                   provinsi_ktp: "east blue"
+  #                   kabupaten/kota_ktp: "doma kingdom"
+  #                   alamat_domisili: "thousand sunny"
+  #                   provinsi_domisili: "grand line"
+  #                   kabupaten/kota_domisili: "always moving"
+  #                   tanggal_lahir: "1990-08-01"
+  #                   no_bpjs: "789456123"
+  #                   kelas_bpjs: "kelas_1"
+  #                   foto_ktp: "kanohhtihafnuef.jpg"
+  #                   foto_bpjs: "kanjtquihgsa.jpg"
+  #       "400" :
+  #         $ref : "#/components/responses/400"  
+  #       "401" :
+  #         $ref : "#/components/responses/401"  
+  #       "404" :
+  #         $ref : "#/components/responses/404"  
+  #       '500':
+  #         $ref: "#/components/responses/500"  
   
 ##############################################################
 ##############################################################
@@ -2020,6 +2028,28 @@ paths:
         - Invoice
       summary: callback
       description: callback pembayaran midtrans
+      security:
+        - JWTAuth: []
+      responses:
+        "200":
+          description: Success update status.
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ResponseObject"
+              example:
+                message: "success update status"
+                data :
+                  id_booking: 1
+                  order_id: "order-101"
+                  gross_amount: 60000
+                  status: "complete"
+        "400":
+          $ref: "#/components/responses/400"
+        "401":
+          $ref: "#/components/responses/401"
+        "500":
+          $ref: "#/components/responses/500"
 
 
 
