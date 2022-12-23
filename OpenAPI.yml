@@ -113,9 +113,6 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
-     
-
-
   /users:
     post:
       tags:
@@ -123,7 +120,7 @@ paths:
       summary: add user
       description: Menambah data User (register)
       security:
-        - Oauth: []
+        - JWTAuth: []
       requestBody:
         required: true
         content:
@@ -165,7 +162,7 @@ paths:
       summary: Update data user
       description: Memperbarui data user
       security:
-        - Oauth: []
+        - JWTAuth: []
       requestBody:
         required: true
         content:
@@ -207,7 +204,7 @@ paths:
       summary: Get user by user_id
       description: Menampilkan data user yang sedang login
       security:
-        - Oauth: []
+        - JWTAuth: []
       responses:
         '200':
           description: A list of users
@@ -268,7 +265,7 @@ paths:
       summary: add Hospital staffs
       description: Menambah akun untuk staff rumah sakit
       security:
-        - Oauth: []
+        - JWTAuth: []
       requestBody:
         required: true
         content:
@@ -310,7 +307,7 @@ paths:
       summary: Update staff data
       description: Memperbarui data staff Rumah sakit
       security:
-        - Oauth: []
+        - JWTAuth: []
       requestBody:
         required: true
         content:
@@ -375,7 +372,7 @@ paths:
       summary: Get staff data
       description: Menampilkan data staff rumah sakit
       security:
-        - Oauth: []
+        - JWTAuth: []
       responses:
         '200':
           description: A list of staff
@@ -458,85 +455,7 @@ paths:
           $ref : "#/components/responses/404"  
         '500':
           $ref: "#/components/responses/500"
-    get:
-      tags:
-        - Patiens
-      summary: Get Patient Data
-      description: menampilkan daftar pasien yang didaftarkan di suatu rumah sakit
-      security:
-        - JWTAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                hospital_id:
-                  type: integer
-                  format: int64
-            example:
-              hospital_id: 1
-      responses:
-        '200':
-          description: "succes get patient list"
-          content:
-            application/json:
-              schema: 
-                type: object
-                $ref: "#/components/schemas/ResponsePatients"
-              example:
-                status: "succes"
-                message: "success get patient data"
-                data:
-                  - user_id: 1
-                    no_kk: "321654987321654"
-                    nik: "321654987321654"
-                    nama_pasien: "monkey d. luffy" 
-                    jenis_kelamin: "laki-laki"
-                    usia: "20"
-                    nama_wali: "monkey d. dragon"
-                    no_telepon_wali: "081321654987"
-                    email_wali: "dragon@gmail.com"
-                    alamat_ktp: "wind mill village"
-                    provinsi_ktp: "east blue"
-                    kabupaten/kota_ktp: "doma kingdom"
-                    alamat_domisili: "thousand sunny"
-                    provinsi_domisili: "grand line"
-                    kabupaten/kota_domisili: "always moving"
-                    tanggal_lahir: "1990-08-01"
-                    no_bpjs: "789456123"
-                    kelas_bpjs: "kelas_1"
-                    foto_ktp: "kanohhtihafnuef.jpg"
-                    foto_bpjs: "kanjtquihgsa.jpg"
-                  - user_id: 2
-                    no_kk: "321654987321654"
-                    nik: "321654987321654"
-                    nama_pasien: "monkey d. dragon" 
-                    jenis_kelamin: "laki-laki"
-                    usia: "20"
-                    nama_wali: "monkey d. garp"
-                    no_telepon_wali: "081321654987"
-                    email_wali: "garp@gmail.com"
-                    alamat_ktp: "wind mill village"
-                    provinsi_ktp: "east blue"
-                    kabupaten/kota_ktp: "doma kingdom"
-                    alamat_domisili: "thousand sunny"
-                    provinsi_domisili: "grand line"
-                    kabupaten/kota_domisili: "always moving"
-                    tanggal_lahir: "1990-08-01"
-                    no_bpjs: "789456123"
-                    kelas_bpjs: "kelas_1"
-                    foto_ktp: "kanohhtihafnuef.jpg"
-                    foto_bpjs: "kanjtquihgsa.jpg"
-        "400" :
-          $ref : "#/components/responses/400"  
-        "401" :
-          $ref : "#/components/responses/401"  
-        "404" :
-          $ref : "#/components/responses/404"  
-        '500':
-          $ref: "#/components/responses/500"
+   
   
   /patiens/{patient_id}:
     put:
@@ -547,7 +466,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: patient_id
           description: "id patient"
           required: true
           in: path
@@ -608,7 +527,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: patient_id
           description: "id patient"
           required: true
           in: path
@@ -642,7 +561,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: patient_id
           description: "id patient"
           required: true
           in: path
@@ -689,90 +608,6 @@ paths:
           $ref : "#/components/responses/404"  
         '500':
           $ref: "#/components/responses/500"
-
-  # /patiens/users:
-  #   get:
-  #     tags:
-  #       - Patiens
-  #     summary: Get Patient Data
-  #     description: menampilkan daftar pasien yang didaftarkan oleh user
-  #     security:
-  #       - JWTAuth: []
-  #     requestBody:
-  #       required: true
-  #       content:
-  #         application/json:
-  #           schema:
-  #             type: object
-  #             properties:
-  #               user_id:
-  #                 type: integer
-  #                 format: int64
-  #           example:
-  #             user_id: 1
-  #     responses:
-  #       '200':
-  #         description: "succes get patient list"
-  #         content:
-  #           application/json:
-  #             schema: 
-  #               type: object
-  #               $ref: "#/components/schemas/ResponsePatients"
-  #             example:
-  #               status: "succes"
-  #               message: "success get patient data by id"
-  #               data:
-  #                 - user_id: 1
-  #                   no_kk: "321654987321654"
-  #                   nik: "321654987321654"
-  #                   nama_pasien: "monkey d. luffy" 
-  #                   jenis_kelamin: "laki-laki"
-  #                   usia: "20"
-  #                   nama_wali: "monkey d. dragon"
-  #                   no_telepon_wali: "081321654987"
-  #                   email_wali: "dragon@gmail.com"
-  #                   alamat_ktp: "wind mill village"
-  #                   provinsi_ktp: "east blue"
-  #                   kabupaten/kota_ktp: "doma kingdom"
-  #                   alamat_domisili: "thousand sunny"
-  #                   provinsi_domisili: "grand line"
-  #                   kabupaten/kota_domisili: "always moving"
-  #                   tanggal_lahir: "1990-08-01"
-  #                   no_bpjs: "789456123"
-  #                   kelas_bpjs: "kelas_1"
-  #                   foto_ktp: "kanohhtihafnuef.jpg"
-  #                   foto_bpjs: "kanjtquihgsa.jpg"
-  #                 - user_id: 2
-  #                   no_kk: "321654987321654"
-  #                   nik: "321654987321654"
-  #                   nama_pasien: "monkey d. dragon" 
-  #                   jenis_kelamin: "laki-laki"
-  #                   usia: "20"
-  #                   nama_wali: "monkey d. garp"
-  #                   no_telepon_wali: "081321654987"
-  #                   email_wali: "garp@gmail.com"
-  #                   alamat_ktp: "wind mill village"
-  #                   provinsi_ktp: "east blue"
-  #                   kabupaten/kota_ktp: "doma kingdom"
-  #                   alamat_domisili: "thousand sunny"
-  #                   provinsi_domisili: "grand line"
-  #                   kabupaten/kota_domisili: "always moving"
-  #                   tanggal_lahir: "1990-08-01"
-  #                   no_bpjs: "789456123"
-  #                   kelas_bpjs: "kelas_1"
-  #                   foto_ktp: "kanohhtihafnuef.jpg"
-  #                   foto_bpjs: "kanjtquihgsa.jpg"
-  #       "400" :
-  #         $ref : "#/components/responses/400"  
-  #       "401" :
-  #         $ref : "#/components/responses/401"  
-  #       "404" :
-  #         $ref : "#/components/responses/404"  
-  #       '500':
-  #         $ref: "#/components/responses/500"  
-  
-##############################################################
-##############################################################
 
   /hospitals:
     post:
@@ -945,6 +780,15 @@ paths:
         - Hospitals
       summary: Get Detail Hospital
       description: Menampilkan detail rumah sakit
+      parameters:
+        - name: hospital_id
+          description: "id rumah sakit"
+          required: true
+          in: path
+          schema:
+            description: "id rumah sakit"
+            type: integer
+            example: 1
       responses:
         '200':
           description:  hospital's Details
@@ -1222,18 +1066,15 @@ paths:
       description: Menampilkan data dokter yang didaftarkan oleh admin di rumah sakit tertentu
       security:
         - JWTAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                hospital_id:
-                  type: integer
-                  format: int64
-            example:
-              hospital_id: 1
+      parameters:
+        - name: id
+          description: "hospital id"
+          required: true
+          in: query
+          schema:
+            type: integer
+            format: int64
+            example: 1
       responses:
         '200':
           description: "succes get doctor list"
@@ -1265,7 +1106,7 @@ paths:
         '500':
           $ref: "#/components/responses/500"
 
-  /doctors/{doctors_id}:
+  /doctors/{doctor_id}:
     
     get:
       tags:
@@ -1275,7 +1116,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: doctor_id
           description: "id doctor"
           required: true
           in: path
@@ -1318,7 +1159,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: doctor_id
           description: "id doctor"
           required: true
           in: path
@@ -1364,7 +1205,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: doctor_id
           description: "id doctor"
           required: true
           in: path
@@ -1438,18 +1279,15 @@ paths:
       description: Menampilkan daftar poliklinik suatu rumah sakit
       security:
         - JWTAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                hospital_id:
-                  type: integer
-                  format: int64
-            example:
-              hospital_id: 1
+      parameters:
+        - name: id
+          description: "hospital id"
+          required: true
+          in: query
+          schema:
+            type: integer
+            format: int64
+            example: 1
       responses:
         '200':
           description: "succes get policlinic list"
@@ -1482,7 +1320,7 @@ paths:
         '500':
           $ref: "#/components/responses/500"
 
-  /policlinics/{policlinics_id}:
+  /policlinics/{policlinic_id}:
     
     get:
       tags:
@@ -1492,7 +1330,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: policlinic_id
           description: "id poliklinik"
           required: true
           in: path
@@ -1534,7 +1372,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: policlinic_id
           description: "id poliklinik"
           required: true
           in: path
@@ -1581,7 +1419,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: id
+        - name: policlinic_id
           description: "id policlinic"
           required: true
           in: path
@@ -2071,7 +1909,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: "use Token"
+      description: "user Token"
 
   schemas:
     User:
