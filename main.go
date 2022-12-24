@@ -3,7 +3,6 @@ package main
 import (
 	"kamarRS/config"
 	"kamarRS/utils/database/mysql"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -16,7 +15,7 @@ func main() {
 	mysql.DBMigration(db)
 
 	e := echo.New()
-	
+
 	e.Use(middleware.Logger())
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.CORS())
