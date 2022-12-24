@@ -12,7 +12,6 @@ import (
 func main() {
 	cfg := config.GetConfig()
 	db := mysql.InitDB(cfg)
-	// db := posgresql.InitDB(cfg)
 
 	mysql.DBMigration(db)
 
