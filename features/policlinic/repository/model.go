@@ -1,6 +1,10 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	"kamarRS/features/policlinic"
+
+	"gorm.io/gorm"
+)
 
 type Policlinic struct {
 	gorm.Model
@@ -46,3 +50,43 @@ type Practice struct {
 	Status          string
 	PoliclinicID    uint
 }
+
+func FromPoliclinicCoreToModel(dataCore policlinic.CorePoliclinic) Policlinic { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)
+	poliGorm := Policlinic{
+
+		Nama_Poli:   dataCore.NamaPoli,
+		Jam_Praktik: dataCore.JamPraktik,
+		HospitalID:  dataCore.HospitalID,
+		DoctorID:    dataCore.DoctorID,
+	} ///formating data berdasarkan data gorm dan kita mapping data yang kita butuhkan untuk inputan  klien
+	return poliGorm //insert user
+}
+func (dataModel *Policlinic) ModelsToCore() policlinic.CorePoliclinic { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+	return policlinic.CorePoliclinic{
+
+		ID:         dataModel.ID,
+		NamaPoli:   dataModel.Nama_Poli,
+		JamPraktik: dataModel.Jam_Praktik,
+		HospitalID: dataModel.HospitalID,
+		DoctorID:   dataModel.DoctorID,
+		CreatedAt:  dataModel.CreatedAt,
+		UpdatedAt:  dataModel.UpdatedAt,
+	}
+}
+func ListModelTOCore(dataModel []Policlinic) []policlinic.CorePoliclinic { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+	var dataCore []policlinic.CorePoliclinic
+	for _, value := range dataModel {
+		dataCore = append(dataCore, value.ModelsToCore())
+	}
+	return dataCore //  untuk menampilkan data ke controller
+}
+
+//jika diperlukan untuk preload data daily pracctice
+// func LoadpraccticeModeltoCore(model []Practice) []practice.Core {
+// 	var core []practice.Core
+// 	for _, v := range model {
+// 		core = append(core, v.ModeltoCore())
+// 	}
+// 	return core
+
+// }
