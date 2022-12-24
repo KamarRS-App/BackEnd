@@ -16,10 +16,8 @@ func main() {
 	mysql.DBMigration(db)
 
 	e := echo.New()
+	
 	e.Use(middleware.Logger())
-	e.GET("/hello", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, "hello world")
-	})
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.CORS())
 
