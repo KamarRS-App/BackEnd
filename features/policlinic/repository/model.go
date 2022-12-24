@@ -51,17 +51,17 @@ type Practice struct {
 	PoliclinicID    uint
 }
 
-func FromPoliclinicCoreToModel(dataCore policlinic.CorePoliclinic) Policlinic { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)
+func FromPoliclinicCoreToModel(dataCore policlinic.CorePoliclinic) Policlinic {
 	poliGorm := Policlinic{
 
 		Nama_Poli:   dataCore.NamaPoli,
 		Jam_Praktik: dataCore.JamPraktik,
 		HospitalID:  dataCore.HospitalID,
 		DoctorID:    dataCore.DoctorID,
-	} ///formating data berdasarkan data gorm dan kita mapping data yang kita butuhkan untuk inputan  klien
+	}
 	return poliGorm //insert user
 }
-func (dataModel *Policlinic) ModelsToCore() policlinic.CorePoliclinic { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+func (dataModel *Policlinic) ModelsToCore() policlinic.CorePoliclinic {
 	return policlinic.CorePoliclinic{
 
 		ID:         dataModel.ID,
@@ -73,7 +73,7 @@ func (dataModel *Policlinic) ModelsToCore() policlinic.CorePoliclinic { //fungsi
 		UpdatedAt:  dataModel.UpdatedAt,
 	}
 }
-func ListModelTOCore(dataModel []Policlinic) []policlinic.CorePoliclinic { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+func ListModelTOCore(dataModel []Policlinic) []policlinic.CorePoliclinic {
 	var dataCore []policlinic.CorePoliclinic
 	for _, value := range dataModel {
 		dataCore = append(dataCore, value.ModelsToCore())

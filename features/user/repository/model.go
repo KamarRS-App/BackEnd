@@ -41,7 +41,7 @@ type Patient struct {
 	UserID                  uint
 }
 
-func FromUserCoreToModel(dataCore user.CoreUser) User { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)
+func FromUserCoreToModel(dataCore user.CoreUser) User {
 	userGorm := User{
 		Nama:       dataCore.Nama,
 		Email:      dataCore.Email,
@@ -49,10 +49,10 @@ func FromUserCoreToModel(dataCore user.CoreUser) User { //fungsi yang mengambil 
 		Nik:        dataCore.Nik,
 		Kata_Sandi: dataCore.KataSandi,
 		No_Telpon:  dataCore.NoTelpon,
-	} ///formating data berdasarkan data gorm dan kita mapping data yang kita butuhkan untuk inputan  klien
+	}
 	return userGorm //insert user
 }
-func (dataModel *User) ModelsToCore() user.CoreUser { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+func (dataModel *User) ModelsToCore() user.CoreUser {
 	return user.CoreUser{
 
 		Nama:      dataModel.Nama,
@@ -66,7 +66,7 @@ func (dataModel *User) ModelsToCore() user.CoreUser { //fungsi yang mengambil da
 		Patients:  LoadpatientModeltoCore(dataModel.Patients),
 	}
 }
-func ListModelTOCore(dataModel []User) []user.CoreUser { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+func ListModelTOCore(dataModel []User) []user.CoreUser {
 	var dataCore []user.CoreUser
 	for _, value := range dataModel {
 		dataCore = append(dataCore, value.ModelsToCore())
@@ -84,7 +84,7 @@ func LoadpatientModeltoCore(model []Patient) []user.CorePatient {
 
 }
 
-func (dataModel *Patient) ModelsToCore() user.CorePatient { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+func (dataModel *Patient) ModelsToCore() user.CorePatient {
 	return user.CorePatient{
 		ID:                    dataModel.ID,
 		NoKk:                  dataModel.No_Kk,

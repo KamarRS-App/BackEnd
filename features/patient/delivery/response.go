@@ -53,7 +53,7 @@ func PatientCoreToPatientRespon(dataCore patient.CorePatient) ResponsePatient { 
 		UserID:                dataCore.UserID,
 	}
 }
-func ListUserCoreToUserRespon(dataCore []patient.CorePatient) []ResponsePatient { //data user.core data yang diambil dari entities ke respon struct
+func ListpatientCoreTopatientRespon(dataCore []patient.CorePatient) []ResponsePatient { //data user.core data yang diambil dari entities ke respon struct
 	var ResponData []ResponsePatient
 
 	for _, value := range dataCore { //memanggil paramete data core yang berisi data user core

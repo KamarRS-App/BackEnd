@@ -12,7 +12,7 @@ type ResponsePoliclinic struct {
 	DoctorID   uint   `json:"doctor_id"`
 }
 
-func PatientCoreToPatientRespon(dataCore policlinic.CorePoliclinic) ResponsePoliclinic { // data user core yang ada di controller yang memanggil user repositoCorePatient
+func PoliCoreToPoliRespon(dataCore policlinic.CorePoliclinic) ResponsePoliclinic { // data user core yang ada di controller yang memanggil user repositoCorePatient
 	return ResponsePoliclinic{
 		ID:         dataCore.ID,
 		NamaPoli:   dataCore.NamaPoli,
@@ -21,11 +21,11 @@ func PatientCoreToPatientRespon(dataCore policlinic.CorePoliclinic) ResponsePoli
 		DoctorID:   dataCore.DoctorID,
 	}
 }
-func ListpatientCoreToPatientRespon(dataCore []policlinic.CorePoliclinic) []ResponsePoliclinic { //data user.core data yang diambil dari entities ke respon struct
+func ListpoliCoreToPoliRespon(dataCore []policlinic.CorePoliclinic) []ResponsePoliclinic { //data user.core data yang diambil dari entities ke respon struct
 	var ResponData []ResponsePoliclinic
 
 	for _, value := range dataCore { //memanggil paramete data core yang berisi data user core
-		ResponData = append(ResponData, PatientCoreToPatientRespon(value)) // mengambil data mapping dari user core to respon
+		ResponData = append(ResponData, PoliCoreToPoliRespon(value)) // mengambil data mapping dari user core to respon
 	}
 	return ResponData
 }

@@ -6,12 +6,12 @@ import (
 
 type CoreUser struct {
 	ID        uint
-	Nama      string
-	Email     string
-	Nokk      string
-	Nik       string
-	KataSandi string
-	NoTelpon  string
+	Nama      string `validate:"required"`
+	Email     string `validate:"required"`
+	Nokk      string `validate:"required"`
+	Nik       string `validate:"required"`
+	KataSandi string `validate:"required"`
+	NoTelpon  string `validate:"required"`
 	Patients  []CorePatient
 	CreatedAt time.Time
 	UpdatedAt time.Time

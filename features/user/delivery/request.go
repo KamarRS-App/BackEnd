@@ -5,18 +5,17 @@ import (
 )
 
 type RequestUser struct {
-	ID        uint
-	Nama      string
-	Email     string
-	Nokk      string
-	Nik       string
-	KataSandi string
-	NoTelpon  string
+	Nama      string `json:"nama" form:"nama"`
+	Email     string `json:"email" form:"email"`
+	Nokk      string `json:"no_kk" form:"no_kk"`
+	Nik       string `json:"nik" form:"nik"`
+	KataSandi string `json:"kata_sandi" form:"kata_sandi"`
+	NoTelpon  string `json:"no_telpon" form:"no_telpon"`
 }
 
 func (req *RequestUser) reqToCore() user.CoreUser {
 	return user.CoreUser{
-		ID:        req.ID,
+
 		Nama:      req.Nama,
 		Email:     req.Email,
 		Nokk:      req.Nokk,
