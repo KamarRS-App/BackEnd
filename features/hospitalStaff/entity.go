@@ -5,5 +5,6 @@ type HospitalStaffCore struct {
 	Nama       string
 	Email      string
 	KataSandi  string
+	Peran      string
 	HospitalID uint
 }

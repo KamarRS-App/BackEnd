@@ -5,14 +5,13 @@ import (
 )
 
 type ResponseUser struct {
-	ID        uint
-	Nama      string
-	Email     string
-	Nokk      string
-	Nik       string
-	KataSandi string
-	NoTelpon  string
-	Patients  []ResponsePatient
+	ID       uint
+	Nama     string
+	Email    string
+	Nokk     string
+	Nik      string
+	NoTelpon string
+	Patients []ResponsePatient
 }
 
 type ResponsePatient struct {
@@ -43,14 +42,13 @@ type ResponsePatient struct {
 
 func UserCoreToUserRespon(dataCore user.CoreUser) ResponseUser { // data user core yang ada di controller yang memanggil user repository
 	return ResponseUser{
-		ID:        dataCore.ID,
-		Nama:      dataCore.Nama,
-		Email:     dataCore.Email,
-		Nokk:      dataCore.Nokk,
-		Nik:       dataCore.Nik,
-		KataSandi: dataCore.KataSandi,
-		NoTelpon:  dataCore.NoTelpon,
-		Patients:  LoadpatientCoretoResponse(dataCore.Patients),
+		ID:       dataCore.ID,
+		Nama:     dataCore.Nama,
+		Email:    dataCore.Email,
+		Nokk:     dataCore.Nokk,
+		Nik:      dataCore.Nik,
+		NoTelpon: dataCore.NoTelpon,
+		Patients: LoadpatientCoretoResponse(dataCore.Patients),
 	}
 }
 
@@ -100,13 +98,12 @@ func PatientCoreToPatientRespon(dataCore user.CorePatient) ResponsePatient { // 
 
 func UserCoreToUserResponNoPreload(dataCore user.CoreUser) ResponseUser { // data user core yang ada di controller yang memanggil user repository
 	return ResponseUser{
-		ID:        dataCore.ID,
-		Nama:      dataCore.Nama,
-		Email:     dataCore.Email,
-		Nokk:      dataCore.Nokk,
-		Nik:       dataCore.Nik,
-		KataSandi: dataCore.KataSandi,
-		NoTelpon:  dataCore.NoTelpon,
+		ID:       dataCore.ID,
+		Nama:     dataCore.Nama,
+		Email:    dataCore.Email,
+		Nokk:     dataCore.Nokk,
+		Nik:      dataCore.Nik,
+		NoTelpon: dataCore.NoTelpon,
 	}
 }
 
