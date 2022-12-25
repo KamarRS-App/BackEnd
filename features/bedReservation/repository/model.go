@@ -119,40 +119,40 @@ func toCoreList(dataModel []BedReservation) []bedreservation.BedReservationCore 
 	return dataCore
 }
 
-//----------------------Patient Aja-------------------------------
+// //----------------------Patient Aja-------------------------------
 
-func (dataModel *Patient) toCoreP() bedreservation.PatientCore {
-	return bedreservation.PatientCore{
-		ID:                    dataModel.ID,
-		NoKk:                  dataModel.No_Kk,
-		Nik:                   dataModel.Nik,
-		NamaPasien:            dataModel.Nama_Pasien,
-		JenisKelamin:          dataModel.Jenis_Kelamin,
-		TanggalLahir:          dataModel.Tanggal_Lahir,
-		Usia:                  dataModel.Usia,
-		NamaWali:              dataModel.Nama_Wali,
-		EmailWali:             dataModel.Email_Wali,
-		NoTelponWali:          dataModel.No_Telpon_Wali,
-		AlamatKtp:             dataModel.Alamat_Ktp,
-		ProvinsiKtp:           dataModel.Provinsi_Ktp,
-		KabupatenKotaKtp:      dataModel.Kabupaten_Kota_Ktp,
-		AlamatDomisili:        dataModel.Alamat_Domisili,
-		ProvinsiDomisili:      dataModel.Provinsi_Domisili,
-		KabupatenKotaDomisili: dataModel.Kabupaten_Kota_Domisili,
-		NoBpjs:                dataModel.No_Bpjs,
-		KelasBpjs:             dataModel.Kelas_Bpjs,
-		FotoKtp:               dataModel.Foto_Ktp,
-		FotoBpjs:              dataModel.Foto_Bpjs,
-	}
-}
+// func (dataModel *Patient) toCoreP() bedreservation.PatientCore {
+// 	return bedreservation.PatientCore{
+// 		ID:                    dataModel.ID,
+// 		NoKk:                  dataModel.No_Kk,
+// 		Nik:                   dataModel.Nik,
+// 		NamaPasien:            dataModel.Nama_Pasien,
+// 		JenisKelamin:          dataModel.Jenis_Kelamin,
+// 		TanggalLahir:          dataModel.Tanggal_Lahir,
+// 		Usia:                  dataModel.Usia,
+// 		NamaWali:              dataModel.Nama_Wali,
+// 		EmailWali:             dataModel.Email_Wali,
+// 		NoTelponWali:          dataModel.No_Telpon_Wali,
+// 		AlamatKtp:             dataModel.Alamat_Ktp,
+// 		ProvinsiKtp:           dataModel.Provinsi_Ktp,
+// 		KabupatenKotaKtp:      dataModel.Kabupaten_Kota_Ktp,
+// 		AlamatDomisili:        dataModel.Alamat_Domisili,
+// 		ProvinsiDomisili:      dataModel.Provinsi_Domisili,
+// 		KabupatenKotaDomisili: dataModel.Kabupaten_Kota_Domisili,
+// 		NoBpjs:                dataModel.No_Bpjs,
+// 		KelasBpjs:             dataModel.Kelas_Bpjs,
+// 		FotoKtp:               dataModel.Foto_Ktp,
+// 		FotoBpjs:              dataModel.Foto_Bpjs,
+// 	}
+// }
 
-// mengubah slice struct model gorm ke slice struct core
-func toCoreListP(dataModel []Patient) []bedreservation.PatientCore {
-	var dataCore []bedreservation.PatientCore
-	for _, v := range dataModel {
-		dataCore = append(dataCore, v.toCoreP())
-	}
-	return dataCore
-}
+// // mengubah slice struct model gorm ke slice struct core
+// func toCoreListP(dataModel []Patient) []bedreservation.PatientCore {
+// 	var dataCore []bedreservation.PatientCore
+// 	for _, v := range dataModel {
+// 		dataCore = append(dataCore, v.toCoreP())
+// 	}
+// 	return dataCore
+// }
 
-//---------------------------------------------------------------------------------
+// //---------------------------------------------------------------------------------
