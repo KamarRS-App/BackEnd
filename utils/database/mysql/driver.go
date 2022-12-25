@@ -103,13 +103,15 @@ type Patient struct {
 	UserID                  uint
 	// BedReservationID        uint
 	// BedReservation     BedReservation
-	CheckupReservation CheckupReservation
+	// CheckupReservation CheckupReservation
 }
 
 type CheckupReservation struct {
 	gorm.Model
 	PatientID  uint
 	PracticeID uint
+	Patient    Patient
+	Practice   Practice
 }
 
 type Practice struct {
