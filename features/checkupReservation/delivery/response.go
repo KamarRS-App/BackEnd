@@ -7,40 +7,40 @@ import (
 
 type CheckupReservationResponse struct {
 	ID        uint             `json:"id"`
-	CreatedAt time.Time        `json:"createdat"`
+	CreatedAt time.Time        `json:"created_at"`
 	Patient   PatientResponse  `json:"patient"`
 	Practice  PracticeResponse `json:"practice"`
 }
 
 type PatientResponse struct {
-	ID                    uint
-	NoKk                  string
-	Nik                   string
-	NamaPasien            string
-	JenisKelamin          string
-	TanggalLahir          string
-	Usia                  int
-	NamaWali              string
-	EmailWali             string
-	NoTelponWali          string
-	AlamatKtp             string
-	ProvinsiKtp           string
-	KabupatenKotaKtp      string
-	AlamatDomisili        string
-	ProvinsiDomisili      string
-	KabupatenKotaDomisili string
-	NoBpjs                string
-	KelasBpjs             string
-	FotoKtp               string
-	FotoBpjs              string
+	ID                    uint   `json:"id"`
+	NoKk                  string `json:"no_kk"`
+	Nik                   string `json:"nik"`
+	NamaPasien            string `json:"nama_pasien"`
+	JenisKelamin          string `json:"jenis_kelamin"`
+	TanggalLahir          string `json:"tanggal_lahir"`
+	Usia                  int    `json:"usia"`
+	NamaWali              string `json:"nama_wali"`
+	EmailWali             string `json:"email_wali"`
+	NoTelponWali          string `json:"no_telpon_wali"`
+	AlamatKtp             string `json:"alamat_ktp"`
+	ProvinsiKtp           string `json:"provinsi_ktp"`
+	KabupatenKotaKtp      string `json:"kabupaten_kota_ktp"`
+	AlamatDomisili        string `json:"alamat_domisili"`
+	ProvinsiDomisili      string `json:"provinsi_domisili"`
+	KabupatenKotaDomisili string `json:"kabupaten_kota_domisili"`
+	NoBpjs                string `json:"no_bpjs"`
+	KelasBpjs             string `json:"kelas_bpjs"`
+	FotoKtp               string `json:"foto_ktp"`
+	FotoBpjs              string `json:"foto_bpjs"`
 }
 
 type PracticeResponse struct {
-	ID             uint
-	TanggalPraktik string
-	KuotaHarian    int
-	Status         string
-	PoliclinicID   uint
+	ID             uint   `json:"id"`
+	TanggalPraktik string `json:"tanggal_praktik"`
+	KuotaHarian    int    `json:"kuota_harian"`
+	Status         string `json:"status"`
+	PoliclinicID   uint   `json:"policlinic_id"`
 }
 
 // -----------------Checkup Reserve--------------------
