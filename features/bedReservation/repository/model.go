@@ -66,7 +66,31 @@ func FromCoreBedToModel(dataCore bedreservation.BedReservationCore) BedReservati
 		PatientID:         dataCore.PatientID,
 		BedID:             dataCore.BedID,
 	}
-	return bedresGorm //insert bed from core
+	return bedresGorm //insert bedreserve from core
 }
 
-//
+//----------------------BedReserve Aja-------------------------------
+
+func (dataModel *BedReservation) toCore() bedreservation.BedReservationCore {
+	return bedreservation.BedReservationCore{
+		ID:               dataModel.ID,
+		StatusPasien:     dataModel.Status_Pasien,
+		BiayaRegistrasi:  dataModel.Biaya_Registrasi,
+		OrderID:          dataModel.Order_Id,
+		PaymentMethod:    dataModel.Payment_Method,
+		LinkPembayaran:   dataModel.Link_Pembayaran,
+		StatusPembayaran: dataModel.Status_Pembayaran,
+		HospitalID:       dataModel.Hospital_Id,
+		PatientID:        dataModel.PatientID,
+		BedID:            dataModel.BedID,
+	}
+}
+
+// mengubah slice struct model gorm ke slice struct core
+func toCoreList(dataModel []BedReservation) []bedreservation.BedReservationCore {
+	var dataCore []bedreservation.BedReservationCore
+	for _, v := range dataModel {
+		dataCore = append(dataCore, v.toCore())
+	}
+	return dataCore
+}
