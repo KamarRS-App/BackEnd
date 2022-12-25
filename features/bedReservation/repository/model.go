@@ -1,7 +1,7 @@
 package repository
 
 import (
-	bedreservation "kamarRS/features/bedReservation"
+	"kamarRS/features/bedreservation"
 
 	"gorm.io/gorm"
 )
