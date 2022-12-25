@@ -76,6 +76,7 @@ type BedReservation struct {
 	Status_Pembayaran string
 	PatientID         uint
 	BedID             uint
+	Patient           Patient
 }
 
 type Patient struct {
@@ -100,8 +101,9 @@ type Patient struct {
 	Foto_Ktp                string
 	Foto_Bpjs               string
 	UserID                  uint
-	BedReservation          BedReservation
-	CheckupReservation      CheckupReservation
+	BedReservationID        uint
+	// BedReservation          BedReservation
+	CheckupReservation CheckupReservation
 }
 
 type CheckupReservation struct {
