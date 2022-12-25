@@ -1,6 +1,10 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	checkupreservation "kamarRS/features/checkupReservation"
+
+	"gorm.io/gorm"
+)
 
 type CheckupReservation struct {
 	gorm.Model
@@ -32,3 +36,32 @@ type Patient struct {
 	UserID                  uint
 	CheckupReservation      CheckupReservation
 }
+
+func FromCoreCheckupToModel(dataCore checkupreservation.CheckupReservationCore) CheckupReservation {
+	checkupGorm := CheckupReservation{
+		PatientID:  dataCore.PatientID,
+		PracticeID: dataCore.PracticeID,
+	}
+	return checkupGorm //insert checkup from core
+}
+
+//---------------------Checkup Reservation----------------------------------
+
+func (dataModel *CheckupReservation) toCore() checkupreservation.CheckupReservationCore {
+	return checkupreservation.CheckupReservationCore{
+		ID:         dataModel.ID,
+		PatientID:  dataModel.PatientID,
+		PracticeID: dataModel.PracticeID,
+	}
+}
+
+// mengubah slice struct model gorm ke slice struct core
+func toCoreList(dataModel []CheckupReservation) []checkupreservation.CheckupReservationCore {
+	var dataCore []checkupreservation.CheckupReservationCore
+	for _, v := range dataModel {
+		dataCore = append(dataCore, v.toCore())
+	}
+	return dataCore
+}
+
+//----------------------------------------------------------------------------
