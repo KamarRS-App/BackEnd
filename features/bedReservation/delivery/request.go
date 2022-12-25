@@ -1,5 +1,7 @@
 package delivery
 
+import bedreservation "kamarRS/features/bedReservation"
+
 type BedReservationRequest struct {
 	StatusPasien     string `json:"status_pasien" form:"status_pasien"`
 	BiayaRegistrasi  int    `json:"biaya_registrasi" form:"status_registrasi"`
@@ -10,4 +12,18 @@ type BedReservationRequest struct {
 	HospitalID       uint   `json:"hospital_id" form:"hospital_id"`
 	PatientID        uint   `json:"patient_id" form:"patient_id"`
 	BedID            uint   `json:"bed_id" form:"bed_id"`
+}
+
+func (req *BedReservationRequest) reqToCore() bedreservation.BedReservationCore {
+	return bedreservation.BedReservationCore{
+		StatusPasien:     req.StatusPasien,
+		BiayaRegistrasi:  req.BiayaRegistrasi,
+		OrderID:          req.OrderID,
+		PaymentMethod:    req.PaymentMethod,
+		LinkPembayaran:   req.LinkPembayaran,
+		StatusPembayaran: req.StatusPembayaran,
+		HospitalID:       req.HospitalID,
+		PatientID:        req.PatientID,
+		BedID:            req.BedID,
+	}
 }

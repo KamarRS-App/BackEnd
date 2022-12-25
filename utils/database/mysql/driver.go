@@ -71,6 +71,7 @@ type BedReservation struct {
 	Status_Pasien     string
 	Biaya_Registrasi  int
 	Order_Id          string
+	Payment_Method    string
 	Link_Pembayaran   string
 	Status_Pembayaran string
 	PatientID         uint
