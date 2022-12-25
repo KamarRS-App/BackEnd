@@ -9,7 +9,7 @@ type ResponsePatient struct {
 	NamaPasien            string `json:"nama_pasien"`
 	JenisKelamin          string `json:"jenis_kelamin"`
 	TanggalLahir          string `json:"tanggal_lahir"`
-	Usia                  int    `json:"usia" form:"usia"`
+	Usia                  int    `json:"usia"`
 	NamaWali              string `json:"nama_wali"`
 	EmailWali             string `json:"email_wali"`
 	NoTelponWali          string `json:"no_telpon_wali"`
