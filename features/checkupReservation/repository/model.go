@@ -37,7 +37,7 @@ type Patient struct {
 	CheckupReservation      CheckupReservation
 }
 
-func FromCoreCheckupToModel(dataCore checkupreservation.CheckupReservationCore) CheckupReservation {
+func FromCoreToModel(dataCore checkupreservation.CheckupReservationCore) CheckupReservation {
 	checkupGorm := CheckupReservation{
 		PatientID:  dataCore.PatientID,
 		PracticeID: dataCore.PracticeID,

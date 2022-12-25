@@ -1,5 +1,7 @@
 package delivery
 
+import "kamarRS/features/hospital"
+
 type HospitalRequest struct {
 	KodeRs            string `json:"kode_rs" form:"kode_rs"`
 	Nama              string `json:"nama" form:"nama"`
@@ -15,4 +17,23 @@ type HospitalRequest struct {
 	JumlahTempatTidur int    `json:"jumlah_tempat_tidur" form:"jumlah_tempat_tidur"`
 	StatusPenggunaan  string `json:"status_penggunaan" form:"status_penggunaan"`
 	BiayaRegistrasi   int    `json:"biaya_registrasi" form:"biaya_registrasi"`
+}
+
+func (req *HospitalRequest) reqToCore() hospital.HospitalCore {
+	return hospital.HospitalCore{
+		KodeRs:            req.KodeRs,
+		Nama:              req.Nama,
+		Foto:              req.Foto,
+		Alamat:            req.Alamat,
+		Provinsi:          req.Provinsi,
+		KabupatenKota:     req.KabupatenKota,
+		Kecamatan:         req.Kecamatan,
+		NoTelpon:          req.NoTelpon,
+		Email:             req.Email,
+		KelasRs:           req.KelasRs,
+		PemilikPengelola:  req.PemilikPengelola,
+		JumlahTempatTidur: req.JumlahTempatTidur,
+		StatusPenggunaan:  req.StatusPenggunaan,
+		BiayaRegistrasi:   req.BiayaRegistrasi,
+	}
 }

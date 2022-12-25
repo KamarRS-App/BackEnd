@@ -57,9 +57,9 @@ type Hospital struct {
 	Email               string
 	Kelas_Rs            string
 	Pengelola           string
-	Jumlah_Tempat_Tidur string
+	Jumlah_Tempat_Tidur int
 	Status_Penggunaan   string
-	Biaya_Pendaftaran   string
+	Biaya_Pendaftaran   int
 	HospitalStaffs      []HospitalStaff
 	Beds                []Bed
 	Policlinics         []Policlinic

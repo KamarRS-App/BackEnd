@@ -1,5 +1,9 @@
 package delivery
 
+import (
+	"kamarRS/features/hospital"
+)
+
 type HospitalResponse struct {
 	ID                uint   `json:"id"`
 	KodeRs            string `json:"kode_rs"`
@@ -17,3 +21,35 @@ type HospitalResponse struct {
 	StatusPenggunaan  string `json:"status_penggunaan"`
 	BiayaRegistrasi   int    `json:"biaya_registrasi"`
 }
+
+// -----------------Hospital--------------------
+func fromCore(dataCore hospital.HospitalCore) HospitalResponse {
+	return HospitalResponse{
+		ID:                dataCore.ID,
+		KodeRs:            dataCore.KodeRs,
+		Nama:              dataCore.Nama,
+		Foto:              dataCore.Foto,
+		Alamat:            dataCore.Alamat,
+		Provinsi:          dataCore.Provinsi,
+		KabupatenKota:     dataCore.KabupatenKota,
+		Kecamatan:         dataCore.Kecamatan,
+		NoTelpon:          dataCore.NoTelpon,
+		Email:             dataCore.Email,
+		KelasRs:           dataCore.KelasRs,
+		PemilikPengelola:  dataCore.PemilikPengelola,
+		JumlahTempatTidur: dataCore.JumlahTempatTidur,
+		StatusPenggunaan:  dataCore.StatusPenggunaan,
+		BiayaRegistrasi:   dataCore.BiayaRegistrasi,
+	}
+}
+
+// data dari core ke response
+func fromCoreList(dataCore []hospital.HospitalCore) []HospitalResponse {
+	var dataResponse []HospitalResponse
+	for _, v := range dataCore {
+		dataResponse = append(dataResponse, fromCore(v))
+	}
+	return dataResponse
+}
+
+//-----------------------------------------------------

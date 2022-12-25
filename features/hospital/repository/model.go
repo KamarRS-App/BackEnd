@@ -1,6 +1,10 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	"kamarRS/features/hospital"
+
+	"gorm.io/gorm"
+)
 
 type Hospital struct {
 	gorm.Model
@@ -15,9 +19,9 @@ type Hospital struct {
 	Email               string
 	Kelas_Rs            string
 	Pengelola           string
-	Jumlah_Tempat_Tidur string
+	Jumlah_Tempat_Tidur int
 	Status_Penggunaan   string
-	Biaya_Pendaftaran   string
+	Biaya_Pendaftaran   int
 	HospitalStaffs      []HospitalStaff
 	Beds                []Bed
 	Policlinics         []Policlinic
@@ -47,3 +51,56 @@ type Policlinic struct {
 	Jam_Praktik string
 	HospitalID  uint
 }
+
+func FromCoreToModel(dataCore hospital.HospitalCore) Hospital {
+	hospitalGorm := Hospital{
+		Kode_Rs:             dataCore.KodeRs,
+		Nama:                dataCore.Nama,
+		Foto:                dataCore.Foto,
+		Alamat:              dataCore.Alamat,
+		Provinsi:            dataCore.Provinsi,
+		Kabupaten_Kota:      dataCore.KabupatenKota,
+		Kecamatan:           dataCore.Kecamatan,
+		No_Telpon:           dataCore.NoTelpon,
+		Email:               dataCore.Email,
+		Kelas_Rs:            dataCore.KelasRs,
+		Pengelola:           dataCore.PemilikPengelola,
+		Jumlah_Tempat_Tidur: dataCore.JumlahTempatTidur,
+		Status_Penggunaan:   dataCore.StatusPenggunaan,
+		Biaya_Pendaftaran:   dataCore.BiayaRegistrasi,
+	}
+	return hospitalGorm //insert hospital from core
+}
+
+//---------------------Hospital----------------------------------
+
+func (dataModel *Hospital) toCore() hospital.HospitalCore {
+	return hospital.HospitalCore{
+		ID:                dataModel.ID,
+		KodeRs:            dataModel.Kode_Rs,
+		Nama:              dataModel.Nama,
+		Foto:              dataModel.Foto,
+		Alamat:            dataModel.Alamat,
+		Provinsi:          dataModel.Provinsi,
+		KabupatenKota:     dataModel.Kabupaten_Kota,
+		Kecamatan:         dataModel.Kecamatan,
+		NoTelpon:          dataModel.No_Telpon,
+		Email:             dataModel.Email,
+		KelasRs:           dataModel.Kelas_Rs,
+		PemilikPengelola:  dataModel.Pengelola,
+		JumlahTempatTidur: dataModel.Jumlah_Tempat_Tidur,
+		StatusPenggunaan:  dataModel.Status_Penggunaan,
+		BiayaRegistrasi:   dataModel.Biaya_Pendaftaran,
+	}
+}
+
+// mengubah slice struct model gorm ke slice struct core
+func toCoreList(dataModel []Hospital) []hospital.HospitalCore {
+	var dataCore []hospital.HospitalCore
+	for _, v := range dataModel {
+		dataCore = append(dataCore, v.toCore())
+	}
+	return dataCore
+}
+
+//----------------------------------------------------------------------------
