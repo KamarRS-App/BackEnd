@@ -23,5 +23,4 @@ func (req *RequestUser) reqToCore() user.CoreUser {
 		KataSandi: req.KataSandi,
 		NoTelpon:  req.NoTelpon,
 	}
-
 }

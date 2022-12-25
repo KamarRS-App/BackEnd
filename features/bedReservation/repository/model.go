@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type BedReservation struct {
 	gorm.Model
-	// Hospital_Id       uint
+	Hospital_Id       uint
 	Status_Pasien     string
 	Biaya_Registrasi  int
 	Order_Id          string
