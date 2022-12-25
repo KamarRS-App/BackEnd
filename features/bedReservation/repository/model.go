@@ -1,6 +1,10 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	bedreservation "kamarRS/features/bedReservation"
+
+	"gorm.io/gorm"
+)
 
 type BedReservation struct {
 	gorm.Model
@@ -8,6 +12,7 @@ type BedReservation struct {
 	Status_Pasien     string
 	Biaya_Registrasi  int
 	Order_Id          string
+	Payment_Method    string
 	Link_Pembayaran   string
 	Status_Pembayaran string
 	PatientID         uint
@@ -48,3 +53,20 @@ type Bed struct {
 	HospitalID        uint
 	BedReservation    BedReservation
 }
+
+func FromCoreBedToModel(dataCore bedreservation.BedReservationCore) BedReservation {
+	bedresGorm := BedReservation{
+		Status_Pasien:     dataCore.StatusPasien,
+		Biaya_Registrasi:  dataCore.BiayaRegistrasi,
+		Order_Id:          dataCore.OrderID,
+		Payment_Method:    dataCore.PaymentMethod,
+		Link_Pembayaran:   dataCore.LinkPembayaran,
+		Status_Pembayaran: dataCore.StatusPembayaran,
+		Hospital_Id:       dataCore.HospitalID,
+		PatientID:         dataCore.PatientID,
+		BedID:             dataCore.BedID,
+	}
+	return bedresGorm //insert bed from core
+}
+
+//
