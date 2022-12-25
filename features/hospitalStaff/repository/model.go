@@ -1,6 +1,10 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	hospitalstaff "kamarRS/features/hospitalStaff"
+
+	"gorm.io/gorm"
+)
 
 type HospitalStaff struct {
 	gorm.Model
@@ -28,4 +32,31 @@ type Hospital struct {
 	Status_Penggunaan   string
 	Biaya_Pendaftaran   string
 	HospitalStaffs      []HospitalStaff
+}
+
+func FromStaffCore(dataCore hospitalstaff.HospitalStaffCore) HospitalStaff { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)
+	staffGorm := HospitalStaff{
+		Nama:       dataCore.Nama,
+		Email:      dataCore.Email,
+		Kata_Sandi: dataCore.KataSandi,
+		Peran:      dataCore.Peran,
+	}
+	return staffGorm //insert user
+}
+func (dataModel *HospitalStaff) ModelsToCore() hospitalstaff.HospitalStaffCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+	return hospitalstaff.HospitalStaffCore{
+		ID:        dataModel.ID,
+		Nama:      dataModel.Nama,
+		Email:     dataModel.Email,
+		KataSandi: dataModel.Kata_Sandi,
+		Peran:     dataModel.Peran,
+	}
+}
+
+func ListModelTOCore(dataModel []HospitalStaff) []hospitalstaff.HospitalStaffCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+	var dataCore []hospitalstaff.HospitalStaffCore
+	for _, value := range dataModel {
+		dataCore = append(dataCore, value.ModelsToCore())
+	}
+	return dataCore //  untuk menampilkan data ke controller
 }
