@@ -1,6 +1,10 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	"kamarRS/features/bed"
+
+	"gorm.io/gorm"
+)
 
 type Bed struct {
 	gorm.Model
@@ -41,4 +45,56 @@ type BedReservation struct {
 	Status_Pembayaran string
 	PatientID         uint
 	BedID             uint
+}
+
+func FromCoreBedToModel(dataCore bed.BedCore) Bed {
+	bedGorm := Bed{
+		Nama_Tempat_Tidur: dataCore.NamaTempatTidur,
+		Ruangan:           dataCore.Ruangan,
+		Kelas:             dataCore.Kelas,
+		Status:            dataCore.Status,
+		HospitalID:        dataCore.HospitalID,
+	}
+	return bedGorm //insert bed from core
+}
+
+//-------------------------------------------------------
+// Bed aja
+
+func (dataModel *Bed) toCore() bed.BedCore {
+	return bed.BedCore{
+		ID:              dataModel.ID,
+		NamaTempatTidur: dataModel.Nama_Tempat_Tidur,
+		Ruangan:         dataModel.Ruangan,
+		Kelas:           dataModel.Kelas,
+		Status:          dataModel.Status,
+	}
+}
+
+// mengubah slice struct model gorm ke slice struct core
+func toCoreList(dataModel []Bed) []bed.BedCore {
+	var dataCore []bed.BedCore
+	for _, v := range dataModel {
+		dataCore = append(dataCore, v.toCore())
+	}
+	return dataCore
+}
+
+//---------------------------------------------------------
+// Hospital Aja
+
+func (dataModel *Hospital) toHospitalCore() bed.HospitalCore {
+	return bed.HospitalCore{
+		ID:   dataModel.ID,
+		Nama: dataModel.Nama,
+	}
+}
+
+// mengubah slice struct model gorm ke slice struct core
+func toCoreList2(dataModel []Hospital) []bed.HospitalCore {
+	var dataCore []bed.HospitalCore
+	for _, v := range dataModel {
+		dataCore = append(dataCore, v.toHospitalCore())
+	}
+	return dataCore
 }
