@@ -1,22 +1,14 @@
 package helper
 
 import (
-	"log"
 	"os"
 	"time"
 
-	"github.com/joho/godotenv"
 	"github.com/midtrans/midtrans-go"
 	"github.com/midtrans/midtrans-go/coreapi"
 )
 
 func CreateInvoice(orderId string, price int64, payment_method string) *coreapi.ChargeResponse {
-	if _, exist := os.LookupEnv("SECRET"); !exist {
-		if err := godotenv.Load(".env"); err != nil {
-			log.Fatal(err)
-		}
-	}
-
 	midtrans.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
 	midtrans.Environment = midtrans.Sandbox
 
@@ -56,4 +48,12 @@ func CreateInvoice(orderId string, price int64, payment_method string) *coreapi.
 		return coreApiRes
 	}
 	return &coreapi.ChargeResponse{}
+}
+
+func UpdateMidtransPayment(orderId string) *coreapi.TransactionStatusResponse {
+	midtrans.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
+	midtrans.Environment = midtrans.Sandbox
+
+	res, _ := coreapi.CheckTransaction(orderId)
+	return res
 }
