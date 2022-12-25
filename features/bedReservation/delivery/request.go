@@ -4,7 +4,7 @@ import "kamarRS/features/bedreservation"
 
 type BedReservationRequest struct {
 	StatusPasien     string `json:"status_pasien" form:"status_pasien"`
-	BiayaRegistrasi  int    `json:"biaya_registrasi" form:"status_registrasi"`
+	BiayaRegistrasi  int    `json:"biaya_registrasi" form:"biaya_registrasi"`
 	OrderID          string `json:"order_id" form:"order_id"`
 	PaymentMethod    string `json:"payment_method" form:"payment_method"`
 	LinkPembayaran   string `json:"link_pembayaran" form:"link_pembayaran"`

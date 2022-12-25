@@ -3,7 +3,7 @@ package delivery
 import "kamarRS/features/patient"
 
 type ResponsePatient struct {
-	ID                    uint
+	ID                    uint   `json:"id"`
 	NoKk                  string `json:"no_kk"`
 	Nik                   string `json:"nik"`
 	NamaPasien            string `json:"nama_pasien"`
