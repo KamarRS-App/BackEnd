@@ -101,8 +101,8 @@ type Patient struct {
 	Foto_Ktp                string
 	Foto_Bpjs               string
 	UserID                  uint
-	BedReservationID        uint
-	// BedReservation          BedReservation
+	// BedReservationID        uint
+	// BedReservation     BedReservation
 	CheckupReservation CheckupReservation
 }
 
