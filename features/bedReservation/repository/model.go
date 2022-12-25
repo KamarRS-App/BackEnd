@@ -54,7 +54,7 @@ type Bed struct {
 	BedReservation    BedReservation
 }
 
-func FromCoreBedToModel(dataCore bedreservation.BedReservationCore) BedReservation {
+func FromCoreToModel(dataCore bedreservation.BedReservationCore) BedReservation {
 	bedresGorm := BedReservation{
 		Status_Pasien:     dataCore.StatusPasien,
 		Biaya_Registrasi:  dataCore.BiayaRegistrasi,
