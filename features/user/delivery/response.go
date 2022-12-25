@@ -97,3 +97,24 @@ func PatientCoreToPatientRespon(dataCore user.CorePatient) ResponsePatient { // 
 		UserID:                dataCore.UserID,
 	}
 }
+
+func UserCoreToUserResponNoPreload(dataCore user.CoreUser) ResponseUser { // data user core yang ada di controller yang memanggil user repository
+	return ResponseUser{
+		ID:        dataCore.ID,
+		Nama:      dataCore.Nama,
+		Email:     dataCore.Email,
+		Nokk:      dataCore.Nokk,
+		Nik:       dataCore.Nik,
+		KataSandi: dataCore.KataSandi,
+		NoTelpon:  dataCore.NoTelpon,
+	}
+}
+
+func ListUserCoreToUserResponNoPreload(dataCore []user.CoreUser) []ResponseUser { //data user.core data yang diambil dari entities ke respon struct
+	var ResponData []ResponseUser
+
+	for _, value := range dataCore { //memanggil paramete data core yang berisi data user core
+		ResponData = append(ResponData, UserCoreToUserResponNoPreload(value)) // mengambil data mapping dari user core to respon
+	}
+	return ResponData
+}
