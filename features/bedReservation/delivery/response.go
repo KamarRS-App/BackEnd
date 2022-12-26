@@ -1,7 +1,7 @@
 package delivery
 
 import (
-	"github.com/KamarRS-App/features/bedreservation"
+	bedreservation "github.com/KamarRS-App/features/bedReservation"
 )
 
 type BedReservationResponse struct {

@@ -19,10 +19,11 @@ type CoreUser struct {
 type ServiceInterface interface { //sebagai contract yang dibuat di layer service
 
 	Create(input CoreUser) (err error) // menambahkah data user berdasarkan data usercore
-
+	Update(id int, input CoreUser) error
 }
 
 type RepositoryInterface interface { // berkaitan database
 
 	Create(input CoreUser) (err error)
+	Update(id int, input CoreUser) error
 }
