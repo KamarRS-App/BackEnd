@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/KamarRS-App/KamarRS-App/config"
-	"github.com/KamarRS-App/KamarRS-App/utils/database/mysql"
+	"github.com/KamarRS-App/config"
+	"github.com/KamarRS-App/utils/database/mysql"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -16,6 +16,8 @@ func main() {
 	mysql.DBMigration(db)
 
 	e := echo.New()
+
+	// factory.InitFactory(e, db)
 
 	e.Use(middleware.Logger())
 	e.Pre(middleware.RemoveTrailingSlash())

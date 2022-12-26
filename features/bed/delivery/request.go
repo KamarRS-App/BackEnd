@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/KamarRS-App/features/bed"
+import "github.com/KamarRS-App/features/bed"
 
 type BedRequest struct {
 	NamaTempatTidur string `json:"nama_tempat_tidur" form:"nama_tempat_tidur"`

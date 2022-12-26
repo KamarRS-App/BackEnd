@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/KamarRS-App/KamarRS-App/features/bed"
+	"github.com/KamarRS-App/features/bed"
 
 	"gorm.io/gorm"
 )

@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/KamarRS-App/features/hospital"
+import "github.com/KamarRS-App/features/hospital"
 
 type HospitalRequest struct {
 	KodeRs            string `json:"kode_rs" form:"kode_rs"`

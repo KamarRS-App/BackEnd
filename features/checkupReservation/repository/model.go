@@ -1,7 +1,7 @@
 package repository
 
 import (
-	checkupreservation "github.com/KamarRS-App/KamarRS-App/features/checkupReservation"
+"github.com/KamarRS-App/features/checkupreservation"
 
 	"gorm.io/gorm"
 )
