@@ -1682,6 +1682,7 @@ paths:
                     patient_id: 255
                     biaya_registrasi: 25000
                     kode_daftar: "order-912"
+                    status_pembayaran: "belum dibayar"
                     
         '500':
           description: penambahan data gagal
