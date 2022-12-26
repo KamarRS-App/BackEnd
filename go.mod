@@ -1,4 +1,4 @@
-module kamarRS
+module github.com/KamarRS-App/KamarRS-App
 
 go 1.19
 

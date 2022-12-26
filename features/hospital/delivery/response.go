@@ -1,7 +1,7 @@
 package delivery
 
 import (
-	"kamarRS/features/hospital"
+	"github.com/KamarRS-App/KamarRS-App/features/hospital"
 )
 
 type HospitalResponse struct {

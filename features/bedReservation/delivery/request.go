@@ -1,6 +1,6 @@
 package delivery
 
-import "kamarRS/features/bedreservation"
+import "github.com/KamarRS-App/KamarRS-App/features/bedreservation"
 
 type BedReservationRequest struct {
 	StatusPasien     string `json:"status_pasien" form:"status_pasien"`

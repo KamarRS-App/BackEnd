@@ -1,7 +1,7 @@
 package delivery
 
 import (
-	"kamarRS/features/policlinic"
+	"github.com/KamarRS-App/KamarRS-App/features/policlinic"
 )
 
 type RequestPoliclinic struct {

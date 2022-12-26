@@ -1,6 +1,6 @@
 package delivery
 
-import "kamarRS/features/patient"
+import "github.com/KamarRS-App/KamarRS-App/features/patient"
 
 type RequestPatient struct {
 	NoKk                  string `json:"no_kk" form:"no_kk"`

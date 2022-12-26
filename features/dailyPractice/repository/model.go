@@ -1,7 +1,7 @@
 package repository
 
 import (
-	dailypractice "kamarRS/features/dailyPractice"
+	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice"
 
 	"gorm.io/gorm"
 )

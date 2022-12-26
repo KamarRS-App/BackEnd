@@ -1,6 +1,6 @@
 package delivery
 
-import "kamarRS/features/bed"
+import "github.com/KamarRS-App/KamarRS-App/features/bed"
 
 type BedResponse struct {
 	ID              uint   `json:"id"`
