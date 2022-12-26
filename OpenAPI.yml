@@ -402,7 +402,7 @@ paths:
 ##############################################################
 ##############################################################
 
-  /patiens:
+  /patients:
     post:
       tags:
         - Patiens
@@ -457,7 +457,7 @@ paths:
           $ref: "#/components/responses/500"
    
   
-  /patiens/{patient_id}:
+  /patients/{patient_id}:
     put:
       tags:
         - Patiens
@@ -1669,7 +1669,8 @@ paths:
                 patient_id: 255
                 status_pasien: "pemeriksaan awal"
                 biaya_registrasi: 25000
-                order_id: "Postman-1578568851"
+                metode_pembayaran: ""
+                kode_daftar: "Postman-1578568851"
                 link-pembayaran: "masih tidak tahu linknya bagaimana"
                 status-pembayaran: "success"
       responses:
@@ -1723,7 +1724,7 @@ paths:
                     bed_id: 4
                     status_pasien: "pemeriksaan awal"
                     biaya_registrasi: 25000
-                    order_id: "Postman-1578568851"
+                    kode_daftar: "Postman-1578568851"
                     link-pembayaran: "masih tidak tahu linknya bagaimana"
                     status-pembayaran: "success"
                   - id: 5
@@ -1732,7 +1733,7 @@ paths:
                     bed_id: 10
                     status_pasien: "rawat inap"
                     biaya_registrasi: 25000
-                    order_id: "Postman-1578568851"
+                    kode_daftar: "Postman-1578568851"
                     link-pembayaran: "masih tidak tahu linknya bagaimana"
                     status-pembayaran: "success"
                   - id: 15
@@ -1741,7 +1742,7 @@ paths:
                     bed_id: 17
                     status_pasien: "dikembalikan ke wali"
                     biaya_registrasi: 25000
-                    order_id: "Postman-1578568851"
+                    kode_daftar: "Postman-1578568851"
                     link-pembayaran: "masih tidak tahu linknya bagaimana"
                     status-pembayaran: "success"
         '500':
@@ -1780,7 +1781,7 @@ paths:
                     bed_id: 16
                     status_pasien: "rawat inap"
                     biaya_registrasi: 25000
-                    order_id: "Postman-1578568851"
+                    kode_daftar: "Postman-1578568851"
                     link-pembayaran: "masih tidak tahu linknya bagaimana"
                     status-pembayaran: "success"
         '500':
@@ -1813,7 +1814,7 @@ paths:
                 bed_id: 15
                 status_pasien: "pemeriksaan awal"
                 biaya_registrasi: 25000
-                order_id: "Postman-1578568851"
+                kode_daftar: "Postman-1578568851"
                 link-pembayaran: "masih tidak tahu linknya bagaimana"
                 status-pembayaran: "success"
       responses:
@@ -1860,6 +1861,106 @@ paths:
 ##############################################################
 ##############################################################
 
+  /payments/{kode_daftar}:
+    put: 
+      tags:
+        - Beds Registrations
+      summary: payment for bed registration
+      description: Menambahkan data registrasi pasien icu/rawat inap
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: kode_daftar
+          description: "kode daftar"
+          required: true
+          in: path
+          schema:
+            description: "kode daftar"
+            type: string
+            example: "order-134"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                metode_pembayaran:
+                  type: string
+                  enum:
+                    - "transer_va_bca"
+                    - "transer_va_bri"
+                    - "transer_va_bni"
+                    - "transer_va_permata"
+                    - "qris"
+              example: 
+                metode_pembayaran: "transfer_va_bca"
+      responses:
+        '200':
+          description: "success update payment for bed reservation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseWithoutData"
+              example:
+                status: "success"
+                message: "success update policlinic"
+        '400':
+          $ref: "#/components/responses/400"
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+    get:
+      tags:
+        - Beds Registrations
+      summary: get payment information for bed registration
+      description: Menambahkan data registrasi pasien icu/rawat inap
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: kode_daftar
+          description: "kode daftar"
+          required: true
+          in: path
+          schema:
+            description: "kode daftar"
+            type: string
+            example: "order-134"
+      responses:
+        "200":
+          description: "success get payment info for order id"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  kode_daftar:
+                    type: string 
+                  metode_pembayaran:
+                    type: string
+                  biaya_registrasi:
+                    type: integer
+                    format: int64
+                  link_pembayaran:
+                    type: string
+                  qr_string:
+                    type: string
+                  status_pembayaran:
+                    type: string
+              example:
+                kode_daftar: "order-134"
+                metode_pembayaran: "qris"
+                biaya_registrasi: 25000
+                link_pembayaran: "https:midtras/bayar"
+                qr_string: "string untuk generate qr code"
+                status_pembayaran: "belum dibayar"
+
+##############################################################
+##############################################################
+
   /midtrans:
     put:
       tags:
@@ -1879,7 +1980,7 @@ paths:
                 message: "success update status"
                 data :
                   id_booking: 1
-                  order_id: "order-101"
+                  kode_daftar: "order-101"
                   gross_amount: 60000
                   status: "complete"
         "400":
@@ -1912,6 +2013,7 @@ components:
       description: "user Token"
 
   schemas:
+    
     User:
       type: object
       properties:
