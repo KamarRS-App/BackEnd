@@ -31,6 +31,7 @@ func DBMigration(db *gorm.DB) {
 	db.AutoMigrate(&Policlinic{})
 	db.AutoMigrate(&Practice{})
 	db.AutoMigrate(&CheckupReservation{})
+	db.AutoMigrate(&KamarRsTeam{})
 
 }
 
@@ -161,4 +162,11 @@ type User struct {
 	Kata_Sandi string
 	No_Telpon  string
 	Patients   []Patient
+}
+
+type KamarRsTeam struct {
+	gorm.Model
+	Email    string
+	Password string
+	Peran    string
 }
