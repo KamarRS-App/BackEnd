@@ -61,3 +61,34 @@ func (repo *userRepository) Update(id int, input user.CoreUser) error {
 
 	return nil
 }
+
+// GetById implements user.RepositoryInterface
+func (repo *userRepository) GetById(id int) (data user.CoreUser, err error) {
+	var users User
+
+	tx := repo.db.First(&users, id)
+
+	if tx.Error != nil {
+
+		return user.CoreUser{}, tx.Error
+	}
+	gorms := users.ModelsToCore()
+	return gorms, nil
+}
+
+// DeleteById implements user.RepositoryInterface
+func (repo *userRepository) DeleteById(id int) error {
+	users := User{}
+
+	tx1 := repo.db.Delete(&users, id)
+	if tx1.Error != nil {
+		return tx1.Error
+	}
+
+	if tx1.RowsAffected == 0 {
+		return errors.New("id not found")
+
+	}
+
+	return nil
+}

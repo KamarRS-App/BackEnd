@@ -222,11 +222,7 @@ paths:
                      no_nik: "7109287651997"
                      no_kk:  "7190398173764"
                      no_telepon: "081234"
-                     pasien : 
-                      - id:  1
-                        nama: "apik"
-                      - id:  2
-                        nama: "piu"
+                     
         '404':
           $ref: '#/components/responses/404'
 
