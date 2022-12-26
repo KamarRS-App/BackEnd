@@ -1,9 +1,10 @@
 package doctor
 
 type DoctorCore struct {
-	ID       uint
-	Nama     string
-	Bidang   string
-	Email    string
-	NoTelpon string
+	ID        uint
+	Nama      string
+	Spesialis string
+	Email     string
+	NoTelpon  string
+	Foto      string
 }

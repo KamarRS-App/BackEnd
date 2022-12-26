@@ -9,9 +9,10 @@ import (
 type Doctor struct {
 	gorm.Model
 	Nama        string
-	Bidang      string
+	Spesialis   string
 	Email       string
 	No_Telpon   string
+	Foto        string
 	Policlinics []Policlinic
 }
 
@@ -26,9 +27,10 @@ type Policlinic struct {
 func FromCoreToModel(dataCore doctor.DoctorCore) Doctor {
 	doctorGorm := Doctor{
 		Nama:      dataCore.Nama,
-		Bidang:    dataCore.Bidang,
+		Spesialis: dataCore.Spesialis,
 		Email:     dataCore.Email,
 		No_Telpon: dataCore.NoTelpon,
+		Foto:      dataCore.Foto,
 	}
 	return doctorGorm //insert doctor from core
 }
@@ -37,11 +39,12 @@ func FromCoreToModel(dataCore doctor.DoctorCore) Doctor {
 
 func (dataModel *Doctor) toCore() doctor.DoctorCore {
 	return doctor.DoctorCore{
-		ID:       dataModel.ID,
-		Nama:     dataModel.Nama,
-		Bidang:   dataModel.Bidang,
-		Email:    dataModel.Email,
-		NoTelpon: dataModel.No_Telpon,
+		ID:        dataModel.ID,
+		Nama:      dataModel.Nama,
+		Spesialis: dataModel.Spesialis,
+		Email:     dataModel.Email,
+		NoTelpon:  dataModel.No_Telpon,
+		Foto:      dataModel.Foto,
 	}
 }
 
