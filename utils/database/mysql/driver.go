@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"kamarRS/config"
+	"github.com/KamarRS-App/KamarRS-App/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -32,7 +32,6 @@ func DBMigration(db *gorm.DB) {
 	db.AutoMigrate(&Practice{})
 	db.AutoMigrate(&CheckupReservation{})
 	db.AutoMigrate(&KamarRsTeam{})
-
 }
 
 type Bed struct {

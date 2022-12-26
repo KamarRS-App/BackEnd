@@ -1,8 +1,8 @@
 package main
 
 import (
-	"kamarRS/config"
-	"kamarRS/utils/database/mysql"
+	"github.com/KamarRS-App/KamarRS-App/config"
+	"github.com/KamarRS-App/KamarRS-App/utils/database/mysql"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
