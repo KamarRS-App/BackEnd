@@ -135,9 +135,10 @@ type Policlinic struct {
 type Doctor struct {
 	gorm.Model
 	Nama        string
-	Bidang      string
+	Spesialis   string
 	Email       string
 	No_Telpon   string
+	Foto        string
 	Policlinics []Policlinic
 }
 
