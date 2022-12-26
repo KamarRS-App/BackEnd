@@ -8,6 +8,7 @@ type HospitalStaffResponse struct {
 	ID         uint   `json:"id"`
 	Nama       string `json:"nama"`
 	Email      string `json:"email"`
+	Peran      string `json:"peran"`
 	HospitalID uint   `json:"hospital_id"`
 }
 
@@ -16,6 +17,7 @@ func PoliCoreToPoliRespon(dataCore hospitalstaff.HospitalStaffCore) HospitalStaf
 		ID:         dataCore.ID,
 		Nama:       dataCore.Nama,
 		Email:      dataCore.Email,
+		Peran:      dataCore.Peran,
 		HospitalID: dataCore.HospitalID,
 	}
 }

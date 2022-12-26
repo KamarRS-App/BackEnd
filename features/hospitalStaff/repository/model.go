@@ -40,16 +40,18 @@ func FromStaffCore(dataCore hospitalstaff.HospitalStaffCore) HospitalStaff { //f
 		Email:      dataCore.Email,
 		Kata_Sandi: dataCore.KataSandi,
 		Peran:      dataCore.Peran,
+		HospitalID: dataCore.HospitalID,
 	}
 	return staffGorm //insert user
 }
 func (dataModel *HospitalStaff) ModelsToCore() hospitalstaff.HospitalStaffCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
 	return hospitalstaff.HospitalStaffCore{
-		ID:        dataModel.ID,
-		Nama:      dataModel.Nama,
-		Email:     dataModel.Email,
-		KataSandi: dataModel.Kata_Sandi,
-		Peran:     dataModel.Peran,
+		ID:         dataModel.ID,
+		Nama:       dataModel.Nama,
+		Email:      dataModel.Email,
+		KataSandi:  dataModel.Kata_Sandi,
+		Peran:      dataModel.Peran,
+		HospitalID: dataModel.HospitalID,
 	}
 }
 
