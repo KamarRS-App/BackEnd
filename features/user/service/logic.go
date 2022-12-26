@@ -48,3 +48,14 @@ func Bcript(y string) string {
 	return string(hashedPassword)
 
 }
+
+// Update implements user.ServiceInterface
+func (service *UserService) Update(id int, input user.CoreUser) error {
+	errUpdate := service.userRepository.Update(id, input)
+
+	if errUpdate != nil {
+		return errors.New("gagal mengupdate data , querry error")
+	}
+
+	return nil
+}

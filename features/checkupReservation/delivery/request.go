@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/features/checkupreservation"
+import checkupreservation "github.com/KamarRS-App/features/checkupReservation"
 
 type CheckupReservationRequest struct {
 	PatientID  uint `json:"patient_id" form:"patient_id"`
