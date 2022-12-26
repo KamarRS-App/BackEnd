@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/KamarRS-App/features/user"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -33,4 +34,17 @@ func (service *UserService) Create(input user.CoreUser) (err error) {
 	}
 
 	return nil
+}
+
+func Bcript(y string) string {
+	password := []byte(y)
+
+	// Hashing the password with the default cost of 10
+	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+	if err != nil {
+		panic(err)
+	}
+
+	return string(hashedPassword)
+
 }
