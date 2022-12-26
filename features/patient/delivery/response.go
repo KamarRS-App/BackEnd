@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/KamarRS-App/features/patient"
+import "github.com/KamarRS-App/features/patient"
 
 type ResponsePatient struct {
 	ID                    uint   `json:"id"`
