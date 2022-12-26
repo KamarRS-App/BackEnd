@@ -54,7 +54,7 @@ func FromUserCoreToModel(dataCore user.CoreUser) User {
 }
 func (dataModel *User) ModelsToCore() user.CoreUser {
 	return user.CoreUser{
-
+		ID:        dataModel.ID,
 		Nama:      dataModel.Nama,
 		Email:     dataModel.Email,
 		Nokk:      dataModel.No_kk,

@@ -2,6 +2,7 @@ package delivery
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/KamarRS-App/features/user"
 	"github.com/KamarRS-App/features/user/service"
@@ -21,9 +22,9 @@ func New(Service user.ServiceInterface, e *echo.Echo) {
 	}
 
 	e.POST("/users", handler.Create)
-	// e.GET("/users", handler.GetAll, middlewares.JWTMiddleware())
-	e.PUT("/users/:id", handler.Update, middlewares.JWTMiddleware())
-	// e.DELETE("/users/:id", handler.DeleteById, middlewares.JWTMiddleware())
+	e.GET("/users/:id", handler.GetById) //untuk sementara pake param karena login belum bisa
+	e.PUT("/users", handler.Update, middlewares.JWTMiddleware())
+	e.DELETE("/users/:id", handler.DeleteById)
 	// e.GET("/users/:id", handler.GetById, middlewares.JWTMiddleware())
 
 }
@@ -71,4 +72,43 @@ func (delivery *UserDeliv) Update(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Gagal merubah data user"+err.Error()))
 	}
 	return c.JSON(http.StatusCreated, helper.SuccessResponse("Perubahan Data Berhasil"))
+}
+
+func (delivery *UserDeliv) GetById(c echo.Context) error {
+
+	///////////bisa digunakan ketika Login sudah selesai/////////////////////////////////////////////////////
+
+	// userIdtoken := middlewares.ExtractTokenUserId(c)
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//sementara pake param dlu
+
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	result, err := delivery.UserService.GetById(id) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
+
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
+	}
+	var ResponData = UserCoreToUserRespon(result)
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("berhasil membaca  user", ResponData))
+}
+
+func (delivery *UserDeliv) DeleteById(c echo.Context) error {
+	///////////bisa digunakan ketika Login sudah selesai/////////////////////////////////////////////////////
+
+	// userIdtoken := middlewares.ExtractTokenUserId(c)
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//sementara pake param dlu
+
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	err := delivery.UserService.DeleteById(id) //memanggil fungsi service yang ada di folder service
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr Hapus data"))
+	}
+
+	return c.JSON(http.StatusOK, helper.SuccessResponse("berhasil menghapus user"))
 }
