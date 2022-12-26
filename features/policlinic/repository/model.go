@@ -13,6 +13,7 @@ type Policlinic struct {
 	HospitalID  uint
 	DoctorID    uint
 	Practices   []Practice
+	Doctor      Doctor
 }
 
 type Hospital struct {
@@ -37,9 +38,10 @@ type Hospital struct {
 type Doctor struct {
 	gorm.Model
 	Nama        string
-	Bidang      string
+	Spesialis   string
 	Email       string
 	No_Telpon   string
+	Foto        string
 	Policlinics []Policlinic
 }
 
@@ -68,9 +70,16 @@ func (dataModel *Policlinic) ModelsToCore() policlinic.CorePoliclinic {
 		NamaPoli:   dataModel.Nama_Poli,
 		JamPraktik: dataModel.Jam_Praktik,
 		HospitalID: dataModel.HospitalID,
-		DoctorID:   dataModel.DoctorID,
-		CreatedAt:  dataModel.CreatedAt,
-		UpdatedAt:  dataModel.UpdatedAt,
+		Doctor: policlinic.CoreDoctor{
+			ID:        dataModel.Doctor.ID,
+			Nama:      dataModel.Doctor.Nama,
+			Spesialis: dataModel.Doctor.Spesialis,
+			Email:     dataModel.Doctor.Email,
+			NoTelpon:  dataModel.Doctor.No_Telpon,
+			Foto:      dataModel.Doctor.Foto,
+		},
+		CreatedAt: dataModel.CreatedAt,
+		UpdatedAt: dataModel.UpdatedAt,
 	}
 }
 func ListModelTOCore(dataModel []Policlinic) []policlinic.CorePoliclinic {

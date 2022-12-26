@@ -130,6 +130,7 @@ type Policlinic struct {
 	HospitalID  uint
 	DoctorID    uint
 	Practices   []Practice
+	Doctor      Doctor
 }
 
 type Doctor struct {

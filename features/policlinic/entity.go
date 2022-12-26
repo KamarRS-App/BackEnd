@@ -9,7 +9,8 @@ type CorePoliclinic struct {
 	NamaPoli   string `validate:"required"`
 	JamPraktik string `validate:"required"`
 	HospitalID uint   `validate:"required"`
-	DoctorID   uint   `validate:"required"`
+	DoctorID   uint
+	Doctor     CoreDoctor
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	// Practices  []CorePractice
@@ -24,3 +25,12 @@ type CorePoliclinic struct {
 // 	CreatedAt      time.Time
 // 	UpdatedAt      time.Time
 // }
+
+type CoreDoctor struct {
+	ID        uint
+	Nama      string
+	Spesialis string
+	Email     string
+	NoTelpon  string
+	Foto      string
+}

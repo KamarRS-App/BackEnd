@@ -5,11 +5,20 @@ import (
 )
 
 type ResponsePoliclinic struct {
-	ID         uint   `json:"policlinic_id"`
-	NamaPoli   string `json:"nama_poli"`
-	JamPraktik string `json:"jam_praktik"`
-	HospitalID uint   `json:"hospital_id"`
-	DoctorID   uint   `json:"doctor_id"`
+	ID         uint           `json:"id"`
+	NamaPoli   string         `json:"nama_poli"`
+	JamPraktik string         `json:"jam_praktik"`
+	HospitalID uint           `json:"hospital_id"`
+	Doctor     ResponseDoctor `json:"doctor"`
+}
+
+type ResponseDoctor struct {
+	ID        uint   `json:"id"`
+	Nama      string `json:"nama"`
+	Spesialis string `json:"spesialis"`
+	Email     string `json:"email"`
+	NoTelpon  string `json:"no_telpon"`
+	Foto      string `json:"foto"`
 }
 
 func PoliCoreToPoliRespon(dataCore policlinic.CorePoliclinic) ResponsePoliclinic { // data user core yang ada di controller yang memanggil user repositoCorePatient
@@ -18,7 +27,14 @@ func PoliCoreToPoliRespon(dataCore policlinic.CorePoliclinic) ResponsePoliclinic
 		NamaPoli:   dataCore.NamaPoli,
 		JamPraktik: dataCore.JamPraktik,
 		HospitalID: dataCore.HospitalID,
-		DoctorID:   dataCore.DoctorID,
+		Doctor: ResponseDoctor{
+			ID:        dataCore.Doctor.ID,
+			Nama:      dataCore.Doctor.Nama,
+			Spesialis: dataCore.Doctor.Spesialis,
+			Email:     dataCore.Doctor.Email,
+			NoTelpon:  dataCore.Doctor.NoTelpon,
+			Foto:      dataCore.Doctor.Foto,
+		},
 	}
 }
 func ListpoliCoreToPoliRespon(dataCore []policlinic.CorePoliclinic) []ResponsePoliclinic { //data user.core data yang diambil dari entities ke respon struct
