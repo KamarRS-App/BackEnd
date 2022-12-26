@@ -1667,12 +1667,6 @@ paths:
               example:
                 hospital_id: 3
                 patient_id: 255
-                status_pasien: "pemeriksaan awal"
-                biaya_registrasi: 25000
-                metode_pembayaran: ""
-                kode_daftar: "Postman-1578568851"
-                link-pembayaran: "masih tidak tahu linknya bagaimana"
-                status-pembayaran: "success"
       responses:
         '201':
           description: penambahan data berhasil
@@ -1683,6 +1677,12 @@ paths:
                 example:
                   status: "success"
                   message: "success create registrations"
+                  data: 
+                    hospital_id: 3
+                    patient_id: 255
+                    biaya_registrasi: 25000
+                    kode_daftar: "order-912"
+                    
         '500':
           description: penambahan data gagal
           content:
