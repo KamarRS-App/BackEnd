@@ -21,9 +21,9 @@ import (
 	// 	doctorRepo "github.com/KamarRS-App/features/doctor/repository"
 	// 	doctorService "github.com/KamarRS-App/features/doctor/service"
 
-	// 	hospitalDelivery "github.com/KamarRS-App/features/hospital/delivery"
-	// 	hospitalRepo "github.com/KamarRS-App/features/hospital/repository"
-	// 	hospitalService "github.com/KamarRS-App/features/hospital/service"
+	hospitalDelivery "github.com/KamarRS-App/features/hospital/delivery"
+	hospitalRepo "github.com/KamarRS-App/features/hospital/repository"
+	hospitalService "github.com/KamarRS-App/features/hospital/service"
 
 	// 	hospitalStaffRepo "github.com/KamarRS-App/features/hospitalstaff/repository"
 	// 	hospitalStaffService "github.com/KamarRS-App/features/hospitalstaff/service"
@@ -71,9 +71,9 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	// doctorServiceFactory := doctorService.New(doctorRepoFactory)
 	// doctorDelivery.New(doctorServiceFactory, e)
 
-	// hospitalRepoFactory := hospitalRepo.New(db)
-	// hospitalServiceFactory := hospitalService.New(hospitalRepoFactory)
-	// hospitalDelivery.New(hospitalServiceFactory, e)
+	hospitalRepoFactory := hospitalRepo.New(db)
+	hospitalServiceFactory := hospitalService.New(hospitalRepoFactory)
+	hospitalDelivery.New(hospitalServiceFactory, e)
 
 	// hospitalStaffRepoFactory := hospitalStaffRepo.New(db)
 	// hospitalStaffServiceFactory := hospitalStaffService.New(hospitalStaffRepoFactory)
