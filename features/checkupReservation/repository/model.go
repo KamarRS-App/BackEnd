@@ -1,7 +1,7 @@
 package repository
 
 import (
-"github.com/KamarRS-App/features/checkupreservation"
+	checkupreservation "github.com/KamarRS-App/features/checkupReservation"
 
 	"gorm.io/gorm"
 )
@@ -61,6 +61,7 @@ func FromCoreToModel(dataCore checkupreservation.CheckupReservationCore) Checkup
 func (dataModel *CheckupReservation) toCore() checkupreservation.CheckupReservationCore {
 	return checkupreservation.CheckupReservationCore{
 		ID:        dataModel.ID,
+		PatientID: dataModel.PatientID,
 		CreatedAt: dataModel.CreatedAt,
 		Patient: checkupreservation.PatientCore{
 			ID:                    dataModel.Patient.ID,
@@ -87,7 +88,6 @@ func (dataModel *CheckupReservation) toCore() checkupreservation.CheckupReservat
 		Practice: checkupreservation.PracticeCore{
 			ID:             dataModel.Practice.ID,
 			TanggalPraktik: dataModel.Practice.Tanggal_Praktik,
-			KuotaHarian:    dataModel.Practice.Kuota_Harian,
 			Status:         dataModel.Practice.Status,
 			PoliclinicID:   dataModel.Practice.PoliclinicID,
 		},

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/KamarRS-App/config"
+	"github.com/KamarRS-App/factory"
 	"github.com/KamarRS-App/utils/database/mysql"
 
 	"github.com/labstack/echo/v4"
@@ -17,7 +18,7 @@ func main() {
 
 	e := echo.New()
 
-	// factory.InitFactory(e, db)
+	factory.InitFactory(e, db)
 
 	e.Use(middleware.Logger())
 	e.Pre(middleware.RemoveTrailingSlash())
