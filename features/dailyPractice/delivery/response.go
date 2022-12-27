@@ -1,10 +1,10 @@
 package delivery
 
 import (
-	dailypractice "github.com/KamarRS-App/features/dailyPractice"
+	"github.com/KamarRS-App/features/dailypractice"
 )
 
-type DailyPracticeResponse struct {
+type PracticeResponse struct {
 	ID             uint   `json:"id"`
 	TanggalPraktik string `json:"tanggal_praktik"`
 	KuotaHarian    int    `json:"kuota_harian"`
@@ -13,8 +13,8 @@ type DailyPracticeResponse struct {
 }
 
 // -----------------Daily Practice--------------------
-func fromCore(dataCore dailypractice.DailyPracticeCore) DailyPracticeResponse {
-	return DailyPracticeResponse{
+func FromCore(dataCore dailypractice.PracticeCore) PracticeResponse {
+	return PracticeResponse{
 		ID:             dataCore.ID,
 		TanggalPraktik: dataCore.TanggalPraktik,
 		KuotaHarian:    dataCore.KuotaHarian,
@@ -24,10 +24,10 @@ func fromCore(dataCore dailypractice.DailyPracticeCore) DailyPracticeResponse {
 }
 
 // data dari core ke response
-func fromCoreList(dataCore []dailypractice.DailyPracticeCore) []DailyPracticeResponse {
-	var dataResponse []DailyPracticeResponse
+func FromCoreList(dataCore []dailypractice.PracticeCore) []PracticeResponse {
+	var dataResponse []PracticeResponse
 	for _, v := range dataCore {
-		dataResponse = append(dataResponse, fromCore(v))
+		dataResponse = append(dataResponse, FromCore(v))
 	}
 	return dataResponse
 }
