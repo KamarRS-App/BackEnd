@@ -2,8 +2,10 @@ package repository
 
 import (
 	"errors"
+	"log"
 
 	"github.com/KamarRS-App/features/patient"
+	"github.com/KamarRS-App/features/user/repository"
 
 	"gorm.io/gorm"
 )
@@ -21,6 +23,7 @@ func New(db *gorm.DB) patient.RepositoryInterface { // user.repository mengimple
 
 // Create implements patient.RepositoryInterface
 func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
+
 	var patient []Patient
 
 	tx1 := repo.db.Find(&patient)
@@ -33,6 +36,19 @@ func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
 			return errors.New("eror input data")
 		}
 
+	}
+	var user repository.User
+	tx2 := repo.db.First(&user, input.UserID)
+	if tx2.Error != nil {
+		return tx2.Error
+	}
+
+	if user.No_kk == "" {
+		log.Fatal("Anda harus melengkapai data diri anda terlebih dahulu untuk mendaftarkan pasien")
+	}
+
+	if input.NoKk != user.No_kk {
+		return errors.New("hanya bisa mendaftarkan keluarga")
 	}
 
 	patientGorm := FromPatientCore(input)
@@ -54,8 +70,18 @@ func (*patientRepository) DeleteById(id int) error {
 }
 
 // GetByPatientId implements patient.RepositoryInterface
-func (*patientRepository) GetByPatientId(id int) (data patient.CorePatient, err error) {
-	panic("unimplemented")
+func (repo *patientRepository) GetByPatientId(id int) (data patient.CorePatient, err error) {
+	var patients Patient
+
+	tx := repo.db.First(&patients, id)
+
+	if tx.Error != nil {
+
+		return patient.CorePatient{}, tx.Error
+	}
+
+	gorms := patients.ModelsToCore()
+	return gorms, nil
 }
 
 // GetByUserId implements patient.RepositoryInterface

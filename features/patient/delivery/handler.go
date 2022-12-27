@@ -2,6 +2,7 @@ package delivery
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/KamarRS-App/features/patient"
 	"github.com/KamarRS-App/middlewares"
@@ -19,6 +20,7 @@ func New(Service patient.ServiceInterface, e *echo.Echo) {
 	}
 
 	e.POST("/patients", handler.Create, middlewares.JWTMiddleware())
+	e.GET("/patients/:id", handler.GetByPatientId, middlewares.JWTMiddleware())
 	// e.GET("/users", handler.GetById, middlewares.JWTMiddleware()) //untuk sementara pake param karena login belum bisa
 	// e.PUT("/users", handler.Update, middlewares.JWTMiddleware())
 	// e.DELETE("/users", handler.DeleteById, middlewares.JWTMiddleware())
@@ -52,5 +54,21 @@ func (delivery *PatientDeliv) Create(c echo.Context) error {
 	if errResultCore != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr:"+errResultCore.Error()))
 	}
-	return c.JSON(http.StatusCreated, helper.SuccessResponse("Akun user berhasil dibuat"))
+	return c.JSON(http.StatusCreated, helper.SuccessResponse("Berhasil mendaftarkan Pasien"))
+}
+
+func (delivery *PatientDeliv) GetByPatientId(c echo.Context) error {
+
+	id, errConv := strconv.Atoi(c.Param("id"))
+	if errConv != nil {
+		return errConv
+	}
+
+	result, err := delivery.PatientService.GetByPatientId(id) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
+
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
+	}
+	var ResponData = PatientCoreToPatientRespon(result)
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("berhasil membaca data pasien", ResponData))
 }
