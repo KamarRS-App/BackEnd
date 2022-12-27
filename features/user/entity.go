@@ -7,7 +7,7 @@ import (
 type CoreUser struct {
 	ID        uint
 	Nama      string
-	Email     string `validate:"required"`
+	Email     string `validate:"required,email"`
 	Nokk      string
 	Nik       string
 	KataSandi string
