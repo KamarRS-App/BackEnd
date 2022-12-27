@@ -10,7 +10,7 @@ type DoctorRequest struct {
 	Foto      string `json:"foto" form:"foto"`
 }
 
-func (req *DoctorRequest) reqToCore() doctor.DoctorCore {
+func (req *DoctorRequest) ToCore() doctor.DoctorCore {
 	return doctor.DoctorCore{
 		Nama:      req.Nama,
 		Spesialis: req.Spesialis,

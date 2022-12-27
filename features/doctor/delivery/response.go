@@ -14,7 +14,7 @@ type DoctorResponse struct {
 }
 
 // -----------------Doctor--------------------
-func fromCore(dataCore doctor.DoctorCore) DoctorResponse {
+func FromCore(dataCore doctor.DoctorCore) DoctorResponse {
 	return DoctorResponse{
 		ID:        dataCore.ID,
 		Nama:      dataCore.Nama,
@@ -26,10 +26,10 @@ func fromCore(dataCore doctor.DoctorCore) DoctorResponse {
 }
 
 // data dari core ke response
-func fromCoreList(dataCore []doctor.DoctorCore) []DoctorResponse {
+func FromCoreList(dataCore []doctor.DoctorCore) []DoctorResponse {
 	var dataResponse []DoctorResponse
 	for _, v := range dataCore {
-		dataResponse = append(dataResponse, fromCore(v))
+		dataResponse = append(dataResponse, FromCore(v))
 	}
 	return dataResponse
 }
