@@ -1,7 +1,9 @@
 package delivery
 
 import (
-	"github.com/KamarRS-App/features/dailypractice"
+
+	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice"
+
 )
 
 type PracticeResponse struct {
