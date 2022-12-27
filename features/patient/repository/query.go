@@ -31,7 +31,7 @@ func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
 	}
 
 	for _, v := range patient {
-		if input.Nik == v.Nik || input.NoKk == v.No_Kk || input.NoBpjs == v.No_Bpjs {
+		if input.Nik == v.Nik || input.NoBpjs == v.No_Bpjs {
 			return errors.New("eror input data")
 		}
 
@@ -111,6 +111,19 @@ func (repo *patientRepository) GetByUserId(userid int) (data []patient.CorePatie
 
 // Update implements patient.RepositoryInterface
 func (repo *patientRepository) Update(id int, input patient.CorePatient) error {
+	var patient []Patient
+
+	tx3 := repo.db.Find(&patient)
+	if tx3.Error != nil {
+		return tx3.Error
+	}
+
+	for _, v := range patient {
+		if input.Nik == v.Nik || input.NoBpjs == v.No_Bpjs {
+			return errors.New("eror input data")
+		}
+
+	}
 	var pasien Patient
 
 	tx1 := repo.db.First(&pasien, id)

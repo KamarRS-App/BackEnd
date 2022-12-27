@@ -34,14 +34,10 @@ func (delivery *PatientDeliv) Create(c echo.Context) error {
 	InputPatient := RequestPatient{}
 	errbind := c.Bind(&InputPatient)
 
-	fotoKtp, errKtp := helper.UploadFotoKTP(c, "foto_ktp")
-	if errKtp != nil {
-		return errKtp
-	}
-	fotoBpjs, errBpjs := helper.UploadFotoBPJS(c, "foto_bpjs")
-	if errBpjs != nil {
-		return errBpjs
-	}
+	fotoKtp, _ := helper.UploadFotoKTP(c, "foto_ktp")
+
+	fotoBpjs, _ := helper.UploadFotoBPJS(c, "foto_bpjs")
+
 	InputPatient.UserID = uint(userId)
 	InputPatient.FotoKtp = fotoKtp
 	InputPatient.FotoBpjs = fotoBpjs
@@ -110,6 +106,18 @@ func (delivery *PatientDeliv) Update(c echo.Context) error {
 	errBind := c.Bind(&patientInput) // menangkap data yg dikirim dari req body dan disimpan ke variabel
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
+	}
+	fotoKtp, _ := helper.UploadFotoKTP(c, "foto_ktp")
+
+	fotoBpjs, _ := helper.UploadFotoBPJS(c, "foto_bpjs")
+
+	if fotoKtp != "" {
+		patientInput.FotoKtp = fotoKtp
+
+	}
+	if fotoBpjs != "" {
+		patientInput.FotoBpjs = fotoBpjs
+
 	}
 
 	dataCore := patientInput.reqToCore()
