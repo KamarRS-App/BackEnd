@@ -36,6 +36,7 @@ type ServiceInterface interface { //sebagai contract yang dibuat di layer servic
 	Update(id int, input CorePatient) error
 	GetByPatientId(id int) (data CorePatient, err error)
 	GetByUserId(userid int) (data []CorePatient, err error)
+	GetAllPatient() (data []CorePatient, err error)
 	DeleteById(id int) error
 }
 
@@ -45,5 +46,6 @@ type RepositoryInterface interface { // berkaitan database
 	Update(id int, input CorePatient) error
 	GetByPatientId(id int) (data CorePatient, err error)
 	GetByUserId(userid int) (data []CorePatient, err error)
+	GetAllPatient() (data []CorePatient, err error)
 	DeleteById(id int) error
 }

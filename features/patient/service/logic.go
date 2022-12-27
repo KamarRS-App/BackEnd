@@ -34,8 +34,9 @@ func (service *patientService) Create(input patient.CorePatient) (err error) {
 }
 
 // DeleteById implements patient.ServiceInterface
-func (*patientService) DeleteById(id int) error {
-	panic("unimplemented")
+func (service *patientService) DeleteById(id int) error {
+	err := service.patientRepository.DeleteById(id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
+	return err
 }
 
 // GetByPatientId implements patient.ServiceInterface
@@ -51,6 +52,18 @@ func (service *patientService) GetByUserId(userid int) (data []patient.CorePatie
 }
 
 // Update implements patient.ServiceInterface
-func (*patientService) Update(id int, input patient.CorePatient) error {
-	panic("unimplemented")
+func (service *patientService) Update(id int, input patient.CorePatient) error {
+	errUpdate := service.patientRepository.Update(id, input)
+
+	if errUpdate != nil {
+		return errors.New("gagal mengupdate data , querry error")
+	}
+
+	return nil
+}
+
+// GetAllPatient implements patient.ServiceInterface
+func (service *patientService) GetAllPatient() (data []patient.CorePatient, err error) {
+	data, err = service.patientRepository.GetAllPatient() // memanggil struct entities repository yang ada di entities yang berisi coding logic
+	return
 }
