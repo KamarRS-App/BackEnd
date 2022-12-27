@@ -21,11 +21,31 @@ type CorePatient struct {
 	KabupatenKotaDomisili string `validate:"required"`
 	NoBpjs                string
 	KelasBpjs             string
-	FotoKtp               string `validate:"required"`
+	FotoKtp               string
 	FotoBpjs              string
 	UserID                uint `validate:"required"`
 	CreatedAt             time.Time
 	UpdatedAt             time.Time
 	// BedReservation          BedReservation
 	// CheckupReservation      CheckupReservation
+}
+
+type ServiceInterface interface { //sebagai contract yang dibuat di layer service
+
+	Create(input CorePatient) (err error) // menambahkah data user berdasarkan data usercore
+	Update(id int, input CorePatient) error
+	GetByPatientId(id int) (data CorePatient, err error)
+	GetByUserId(userid int) (data []CorePatient, err error)
+	GetAllPatient() (data []CorePatient, err error)
+	DeleteById(id int) error
+}
+
+type RepositoryInterface interface { // berkaitan database
+
+	Create(input CorePatient) (err error)
+	Update(id int, input CorePatient) error
+	GetByPatientId(id int) (data CorePatient, err error)
+	GetByUserId(userid int) (data []CorePatient, err error)
+	GetAllPatient() (data []CorePatient, err error)
+	DeleteById(id int) error
 }

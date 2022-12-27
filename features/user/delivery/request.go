@@ -1,7 +1,7 @@
 package delivery
 
 import (
-	"github.com/KamarRS-App/KamarRS-App/features/user"
+	"github.com/KamarRS-App/features/user"
 )
 
 type RequestUser struct {

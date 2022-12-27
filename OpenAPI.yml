@@ -45,13 +45,14 @@ tags:
   - name: Invoice
     description: "Midtrans Callback"
   
+
 paths:
-  /oauth/login/user:
+  /login/users:
     post:
       tags:
         - Auth
       summary: Login
-      description: Login akun user 
+      description: Login akun user
       requestBody:
         required: true
         content:
@@ -59,7 +60,34 @@ paths:
             schema:
               type: object
               example:
-                oauth:  "das&hd9asd87gdoas_sdk9sd"
+                email: "suyo@gmail.com"
+                kata_sandi: "123456"
+      responses:
+        '201':
+          description: Login berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Login berhasil"
+                  data:
+                      id: 1
+                      email: "suyo@siloam.com"
+                      token:  "afkdnnifnnj&h3"
+                      
+        '404' :
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+  /oauth/login/user:
+    get:
+      tags:
+        - Auth
+      summary: Login
+      description: Login akun user dengan akun google
+
       responses:
         '201':
           description: Login berhasil.
@@ -93,7 +121,7 @@ paths:
               type: object
               example:
                 email: "suyo@siloam.com"
-                password: "123456"
+                kata_sandi : "123456"
       responses:
         '201':
           description: Login berhasil.
@@ -222,11 +250,7 @@ paths:
                      no_nik: "7109287651997"
                      no_kk:  "7190398173764"
                      no_telepon: "081234"
-                     pasien : 
-                      - id:  1
-                        nama: "apik"
-                      - id:  2
-                        nama: "piu"
+                     
         '404':
           $ref: '#/components/responses/404'
 
@@ -588,6 +612,7 @@ paths:
                   jenis_kelamin: "laki-laki"
                   usia: "20"
                   nama_wali: "monkey d. dragon"
+                  email_wali: "dragon@gmail.com"
                   no_telepon_wali: "081321654987"
                   alamat_ktp: "wind mill village"
                   provinsi_ktp: "east blue"
@@ -600,6 +625,87 @@ paths:
                   kelas_bpjs: "kelas_1"
                   foto_ktp: "kanohhtihafnuef.jpg"
                   foto_bpjs: "kanjtquihgsa.jpg"
+        "400" :
+          $ref : "#/components/responses/400"  
+        "401" :
+          $ref : "#/components/responses/401"  
+        "404" :
+          $ref : "#/components/responses/404"  
+        '500':
+          $ref: "#/components/responses/500"
+
+  /users/{user_id}/patients:
+    get:
+      tags:
+        - Patiens
+      summary: Get List of Patient realted to user
+      description: Menampilakn pasien yang didaftarkan user
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: user_id
+          description: "id user"
+          required: true
+          in: path
+          schema:
+            description: "id user"
+            type: integer
+            example: 1     
+
+      responses:
+        '200':
+          description: "succes get patient by user_id"
+          content:
+            application/json:
+              schema: 
+                type: object
+                $ref: "#/components/schemas/ResponsePatient"
+              example:
+                status: "succes"
+                message: "success get patient data by user_id"
+                data:
+                  - id: 1
+                    user_id: 1
+                    no_kk: "321654987321654"
+                    nik: "321654987321654"
+                    nama_pasien: "monkey d. luffy" 
+                    jenis_kelamin: "laki-laki"
+                    usia: "20"
+                    nama_wali: "monkey d. dragon"
+                    email_wali: "dragon@gmail.com"
+                    no_telepon_wali: "081321654987"
+                    alamat_ktp: "wind mill village"
+                    provinsi_ktp: "east blue"
+                    kabupaten/kota_ktp: "doma kingdom"
+                    alamat_domisili: "thousand sunny"
+                    provinsi_domisili: "grand line"
+                    kabupaten/kota_domisili: "always moving"
+                    tanggal_lahir: "1990-08-01"
+                    no_bpjs: "789456123"
+                    kelas_bpjs: "kelas_1"
+                    foto_ktp: "kanohhtihafnuef.jpg"
+                    foto_bpjs: "kanjtquihgsa.jpg"
+                  - id: 2
+                    user_id: 1
+                    no_kk: "321654987321654"
+                    nik: "321654987321654"
+                    nama_pasien: "monkey d. luffy" 
+                    jenis_kelamin: "laki-laki"
+                    usia: "20"
+                    nama_wali: "monkey d. dragon"
+                    email_wali: "dragon@gmail.com"
+                    no_telepon_wali: "081321654987"
+                    alamat_ktp: "wind mill village"
+                    provinsi_ktp: "east blue"
+                    kabupaten/kota_ktp: "doma kingdom"
+                    alamat_domisili: "thousand sunny"
+                    provinsi_domisili: "grand line"
+                    kabupaten/kota_domisili: "always moving"
+                    tanggal_lahir: "1990-08-01"
+                    no_bpjs: "789456123"
+                    kelas_bpjs: "kelas_1"
+                    foto_ktp: "kanohhtihafnuef.jpg"
+                    foto_bpjs: "kanjtquihgsa.jpg"
         "400" :
           $ref : "#/components/responses/400"  
         "401" :
@@ -1646,7 +1752,101 @@ paths:
                 example:
                   status: "failed"
                   message: "failed create reservations"
-
+    
+    get:
+      tags:
+        - Check Up Reservations
+      summary: Get All Reservations List by practice_id
+      description: mendapatkan semua data reservasi pada praktek harian
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: practice_id
+          description: "practice_id"
+          required: true
+          in: query
+          schema:
+            description: "practice_id"
+            type: integer
+            example: 255
+      responses:
+        '200':
+          description: "succes get daily practice id"
+          content:
+            application/json:
+              schema: 
+                type: object
+              example:
+                status: "succes"
+                message: "success get daily practice by id"
+                data:
+                  - id: 555
+                    practice_id: 255
+                    practice:
+                      {
+                        id: 255,
+                        tanggal_praktik: "2022-12-30",
+                        status: "available",
+                        policlinic_id: 3,
+                      }
+                    patient:
+                      {
+                        id: 5,
+                        no_kk: "321654987321654",
+                        nik: "321654987321654",
+                        nama_pasien: "monkey d. luffy",
+                        jenis_kelamin: "laki-laki",
+                        usia: 20,
+                        nama_wali: "monkey d. dragon",
+                        no_telepon_wali: "081321654987",
+                        alamat_ktp: "wind mill village",
+                        provinsi_ktp: "east blue",
+                        kabupaten/kota_ktp: "doma kingdom",
+                        alamat_domisili: "thousand sunny",
+                        provinsi_domisili: "grand line",
+                        kabupaten/kota_domisili: "always moving",
+                        tanggal_lahir: "1990-08-01",
+                        no_bpjs: "789456123",
+                        kelas_bpjs: "kelas_1",
+                        foto_ktp: "kanohhtihafnuef.jpg",
+                        foto_bpjs: "kanjtquihgsa.jpg",
+                      }
+                  - id: 666
+                    practice_id: 255
+                    practice:
+                      {
+                        id: 255,
+                        tanggal_praktik: "2022-12-30",
+                        status: "available",
+                        policlinic_id: 3,
+                      }
+                    patient:
+                      {
+                        id: 25,
+                        no_kk: "321654987321666",
+                        nik: "321654987321666",
+                        nama_pasien: "monkey d. dragon",
+                        jenis_kelamin: "laki-laki",
+                        usia: 44,
+                        nama_wali: "monkey d. garp",
+                        no_telepon_wali: "081321654666",
+                        alamat_ktp: "wind mill village",
+                        provinsi_ktp: "east blue",
+                        kabupaten/kota_ktp: "doma kingdom",
+                        alamat_domisili: "thousand sunny",
+                        provinsi_domisili: "grand line",
+                        kabupaten/kota_domisili: "always moving",
+                        tanggal_lahir: "1970-08-01",
+                        no_bpjs: "789456666",
+                        kelas_bpjs: "kelas_1",
+                        foto_ktp: "kanohhtihafnuef.jpg",
+                        foto_bpjs: "kanjtquihgsa.jpg",
+                      }
+                  
+        "400" :
+          $ref : "#/components/responses/400" 
+        '500':
+          $ref: "#/components/responses/500"
 ##############################################################
 ##############################################################
 
@@ -1682,6 +1882,7 @@ paths:
                     patient_id: 255
                     biaya_registrasi: 25000
                     kode_daftar: "order-912"
+                    status_pembayaran: "belum dibayar"
                     
         '500':
           description: penambahan data gagal

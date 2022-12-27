@@ -1,7 +1,7 @@
 package delivery
 
 import (
-	"github.com/KamarRS-App/KamarRS-App/features/hospital"
+	"github.com/KamarRS-App/features/hospital"
 )
 
 type HospitalResponse struct {
@@ -23,7 +23,7 @@ type HospitalResponse struct {
 }
 
 // -----------------Hospital--------------------
-func fromCore(dataCore hospital.HospitalCore) HospitalResponse {
+func FromCore(dataCore hospital.HospitalCore) HospitalResponse {
 	return HospitalResponse{
 		ID:                dataCore.ID,
 		KodeRs:            dataCore.KodeRs,
@@ -44,10 +44,10 @@ func fromCore(dataCore hospital.HospitalCore) HospitalResponse {
 }
 
 // data dari core ke response
-func fromCoreList(dataCore []hospital.HospitalCore) []HospitalResponse {
+func FromCoreList(dataCore []hospital.HospitalCore) []HospitalResponse {
 	var dataResponse []HospitalResponse
 	for _, v := range dataCore {
-		dataResponse = append(dataResponse, fromCore(v))
+		dataResponse = append(dataResponse, FromCore(v))
 	}
 	return dataResponse
 }

@@ -3,14 +3,15 @@ package delivery
 import (
 	"time"
 
-	checkupreservation "github.com/KamarRS-App/KamarRS-App/features/checkupReservation"
+	checkupreservation "github.com/KamarRS-App/features/checkupReservation"
 )
 
 type CheckupReservationResponse struct {
 	ID        uint             `json:"id"`
+	PatientID uint             `json:"patient_id"`
 	CreatedAt time.Time        `json:"created_at"`
-	Patient   PatientResponse  `json:"patient"`
 	Practice  PracticeResponse `json:"practice"`
+	Patient   PatientResponse  `json:"patient"`
 }
 
 type PatientResponse struct {
@@ -39,7 +40,6 @@ type PatientResponse struct {
 type PracticeResponse struct {
 	ID             uint   `json:"id"`
 	TanggalPraktik string `json:"tanggal_praktik"`
-	KuotaHarian    int    `json:"kuota_harian"`
 	Status         string `json:"status"`
 	PoliclinicID   uint   `json:"policlinic_id"`
 }
@@ -48,6 +48,7 @@ type PracticeResponse struct {
 func fromCore(dataCore checkupreservation.CheckupReservationCore) CheckupReservationResponse {
 	return CheckupReservationResponse{
 		ID:        dataCore.ID,
+		PatientID: dataCore.PatientID,
 		CreatedAt: dataCore.CreatedAt,
 		Patient: PatientResponse{
 			ID:                    dataCore.Patient.ID,
@@ -74,7 +75,6 @@ func fromCore(dataCore checkupreservation.CheckupReservationCore) CheckupReserva
 		Practice: PracticeResponse{
 			ID:             dataCore.Practice.ID,
 			TanggalPraktik: dataCore.Practice.TanggalPraktik,
-			KuotaHarian:    dataCore.Practice.KuotaHarian,
 			Status:         dataCore.Practice.Status,
 			PoliclinicID:   dataCore.Practice.PoliclinicID,
 		},

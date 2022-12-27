@@ -1,7 +1,7 @@
 package delivery
 
 import (
-	"github.com/KamarRS-App/KamarRS-App/features/policlinic"
+	"github.com/KamarRS-App/features/policlinic"
 )
 
 type RequestPoliclinic struct {
@@ -11,7 +11,7 @@ type RequestPoliclinic struct {
 	DoctorID   uint   `json:"doctor_id" form:"doctor_id"`
 }
 
-func (req *RequestPoliclinic) reqToCore() policlinic.CorePoliclinic {
+func (req *RequestPoliclinic) ToCore() policlinic.CorePoliclinic {
 	return policlinic.CorePoliclinic{
 		NamaPoli:   req.NamaPoli,
 		JamPraktik: req.JamPraktik,

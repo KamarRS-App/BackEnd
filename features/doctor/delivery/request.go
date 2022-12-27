@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/KamarRS-App/features/doctor"
+import "github.com/KamarRS-App/features/doctor"
 
 type DoctorRequest struct {
 	Nama      string `json:"nama" form:"nama"`
@@ -10,7 +10,7 @@ type DoctorRequest struct {
 	Foto      string `json:"foto" form:"foto"`
 }
 
-func (req *DoctorRequest) reqToCore() doctor.DoctorCore {
+func (req *DoctorRequest) ToCore() doctor.DoctorCore {
 	return doctor.DoctorCore{
 		Nama:      req.Nama,
 		Spesialis: req.Spesialis,

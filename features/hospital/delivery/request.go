@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/KamarRS-App/features/hospital"
+import "github.com/KamarRS-App/features/hospital"
 
 type HospitalRequest struct {
 	KodeRs            string `json:"kode_rs" form:"kode_rs"`
@@ -19,7 +19,7 @@ type HospitalRequest struct {
 	BiayaRegistrasi   int    `json:"biaya_registrasi" form:"biaya_registrasi"`
 }
 
-func (req *HospitalRequest) reqToCore() hospital.HospitalCore {
+func (req *HospitalRequest) ToCore() hospital.HospitalCore {
 	return hospital.HospitalCore{
 		KodeRs:            req.KodeRs,
 		Nama:              req.Nama,
