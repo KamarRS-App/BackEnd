@@ -45,8 +45,9 @@ func (service *patientService) GetByPatientId(id int) (data patient.CorePatient,
 }
 
 // GetByUserId implements patient.ServiceInterface
-func (*patientService) GetByUserId(userid int) (data patient.CorePatient, err error) {
-	panic("unimplemented")
+func (service *patientService) GetByUserId(userid int) (data []patient.CorePatient, err error) {
+	data, err = service.patientRepository.GetByUserId(userid) // memanggil struct entities repository yang ada di entities yang berisi coding logic
+	return
 }
 
 // Update implements patient.ServiceInterface
