@@ -3,7 +3,7 @@ package repository
 import (
 	"errors"
 
-	"github.com/KamarRS-App/features/dailypractice"
+	"github.com/KamarRS-App/KamarRS-App/features/dailypractice"
 	"gorm.io/gorm"
 )
 

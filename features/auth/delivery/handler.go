@@ -5,8 +5,8 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/KamarRS-App/features/auth"
-	"github.com/KamarRS-App/utils/helper"
+	"github.com/KamarRS-App/KamarRS-App/features/auth"
+	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"github.com/labstack/echo/v4"
 )
 
