@@ -53,7 +53,7 @@ type Practice struct {
 	PoliclinicID    uint
 }
 
-func FromPoliclinicCoreToModel(dataCore policlinic.CorePoliclinic) Policlinic {
+func FromCore(dataCore policlinic.CorePoliclinic) Policlinic {
 	poliGorm := Policlinic{
 
 		Nama_Poli:   dataCore.NamaPoli,
@@ -63,7 +63,7 @@ func FromPoliclinicCoreToModel(dataCore policlinic.CorePoliclinic) Policlinic {
 	}
 	return poliGorm //insert user
 }
-func (dataModel *Policlinic) ModelsToCore() policlinic.CorePoliclinic {
+func (dataModel *Policlinic) ToCore() policlinic.CorePoliclinic {
 	return policlinic.CorePoliclinic{
 
 		ID:         dataModel.ID,
@@ -82,10 +82,10 @@ func (dataModel *Policlinic) ModelsToCore() policlinic.CorePoliclinic {
 		UpdatedAt: dataModel.UpdatedAt,
 	}
 }
-func ListModelTOCore(dataModel []Policlinic) []policlinic.CorePoliclinic {
+func ToCoreList(dataModel []Policlinic) []policlinic.CorePoliclinic {
 	var dataCore []policlinic.CorePoliclinic
 	for _, value := range dataModel {
-		dataCore = append(dataCore, value.ModelsToCore())
+		dataCore = append(dataCore, value.ToCore())
 	}
 	return dataCore //  untuk menampilkan data ke controller
 }
