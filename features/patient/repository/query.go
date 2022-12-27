@@ -85,8 +85,17 @@ func (repo *patientRepository) GetByPatientId(id int) (data patient.CorePatient,
 }
 
 // GetByUserId implements patient.RepositoryInterface
-func (*patientRepository) GetByUserId(userid int) (data patient.CorePatient, err error) {
-	panic("unimplemented")
+func (repo *patientRepository) GetByUserId(userid int) (data []patient.CorePatient, err error) {
+	var patients []Patient
+
+	tx := repo.db.Where("user_id=?", userid).Find(&patients)
+
+	if tx.Error != nil {
+
+		return nil, tx.Error
+	}
+	gorms := ListModelTOCore(patients)
+	return gorms, nil
 }
 
 // Update implements patient.RepositoryInterface

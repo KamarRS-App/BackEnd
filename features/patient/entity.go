@@ -35,7 +35,7 @@ type ServiceInterface interface { //sebagai contract yang dibuat di layer servic
 	Create(input CorePatient) (err error) // menambahkah data user berdasarkan data usercore
 	Update(id int, input CorePatient) error
 	GetByPatientId(id int) (data CorePatient, err error)
-	GetByUserId(userid int) (data CorePatient, err error)
+	GetByUserId(userid int) (data []CorePatient, err error)
 	DeleteById(id int) error
 }
 
@@ -44,6 +44,6 @@ type RepositoryInterface interface { // berkaitan database
 	Create(input CorePatient) (err error)
 	Update(id int, input CorePatient) error
 	GetByPatientId(id int) (data CorePatient, err error)
-	GetByUserId(userid int) (data CorePatient, err error)
+	GetByUserId(userid int) (data []CorePatient, err error)
 	DeleteById(id int) error
 }
