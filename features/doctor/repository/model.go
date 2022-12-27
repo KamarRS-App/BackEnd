@@ -24,7 +24,7 @@ type Policlinic struct {
 	DoctorID    uint
 }
 
-func FromCoreToModel(dataCore doctor.DoctorCore) Doctor {
+func FromCore(dataCore doctor.DoctorCore) Doctor {
 	doctorGorm := Doctor{
 		Nama:      dataCore.Nama,
 		Spesialis: dataCore.Spesialis,
@@ -37,7 +37,7 @@ func FromCoreToModel(dataCore doctor.DoctorCore) Doctor {
 
 //---------------------Doctor----------------------------------
 
-func (dataModel *Doctor) toCore() doctor.DoctorCore {
+func (dataModel *Doctor) ToCore() doctor.DoctorCore {
 	return doctor.DoctorCore{
 		ID:        dataModel.ID,
 		Nama:      dataModel.Nama,
@@ -49,10 +49,10 @@ func (dataModel *Doctor) toCore() doctor.DoctorCore {
 }
 
 // mengubah slice struct model gorm ke slice struct core
-func toCoreList(dataModel []Doctor) []doctor.DoctorCore {
+func ToCoreList(dataModel []Doctor) []doctor.DoctorCore {
 	var dataCore []doctor.DoctorCore
 	for _, v := range dataModel {
-		dataCore = append(dataCore, v.toCore())
+		dataCore = append(dataCore, v.ToCore())
 	}
 	return dataCore
 }
