@@ -21,7 +21,7 @@ func New(Service patient.ServiceInterface, e *echo.Echo) {
 
 	e.POST("/patients", handler.Create, middlewares.JWTMiddleware())
 	e.GET("/patients/:id", handler.GetByPatientId, middlewares.JWTMiddleware())
-	e.GET("/users/patients", handler.GetByUserId, middlewares.JWTMiddleware())
+	e.GET("/users/:id/patients", handler.GetByUserId, middlewares.JWTMiddleware())
 	// e.GET("/users", handler.GetById, middlewares.JWTMiddleware()) //untuk sementara pake param karena login belum bisa
 	// e.PUT("/users", handler.Update, middlewares.JWTMiddleware())
 	// e.DELETE("/users", handler.DeleteById, middlewares.JWTMiddleware())
@@ -75,7 +75,10 @@ func (delivery *PatientDeliv) GetByPatientId(c echo.Context) error {
 }
 
 func (delivery *PatientDeliv) GetByUserId(c echo.Context) error {
-	userIdtoken := middlewares.ExtractTokenUserId(c)
+	userIdtoken, errConv := strconv.Atoi(c.Param("id"))
+	if errConv != nil {
+		return errConv
+	}
 
 	result, err := delivery.PatientService.GetByUserId(userIdtoken) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
 
