@@ -52,7 +52,7 @@ type Policlinic struct {
 	HospitalID  uint
 }
 
-func FromCoreToModel(dataCore hospital.HospitalCore) Hospital {
+func FromCore(dataCore hospital.HospitalCore) Hospital {
 	hospitalGorm := Hospital{
 		Kode_Rs:             dataCore.KodeRs,
 		Nama:                dataCore.Nama,

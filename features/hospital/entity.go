@@ -17,3 +17,19 @@ type HospitalCore struct {
 	StatusPenggunaan  string
 	BiayaRegistrasi   int
 }
+
+type ServiceInterface interface {
+	Create(input HospitalCore) (err error)
+	GetAll() (data []HospitalCore, err error)
+	GetById(id int) (data HospitalCore, err error)
+	Update(input HospitalCore, id int) (err error)
+	Delete(id int) (err error)
+}
+
+type RepositoryInterface interface {
+	Create(input HospitalCore) (row int, err error)
+	GetAll() (data []HospitalCore, err error)
+	GetById(id int) (data HospitalCore, err error)
+	Update(input HospitalCore, id int) (err error)
+	Delete(id int) (row int, err error)
+}
