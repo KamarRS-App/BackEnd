@@ -45,10 +45,10 @@ import (
 	authDelivery "github.com/KamarRS-App/features/auth/delivery"
 	authRepo "github.com/KamarRS-App/features/auth/repository"
 	authService "github.com/KamarRS-App/features/auth/service"
-  
-  kamarRsTeamDelivery "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/delivery"
-	kamarRsTeamRepo "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/repository"
-	kamarRsTeamService "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service"
+
+	kamarRsTeamDelivery "github.com/KamarRS-App/features/kamarrsteam/delivery"
+	kamarRsTeamRepo "github.com/KamarRS-App/features/kamarrsteam/repository"
+	kamarRsTeamService "github.com/KamarRS-App/features/kamarrsteam/service"
 
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -99,8 +99,8 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	authRepoFactory := authRepo.New(db)
 	authServiceFactory := authService.New(authRepoFactory)
 	authDelivery.New(authServiceFactory, e)
-  
-  kamarRsTeamRepoFactory := kamarRsTeamRepo.New(db)
+
+	kamarRsTeamRepoFactory := kamarRsTeamRepo.New(db)
 	kamarRsTeamServiceFactory := kamarRsTeamService.New(kamarRsTeamRepoFactory)
 	kamarRsTeamDelivery.New(kamarRsTeamServiceFactory, e)
 

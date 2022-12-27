@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam"
+import "github.com/KamarRS-App/features/kamarrsteam"
 
 type KamarRsTeamRequest struct {
 	Email    string `json:"email" form:"email"`
