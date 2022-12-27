@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	hospitalstaff "github.com/KamarRS-App/features/hospitalStaff"
+	hospitalstaff "github.com/KamarRS-App/KamarRS-App/features/hospitalStaff"
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/crypto/bcrypt"
 )

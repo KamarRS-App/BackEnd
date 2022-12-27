@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/KamarRS-App/features/kamarrsteam"
+	"github.com/KamarRS-App/KamarRS-App/features/kamarrsteam"
 
 	"gorm.io/gorm"
 )
@@ -20,4 +20,13 @@ func FromKamarRsTeamCoretoModel(dataCore kamarrsteam.KamarRsTeamCore) KamarRsTea
 		Peran:    dataCore.Peran,
 	}
 	return kamarrsteamGorm
+}
+
+func (dataModel *KamarRsTeam) ToKamarRsTeamCore() kamarrsteam.KamarRsTeamCore {
+	return kamarrsteam.KamarRsTeamCore{
+		ID:       dataModel.ID,
+		Email:    dataModel.Email,
+		Password: dataModel.Password,
+		Peran:    dataModel.Peran,
+	}
 }

@@ -1,49 +1,54 @@
 package factory
 
 import (
-	// 	bedDelivery "github.com/KamarRS-App/features/bed/delivery"
-	// 	bedRepo "github.com/KamarRS-App/features/bed/repository"
-	// 	bedService "github.com/KamarRS-App/features/bed/service"
 
-	// 	bedReservationDelivery "github.com/KamarRS-App/features/bedreservation/delivery"
-	// 	bedReservationRepo "github.com/KamarRS-App/features/bedreservation/repository"
-	// 	bedReservationService "github.com/KamarRS-App/features/bedreservation/service"
+	// 	bedDelivery "github.com/KamarRS-App/KamarRS-App/features/bed/delivery"
+	// 	bedRepo "github.com/KamarRS-App/KamarRS-App/features/bed/repository"
+	// 	bedService "github.com/KamarRS-App/KamarRS-App/features/bed/service"
 
-	// 	checkupReservationDelivery "github.com/KamarRS-App/features/checkupreservation/delivery"
-	// 	checkupReservationRepo "github.com/KamarRS-App/features/checkupreservation/repository"
-	// 	checkupReservationService "github.com/KamarRS-App/features/checkupreservation/service"
+	// 	bedReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/bedreservation/delivery"
+	// 	bedReservationRepo "github.com/KamarRS-App/KamarRS-App/features/bedreservation/repository"
+	// 	bedReservationService "github.com/KamarRS-App/KamarRS-App/features/bedreservation/service"
 
-	// 	dailyPracticeDelivery "github.com/KamarRS-App/features/dailypractice/delivery"
-	// 	dailyPracticeRepo "github.com/KamarRS-App/features/dailypractice/repository"
-	// 	dailyPracticeService "github.com/KamarRS-App/features/dailypractice/service"
+	// 	checkupReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/checkupreservation/delivery"
+	// 	checkupReservationRepo "github.com/KamarRS-App/KamarRS-App/features/checkupreservation/repository"
+	// 	checkupReservationService "github.com/KamarRS-App/KamarRS-App/features/checkupreservation/service"
 
-	doctorDelivery "github.com/KamarRS-App/features/doctor/delivery"
-	doctorRepo "github.com/KamarRS-App/features/doctor/repository"
-	doctorService "github.com/KamarRS-App/features/doctor/service"
+	// dailyPracticeDelivery "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/delivery"
+	// dailyPracticeRepo "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
+	// dailyPracticeService "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service"
 
-	hospitalDelivery "github.com/KamarRS-App/features/hospital/delivery"
-	hospitalRepo "github.com/KamarRS-App/features/hospital/repository"
-	hospitalService "github.com/KamarRS-App/features/hospital/service"
+	doctorDelivery "github.com/KamarRS-App/KamarRS-App/features/doctor/delivery"
+	doctorRepo "github.com/KamarRS-App/KamarRS-App/features/doctor/repository"
+	doctorService "github.com/KamarRS-App/KamarRS-App/features/doctor/service"
 
-	"github.com/KamarRS-App/features/hospitalStaff/delivery"
-	"github.com/KamarRS-App/features/hospitalStaff/repository"
-	"github.com/KamarRS-App/features/hospitalStaff/service"
+	hospitalDelivery "github.com/KamarRS-App/KamarRS-App/features/hospital/delivery"
+	hospitalRepo "github.com/KamarRS-App/KamarRS-App/features/hospital/repository"
+	hospitalService "github.com/KamarRS-App/KamarRS-App/features/hospital/service"
 
-	patientDelivery "github.com/KamarRS-App/features/patient/delivery"
-	patientRepo "github.com/KamarRS-App/features/patient/repository"
-	patientService "github.com/KamarRS-App/features/patient/service"
+	"github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/delivery"
+	"github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/repository"
+	"github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/service"
 
-	policlinicDelivery "github.com/KamarRS-App/features/policlinic/delivery"
-	policlinicRepo "github.com/KamarRS-App/features/policlinic/repository"
-	policlinicService "github.com/KamarRS-App/features/policlinic/service"
+	patientDelivery "github.com/KamarRS-App/KamarRS-App/features/patient/delivery"
+	patientRepo "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
+	patientService "github.com/KamarRS-App/KamarRS-App/features/patient/service"
 
-	userDelivery "github.com/KamarRS-App/features/user/delivery"
-	userRepo "github.com/KamarRS-App/features/user/repository"
-	userService "github.com/KamarRS-App/features/user/service"
+	policlinicDelivery "github.com/KamarRS-App/KamarRS-App/features/policlinic/delivery"
+	policlinicRepo "github.com/KamarRS-App/KamarRS-App/features/policlinic/repository"
+	policlinicService "github.com/KamarRS-App/KamarRS-App/features/policlinic/service"
 
-	authDelivery "github.com/KamarRS-App/features/auth/delivery"
-	authRepo "github.com/KamarRS-App/features/auth/repository"
-	authService "github.com/KamarRS-App/features/auth/service"
+	userDelivery "github.com/KamarRS-App/KamarRS-App/features/user/delivery"
+	userRepo "github.com/KamarRS-App/KamarRS-App/features/user/repository"
+	userService "github.com/KamarRS-App/KamarRS-App/features/user/service"
+
+	authDelivery "github.com/KamarRS-App/KamarRS-App/features/auth/delivery"
+	authRepo "github.com/KamarRS-App/KamarRS-App/features/auth/repository"
+	authService "github.com/KamarRS-App/KamarRS-App/features/auth/service"
+
+	kamarRsTeamDelivery "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/delivery"
+	kamarRsTeamRepo "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/repository"
+	kamarRsTeamService "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service"
 
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -94,5 +99,9 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	authRepoFactory := authRepo.New(db)
 	authServiceFactory := authService.New(authRepoFactory)
 	authDelivery.New(authServiceFactory, e)
+
+	kamarRsTeamRepoFactory := kamarRsTeamRepo.New(db)
+	kamarRsTeamServiceFactory := kamarRsTeamService.New(kamarRsTeamRepoFactory)
+	kamarRsTeamDelivery.New(kamarRsTeamServiceFactory, e)
 
 }

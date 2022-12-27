@@ -1,7 +1,7 @@
 package repository
 
 import (
-	dailypractice "github.com/KamarRS-App/features/dailyPractice"
+	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice"
 
 	"gorm.io/gorm"
 )
@@ -23,7 +23,7 @@ type Policlinic struct {
 	Practices   []Practice
 }
 
-func FromCoreToModel(dataCore dailypractice.DailyPracticeCore) Practice {
+func FromCore(dataCore dailypractice.PracticeCore) Practice {
 	practiceGorm := Practice{
 		Tanggal_Praktik: dataCore.TanggalPraktik,
 		Kuota_Harian:    dataCore.KuotaHarian,
@@ -35,8 +35,8 @@ func FromCoreToModel(dataCore dailypractice.DailyPracticeCore) Practice {
 
 //---------------------Daily Practice----------------------------------
 
-func (dataModel *Practice) toCore() dailypractice.DailyPracticeCore {
-	return dailypractice.DailyPracticeCore{
+func (dataModel *Practice) ToCore() dailypractice.PracticeCore {
+	return dailypractice.PracticeCore{
 		ID:             dataModel.ID,
 		TanggalPraktik: dataModel.Tanggal_Praktik,
 		KuotaHarian:    dataModel.Kuota_Harian,
@@ -46,10 +46,10 @@ func (dataModel *Practice) toCore() dailypractice.DailyPracticeCore {
 }
 
 // mengubah slice struct model gorm ke slice struct core
-func toCoreList(dataModel []Practice) []dailypractice.DailyPracticeCore {
-	var dataCore []dailypractice.DailyPracticeCore
+func ToCoreList(dataModel []Practice) []dailypractice.PracticeCore {
+	var dataCore []dailypractice.PracticeCore
 	for _, v := range dataModel {
-		dataCore = append(dataCore, v.toCore())
+		dataCore = append(dataCore, v.ToCore())
 	}
 	return dataCore
 }
