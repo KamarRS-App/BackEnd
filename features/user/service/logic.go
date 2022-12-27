@@ -25,7 +25,12 @@ func New(repo user.RepositoryInterface) user.ServiceInterface { //dengan kembali
 // Create implements user.ServiceEntities
 func (service *UserService) Create(input user.CoreUser) (err error) {
 	lower := strings.ToLower(input.Email)
+
 	input.Email = lower
+
+	generatePass := Bcript(input.KataSandi)
+
+	input.KataSandi = generatePass
 
 	if validateERR := service.validate.Struct(input); validateERR != nil {
 		return validateERR

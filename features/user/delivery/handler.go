@@ -3,10 +3,13 @@ package delivery
 import (
 	"net/http"
 
+
 	"github.com/KamarRS-App/features/user"
 	"github.com/KamarRS-App/features/user/service"
 	middlewares "github.com/KamarRS-App/middlewares"
 	"github.com/KamarRS-App/utils/helper"
+
+	
 
 	"github.com/labstack/echo/v4"
 )
@@ -37,9 +40,6 @@ func (delivery *UserDeliv) Create(c echo.Context) error {
 
 	Inputuser := RequestUser{} //penangkapan data user reques dari entities user
 	errbind := c.Bind(&Inputuser)
-
-	generatePass := service.Bcript(Inputuser.KataSandi)
-	Inputuser.KataSandi = generatePass
 
 	if errbind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr: "+errbind.Error()))
