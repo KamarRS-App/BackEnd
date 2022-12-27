@@ -21,7 +21,7 @@ type ResponseDoctor struct {
 	Foto      string `json:"foto"`
 }
 
-func PoliCoreToPoliRespon(dataCore policlinic.CorePoliclinic) ResponsePoliclinic { // data user core yang ada di controller yang memanggil user repositoCorePatient
+func FromCore(dataCore policlinic.CorePoliclinic) ResponsePoliclinic { // data user core yang ada di controller yang memanggil user repositoCorePatient
 	return ResponsePoliclinic{
 		ID:         dataCore.ID,
 		NamaPoli:   dataCore.NamaPoli,
@@ -37,11 +37,11 @@ func PoliCoreToPoliRespon(dataCore policlinic.CorePoliclinic) ResponsePoliclinic
 		},
 	}
 }
-func ListpoliCoreToPoliRespon(dataCore []policlinic.CorePoliclinic) []ResponsePoliclinic { //data user.core data yang diambil dari entities ke respon struct
+func FromCoreList(dataCore []policlinic.CorePoliclinic) []ResponsePoliclinic { //data user.core data yang diambil dari entities ke respon struct
 	var ResponData []ResponsePoliclinic
 
 	for _, value := range dataCore { //memanggil paramete data core yang berisi data user core
-		ResponData = append(ResponData, PoliCoreToPoliRespon(value)) // mengambil data mapping dari user core to respon
+		ResponData = append(ResponData, FromCore(value)) // mengambil data mapping dari user core to respon
 	}
 	return ResponData
 }

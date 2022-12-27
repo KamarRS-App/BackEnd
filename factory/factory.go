@@ -33,9 +33,9 @@ import (
 	patientRepo "github.com/KamarRS-App/features/patient/repository"
 	patientService "github.com/KamarRS-App/features/patient/service"
 
-	// 	policlinicDelivery "github.com/KamarRS-App/features/policlinic/delivery"
-	// 	policlinicRepo "github.com/KamarRS-App/features/policlinic/repository"
-	// 	policlinicService "github.com/KamarRS-App/features/policlinic/service"
+	policlinicDelivery "github.com/KamarRS-App/features/policlinic/delivery"
+	policlinicRepo "github.com/KamarRS-App/features/policlinic/repository"
+	policlinicService "github.com/KamarRS-App/features/policlinic/service"
 
 	userDelivery "github.com/KamarRS-App/features/user/delivery"
 	userRepo "github.com/KamarRS-App/features/user/repository"
@@ -83,9 +83,9 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	patientServiceFactory := patientService.New(patientRepoFactory)
 	patientDelivery.New(patientServiceFactory, e)
 
-	// policlinicRepoFactory := policlinicRepo.New(db)
-	// policlinicServiceFactory := policlinicService.New(policlinicRepoFactory)
-	// policlinicDelivery.New(policlinicServiceFactory, e)
+	policlinicRepoFactory := policlinicRepo.New(db)
+	policlinicServiceFactory := policlinicService.New(policlinicRepoFactory)
+	policlinicDelivery.New(policlinicServiceFactory, e)
 
 	userRepoFactory := userRepo.New(db)
 	userServiceFactory := userService.New(userRepoFactory)

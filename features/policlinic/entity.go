@@ -34,3 +34,19 @@ type CoreDoctor struct {
 	NoTelpon  string
 	Foto      string
 }
+
+type ServiceInterface interface {
+	Create(input CorePoliclinic) (err error)
+	GetAll() (data []CorePoliclinic, err error)
+	GetById(id int) (data CorePoliclinic, err error)
+	Update(input CorePoliclinic, id int) (err error)
+	Delete(id int) (err error)
+}
+
+type RepositoryInterface interface {
+	Create(input CorePoliclinic) (row int, err error)
+	GetAll() (data []CorePoliclinic, err error)
+	GetById(id int) (data CorePoliclinic, err error)
+	Update(input CorePoliclinic, id int) (err error)
+	Delete(id int) (row int, err error)
+}
