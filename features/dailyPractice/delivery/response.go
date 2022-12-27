@@ -1,8 +1,6 @@
 package delivery
 
-import (
-	"github.com/KamarRS-App/KamarRS-App/features/dailypractice"
-)
+import dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice"
 
 type PracticeResponse struct {
 	ID             uint   `json:"id"`

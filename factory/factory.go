@@ -10,9 +10,9 @@ import (
 	// 	bedReservationRepo "github.com/KamarRS-App/KamarRS-App/features/bedreservation/repository"
 	// 	bedReservationService "github.com/KamarRS-App/KamarRS-App/features/bedreservation/service"
 
-	dailyPracticeDelivery "github.com/KamarRS-App/KamarRS-App/features/dailypractice/delivery"
-	dailyPracticeRepo "github.com/KamarRS-App/KamarRS-App/features/dailypractice/repository"
-	dailyPracticeService "github.com/KamarRS-App/KamarRS-App/features/dailypractice/service"
+	dailyPracticeDelivery "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/delivery"
+	dailyPracticeRepo "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
+	dailyPracticeService "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service"
 
 	doctorDelivery "github.com/KamarRS-App/KamarRS-App/features/doctor/delivery"
 	doctorRepo "github.com/KamarRS-App/KamarRS-App/features/doctor/repository"

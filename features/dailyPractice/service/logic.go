@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 
-	"github.com/KamarRS-App/KamarRS-App/features/dailypractice"
+	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice"
 	"github.com/go-playground/validator/v10"
 )
 
