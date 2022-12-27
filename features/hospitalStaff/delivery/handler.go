@@ -3,7 +3,7 @@ package delivery
 import (
 	"net/http"
 
-	hospitalstaff "github.com/KamarRS-App/KamarRS-App/features/hospitalStaff"
+	"github.com/KamarRS-App/KamarRS-App/features/hospitalstaff"
 	"github.com/KamarRS-App/KamarRS-App/middlewares"
 	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 

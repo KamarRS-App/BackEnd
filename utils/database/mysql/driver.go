@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/KamarRS-App/config"
+	"github.com/KamarRS-App/KamarRS-App/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

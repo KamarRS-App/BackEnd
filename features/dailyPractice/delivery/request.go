@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/features/dailypractice"
+import "github.com/KamarRS-App/KamarRS-App/features/dailypractice"
 
 type PracticeRequest struct {
 	TanggalPraktik string `json:"tanggal_praktik" form:"tanggal_praktik"`
