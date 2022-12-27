@@ -26,9 +26,9 @@ import (
 	hospitalRepo "github.com/KamarRS-App/KamarRS-App/features/hospital/repository"
 	hospitalService "github.com/KamarRS-App/KamarRS-App/features/hospital/service"
 
-	// 	hospitalStaffRepo "github.com/KamarRS-App/KamarRS-App/features/hospitalstaff/repository"
-	// 	hospitalStaffService "github.com/KamarRS-App/KamarRS-App/features/hospitalstaff/service"
-	// 	hospitalStaffDelivery "github.com/KamarRS-App/KamarRS-App/features/hospitalstaff/delivery"
+	"github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/delivery"
+	"github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/repository"
+	"github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/service"
 
 	patientDelivery "github.com/KamarRS-App/KamarRS-App/features/patient/delivery"
 	patientRepo "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
@@ -80,9 +80,9 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	hospitalServiceFactory := hospitalService.New(hospitalRepoFactory)
 	hospitalDelivery.New(hospitalServiceFactory, e)
 
-	// hospitalStaffRepoFactory := hospitalStaffRepo.New(db)
-	// hospitalStaffServiceFactory := hospitalStaffService.New(hospitalStaffRepoFactory)
-	// hospitalStaffDelivery.New(hospitalStaffServiceFactory, e)
+	hospitalStaffRepoFactory := repository.New(db)
+	hospitalStaffServiceFactory := service.New(hospitalStaffRepoFactory)
+	delivery.New(hospitalStaffServiceFactory, e)
 
 	patientRepoFactory := patientRepo.New(db)
 	patientServiceFactory := patientService.New(patientRepoFactory)

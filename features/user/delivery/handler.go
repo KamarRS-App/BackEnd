@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/KamarRS-App/KamarRS-App/features/user"
-	"github.com/KamarRS-App/KamarRS-App/features/user/service"
 	"github.com/KamarRS-App/KamarRS-App/middlewares"
 	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 
@@ -37,9 +36,6 @@ func (delivery *UserDeliv) Create(c echo.Context) error {
 
 	Inputuser := RequestUser{} //penangkapan data user reques dari entities user
 	errbind := c.Bind(&Inputuser)
-
-	generatePass := service.Bcript(Inputuser.KataSandi)
-	Inputuser.KataSandi = generatePass
 
 	if errbind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr: "+errbind.Error()))
