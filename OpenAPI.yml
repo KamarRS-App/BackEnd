@@ -588,6 +588,7 @@ paths:
                   jenis_kelamin: "laki-laki"
                   usia: "20"
                   nama_wali: "monkey d. dragon"
+                  email_wali: "dragon@gmail.com"
                   no_telepon_wali: "081321654987"
                   alamat_ktp: "wind mill village"
                   provinsi_ktp: "east blue"
