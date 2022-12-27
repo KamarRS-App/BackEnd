@@ -1642,7 +1642,101 @@ paths:
                 example:
                   status: "failed"
                   message: "failed create reservations"
-
+    
+    get:
+      tags:
+        - Check Up Reservations
+      summary: Get All Reservations List by practice_id
+      description: mendapatkan semua data reservasi pada praktek harian
+      security: 
+        - JWTAuth: []
+      parameters:
+        - name: practice_id
+          description: "practice_id"
+          required: true
+          in: query
+          schema:
+            description: "practice_id"
+            type: integer
+            example: 255
+      responses:
+        '200':
+          description: "succes get daily practice id"
+          content:
+            application/json:
+              schema: 
+                type: object
+              example:
+                status: "succes"
+                message: "success get daily practice by id"
+                data:
+                  - id: 555
+                    practice_id: 255
+                    practice:
+                      {
+                        id: 255,
+                        tanggal_praktik: "2022-12-30",
+                        status: "available",
+                        policlinic_id: 3,
+                      }
+                    patient:
+                      {
+                        id: 5,
+                        no_kk: "321654987321654",
+                        nik: "321654987321654",
+                        nama_pasien: "monkey d. luffy",
+                        jenis_kelamin: "laki-laki",
+                        usia: "20",
+                        nama_wali: "monkey d. dragon",
+                        no_telepon_wali: "081321654987",
+                        alamat_ktp: "wind mill village",
+                        provinsi_ktp: "east blue",
+                        kabupaten/kota_ktp: "doma kingdom",
+                        alamat_domisili: "thousand sunny",
+                        provinsi_domisili: "grand line",
+                        kabupaten/kota_domisili: "always moving",
+                        tanggal_lahir: "1990-08-01",
+                        no_bpjs: "789456123",
+                        kelas_bpjs: "kelas_1",
+                        foto_ktp: "kanohhtihafnuef.jpg",
+                        foto_bpjs: "kanjtquihgsa.jpg",
+                      }
+                  - id: 666
+                    practice_id: 255
+                    practice:
+                      {
+                        id: 255,
+                        tanggal_praktik: "2022-12-30",
+                        status: "available",
+                        policlinic_id: 3,
+                      }
+                    patient:
+                      {
+                        id: 25,
+                        no_kk: "321654987321666",
+                        nik: "321654987321666",
+                        nama_pasien: "monkey d. dragon",
+                        jenis_kelamin: "laki-laki",
+                        usia: "44",
+                        nama_wali: "monkey d. garp",
+                        no_telepon_wali: "081321654666",
+                        alamat_ktp: "wind mill village",
+                        provinsi_ktp: "east blue",
+                        kabupaten/kota_ktp: "doma kingdom",
+                        alamat_domisili: "thousand sunny",
+                        provinsi_domisili: "grand line",
+                        kabupaten/kota_domisili: "always moving",
+                        tanggal_lahir: "1970-08-01",
+                        no_bpjs: "789456666",
+                        kelas_bpjs: "kelas_1",
+                        foto_ktp: "kanohhtihafnuef.jpg",
+                        foto_bpjs: "kanjtquihgsa.jpg",
+                      }
+                  
+        "400" :
+          $ref : "#/components/responses/400" 
+        '500':
+          $ref: "#/components/responses/500"
 ##############################################################
 ##############################################################
 
