@@ -21,3 +21,12 @@ func FromKamarRsTeamCoretoModel(dataCore kamarrsteam.KamarRsTeamCore) KamarRsTea
 	}
 	return kamarrsteamGorm
 }
+
+func (dataModel *KamarRsTeam) ToKamarRsTeamCore() kamarrsteam.KamarRsTeamCore {
+	return kamarrsteam.KamarRsTeamCore{
+		ID:       dataModel.ID,
+		Email:    dataModel.Email,
+		Password: dataModel.Password,
+		Peran:    dataModel.Peran,
+	}
+}

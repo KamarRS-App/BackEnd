@@ -1,90 +1,98 @@
 package factory
 
-// import (
-// 	bedDelivery "github.com/KamarRS-App/KamarRS-App/features/bed/delivery"
-// 	bedRepo "github.com/KamarRS-App/KamarRS-App/features/bed/repository"
-// 	bedService "github.com/KamarRS-App/KamarRS-App/features/bed/service"
+import (
+	// 	bedDelivery "github.com/KamarRS-App/KamarRS-App/features/bed/delivery"
+	// 	bedRepo "github.com/KamarRS-App/KamarRS-App/features/bed/repository"
+	// 	bedService "github.com/KamarRS-App/KamarRS-App/features/bed/service"
 
-// 	bedReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/bedReservation/delivery"
-// 	bedReservationRepo "github.com/KamarRS-App/KamarRS-App/features/bedReservation/repository"
-// 	bedReservationService "github.com/KamarRS-App/KamarRS-App/features/bedReservation/service"
+	// 	bedReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/bedReservation/delivery"
+	// 	bedReservationRepo "github.com/KamarRS-App/KamarRS-App/features/bedReservation/repository"
+	// 	bedReservationService "github.com/KamarRS-App/KamarRS-App/features/bedReservation/service"
 
-// 	checkupReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/delivery"
-// 	checkupReservationRepo "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/repository"
-// 	checkupReservationService "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service"
+	// 	checkupReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/delivery"
+	// 	checkupReservationRepo "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/repository"
+	// 	checkupReservationService "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service"
 
-// 	dailyPracticeDelivery "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/delivery"
-// 	dailyPracticeRepo "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
-// 	dailyPracticeService "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service"
+	// 	dailyPracticeDelivery "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/delivery"
+	// 	dailyPracticeRepo "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
+	// 	dailyPracticeService "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service"
 
-// 	doctorDelivery "github.com/KamarRS-App/KamarRS-App/features/doctor/delivery"
-// 	doctorRepo "github.com/KamarRS-App/KamarRS-App/features/doctor/repository"
-// 	doctorService "github.com/KamarRS-App/KamarRS-App/features/doctor/service"
+	// 	doctorDelivery "github.com/KamarRS-App/KamarRS-App/features/doctor/delivery"
+	// 	doctorRepo "github.com/KamarRS-App/KamarRS-App/features/doctor/repository"
+	// 	doctorService "github.com/KamarRS-App/KamarRS-App/features/doctor/service"
 
-// 	hospitalDelivery "github.com/KamarRS-App/KamarRS-App/features/hospital/delivery"
-// 	hospitalRepo "github.com/KamarRS-App/KamarRS-App/features/hospital/repository"
-// 	hospitalService "github.com/KamarRS-App/KamarRS-App/features/hospital/service"
+	// 	hospitalDelivery "github.com/KamarRS-App/KamarRS-App/features/hospital/delivery"
+	// 	hospitalRepo "github.com/KamarRS-App/KamarRS-App/features/hospital/repository"
+	// 	hospitalService "github.com/KamarRS-App/KamarRS-App/features/hospital/service"
 
-// 	hospitalStaffRepo "github.com/KamarRS-App/KamarRS-App/features/HospitalStaff/repository"
-// 	hospitalStaffService "github.com/KamarRS-App/KamarRS-App/features/HospitalStaff/service"
-// 	hospitalStaffDelivery "github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/delivery"
+	// 	hospitalStaffRepo "github.com/KamarRS-App/KamarRS-App/features/HospitalStaff/repository"
+	// 	hospitalStaffService "github.com/KamarRS-App/KamarRS-App/features/HospitalStaff/service"
+	// 	hospitalStaffDelivery "github.com/KamarRS-App/KamarRS-App/features/hospitalStaff/delivery"
 
-// 	patientDelivery "github.com/KamarRS-App/KamarRS-App/features/patient/delivery"
-// 	patientRepo "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
-// 	patientService "github.com/KamarRS-App/KamarRS-App/features/patient/service"
+	// 	patientDelivery "github.com/KamarRS-App/KamarRS-App/features/patient/delivery"
+	// 	patientRepo "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
+	// 	patientService "github.com/KamarRS-App/KamarRS-App/features/patient/service"
 
-// 	policlinicDelivery "github.com/KamarRS-App/KamarRS-App/features/policlinic/delivery"
-// 	policlinicRepo "github.com/KamarRS-App/KamarRS-App/features/policlinic/repository"
-// 	policlinicService "github.com/KamarRS-App/KamarRS-App/features/policlinic/service"
+	// 	policlinicDelivery "github.com/KamarRS-App/KamarRS-App/features/policlinic/delivery"
+	// 	policlinicRepo "github.com/KamarRS-App/KamarRS-App/features/policlinic/repository"
+	// 	policlinicService "github.com/KamarRS-App/KamarRS-App/features/policlinic/service"
 
-// 	userDelivery "github.com/KamarRS-App/KamarRS-App/features/bed/delivery"
-// 	userRepo "github.com/KamarRS-App/KamarRS-App/features/bed/repository"
-// 	userService "github.com/KamarRS-App/KamarRS-App/features/bed/service"
+	// 	userDelivery "github.com/KamarRS-App/KamarRS-App/features/bed/delivery"
+	// 	userRepo "github.com/KamarRS-App/KamarRS-App/features/bed/repository"
+	// 	userService "github.com/KamarRS-App/KamarRS-App/features/bed/service"
 
-// 	"github.com/labstack/echo/v4"
-// 	"gorm.io/gorm"
-// )
+	kamarRsTeamDelivery "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/delivery"
+	kamarRsTeamRepo "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/repository"
+	kamarRsTeamService "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service"
 
-// func InitFactory(e *echo.Echo, db *gorm.DB) {
+	"github.com/labstack/echo/v4"
+	"gorm.io/gorm"
+)
 
-// 	bedRepoFactory := bedRepo.New(db)
-// 	bedServiceFactory := bedService.New(bedRepoFactory)
-// 	bedDelivery.New(bedServiceFactory, e)
+func InitFactory(e *echo.Echo, db *gorm.DB) {
 
-// 	bedReservationRepoFactory := bedReservationRepo.New(db)
-// 	bedReservationServiceFactory := bedReservationService.New(bedReservationRepoFactory)
-// 	bedReservationDelivery.New(bedReservationServiceFactory, e)
+	// 	bedRepoFactory := bedRepo.New(db)
+	// 	bedServiceFactory := bedService.New(bedRepoFactory)
+	// 	bedDelivery.New(bedServiceFactory, e)
 
-// 	checkupReservationRepoFactory := checkupReservationRepo.New(db)
-// 	checkupReservationServiceFactory := checkupReservationService.New(checkupReservationRepoFactory)
-// 	checkupReservationDelivery.New(checkupReservationServiceFactory, e)
+	// 	bedReservationRepoFactory := bedReservationRepo.New(db)
+	// 	bedReservationServiceFactory := bedReservationService.New(bedReservationRepoFactory)
+	// 	bedReservationDelivery.New(bedReservationServiceFactory, e)
 
-// 	dailyPracticeRepoFactory := dailyPracticeRepo.New(db)
-// 	dailyPracticeServiceFactory := dailyPracticeService.New(dailyPracticeRepoFactory)
-// 	dailyPracticeDelivery.New(dailyPracticeServiceFactory, e)
+	// 	checkupReservationRepoFactory := checkupReservationRepo.New(db)
+	// 	checkupReservationServiceFactory := checkupReservationService.New(checkupReservationRepoFactory)
+	// 	checkupReservationDelivery.New(checkupReservationServiceFactory, e)
 
-// 	doctorRepoFactory := doctorRepo.New(db)
-// 	doctorServiceFactory := doctorService.New(doctorRepoFactory)
-// 	doctorDelivery.New(doctorServiceFactory, e)
+	// 	dailyPracticeRepoFactory := dailyPracticeRepo.New(db)
+	// 	dailyPracticeServiceFactory := dailyPracticeService.New(dailyPracticeRepoFactory)
+	// 	dailyPracticeDelivery.New(dailyPracticeServiceFactory, e)
 
-// 	hospitalRepoFactory := hospitalRepo.New(db)
-// 	hospitalServiceFactory := hospitalService.New(hospitalRepoFactory)
-// 	hospitalDelivery.New(hospitalServiceFactory, e)
+	// 	doctorRepoFactory := doctorRepo.New(db)
+	// 	doctorServiceFactory := doctorService.New(doctorRepoFactory)
+	// 	doctorDelivery.New(doctorServiceFactory, e)
 
-// 	hospitalStaffRepoFactory := hospitalStaffRepo.New(db)
-// 	hospitalStaffServiceFactory := hospitalStaffService.New(hospitalStaffRepoFactory)
-// 	hospitalStaffDelivery.New(hospitalStaffServiceFactory, e)
+	// 	hospitalRepoFactory := hospitalRepo.New(db)
+	// 	hospitalServiceFactory := hospitalService.New(hospitalRepoFactory)
+	// 	hospitalDelivery.New(hospitalServiceFactory, e)
 
-// 	patientRepoFactory := patientRepo.New(db)
-// 	patientServiceFactory := patientService.New(patientRepoFactory)
-// 	patientDelivery.New(patientServiceFactory, e)
+	// 	hospitalStaffRepoFactory := hospitalStaffRepo.New(db)
+	// 	hospitalStaffServiceFactory := hospitalStaffService.New(hospitalStaffRepoFactory)
+	// 	hospitalStaffDelivery.New(hospitalStaffServiceFactory, e)
 
-// 	policlinicRepoFactory := policlinicRepo.New(db)
-// 	policlinicServiceFactory := policlinicService.New(policlinicRepoFactory)
-// 	policlinicDelivery.New(policlinicServiceFactory, e)
+	// 	patientRepoFactory := patientRepo.New(db)
+	// 	patientServiceFactory := patientService.New(patientRepoFactory)
+	// 	patientDelivery.New(patientServiceFactory, e)
 
-// 	userRepoFactory := userRepo.New(db)
-// 	userServiceFactory := userService.New(userRepoFactory)
-// 	userDelivery.New(userServiceFactory, e)
+	// 	policlinicRepoFactory := policlinicRepo.New(db)
+	// 	policlinicServiceFactory := policlinicService.New(policlinicRepoFactory)
+	// 	policlinicDelivery.New(policlinicServiceFactory, e)
 
-// }
+	// 	userRepoFactory := userRepo.New(db)
+	// 	userServiceFactory := userService.New(userRepoFactory)
+	// 	userDelivery.New(userServiceFactory, e)
+
+	kamarRsTeamRepoFactory := kamarRsTeamRepo.New(db)
+	kamarRsTeamServiceFactory := kamarRsTeamService.New(kamarRsTeamRepoFactory)
+	kamarRsTeamDelivery.New(kamarRsTeamServiceFactory, e)
+
+}
