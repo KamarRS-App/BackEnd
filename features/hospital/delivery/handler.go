@@ -33,7 +33,7 @@ func (delivery *HospitalDelivery) Create(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
 	}
 
-	dataCore := toCore(hospitalInput)
+	dataCore := hospitalInput.ToCore()
 	err := delivery.hospitalService.Create(dataCore)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Failed insert data"+err.Error()))
@@ -81,7 +81,7 @@ func (delivery *HospitalDelivery) UpdateData(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
 	}
 
-	dataCore := toCore(hospitalInput)
+	dataCore := hospitalInput.ToCore()
 	errUpt := delivery.hospitalService.Update(dataCore, id)
 	if errUpt != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error Db update "+errUpt.Error()))

@@ -74,7 +74,7 @@ func FromCore(dataCore hospital.HospitalCore) Hospital {
 
 //---------------------Hospital----------------------------------
 
-func (dataModel *Hospital) toCore() hospital.HospitalCore {
+func (dataModel *Hospital) ToCore() hospital.HospitalCore {
 	return hospital.HospitalCore{
 		ID:                dataModel.ID,
 		KodeRs:            dataModel.Kode_Rs,
@@ -95,10 +95,10 @@ func (dataModel *Hospital) toCore() hospital.HospitalCore {
 }
 
 // mengubah slice struct model gorm ke slice struct core
-func toCoreList(dataModel []Hospital) []hospital.HospitalCore {
+func ToCoreList(dataModel []Hospital) []hospital.HospitalCore {
 	var dataCore []hospital.HospitalCore
 	for _, v := range dataModel {
-		dataCore = append(dataCore, v.toCore())
+		dataCore = append(dataCore, v.ToCore())
 	}
 	return dataCore
 }

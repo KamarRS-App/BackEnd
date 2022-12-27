@@ -39,7 +39,7 @@ func (repo *hospitalRepository) GetById(id int) (data hospital.HospitalCore, err
 	if tx.Error != nil {
 		return IdHospitalCore, tx.Error
 	}
-	IdHospitalCore = IdHospital.toCore()
+	IdHospitalCore = IdHospital.ToCore()
 	return IdHospitalCore, nil
 }
 
@@ -51,7 +51,7 @@ func (repo *hospitalRepository) GetAll() (data []hospital.HospitalCore, err erro
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
-	var dataCore = toCoreList(hospitals)
+	var dataCore = ToCoreList(hospitals)
 	return dataCore, nil
 }
 
