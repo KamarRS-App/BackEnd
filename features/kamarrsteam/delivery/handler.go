@@ -3,8 +3,8 @@ package delivery
 import (
 	"net/http"
 
-	"github.com/KamarRS-App/KamarRS-App/features/kamarrsteam"
-	"github.com/KamarRS-App/KamarRS-App/utils/helper"
+	"github.com/KamarRS-App/features/kamarrsteam"
+	"github.com/KamarRS-App/utils/helper"
 	"github.com/labstack/echo/v4"
 )
 

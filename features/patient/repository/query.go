@@ -3,8 +3,8 @@ package repository
 import (
 	"errors"
 
-	"github.com/KamarRS-App/KamarRS-App/features/patient"
-	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
+	"github.com/KamarRS-App/features/patient"
+	"github.com/KamarRS-App/features/user/repository"
 
 	"gorm.io/gorm"
 )

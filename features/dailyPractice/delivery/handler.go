@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice"
-	"github.com/KamarRS-App/KamarRS-App/middlewares"
-	"github.com/KamarRS-App/KamarRS-App/utils/helper"
+	"github.com/KamarRS-App/features/dailypractice"
+	"github.com/KamarRS-App/middlewares"
+	"github.com/KamarRS-App/utils/helper"
 	"github.com/labstack/echo/v4"
 )
 

@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/KamarRS-App/KamarRS-App/features/user"
-	"github.com/KamarRS-App/KamarRS-App/features/user/service"
+	"github.com/KamarRS-App/features/user"
+	"github.com/KamarRS-App/features/user/service"
 
 	"gorm.io/gorm"
 )

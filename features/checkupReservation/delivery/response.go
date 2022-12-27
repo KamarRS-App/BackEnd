@@ -3,7 +3,7 @@ package delivery
 import (
 	"time"
 
-	checkupreservation "github.com/KamarRS-App/KamarRS-App/features/checkupReservation"
+	checkupreservation "github.com/KamarRS-App/features/checkupReservation"
 )
 
 type CheckupReservationResponse struct {

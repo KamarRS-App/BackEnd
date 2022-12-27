@@ -3,9 +3,9 @@ package repository
 import (
 	"errors"
 
-	"github.com/KamarRS-App/KamarRS-App/features/auth"
-	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
-	"github.com/KamarRS-App/KamarRS-App/middlewares"
+	"github.com/KamarRS-App/features/auth"
+	"github.com/KamarRS-App/features/user/repository"
+	middlewares "github.com/KamarRS-App/middlewares"
 	"gorm.io/gorm"
 )
 

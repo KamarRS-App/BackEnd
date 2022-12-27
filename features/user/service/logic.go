@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/KamarRS-App/KamarRS-App/features/user"
+	"github.com/KamarRS-App/features/user"
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/go-playground/validator/v10"

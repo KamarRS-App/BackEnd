@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/KamarRS-App/KamarRS-App/features/auth"
-	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
+	"github.com/KamarRS-App/features/auth"
+	"github.com/KamarRS-App/features/user/repository"
 )
 
 type authService struct {

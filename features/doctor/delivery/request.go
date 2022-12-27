@@ -1,6 +1,6 @@
 package delivery
 
-import "github.com/KamarRS-App/KamarRS-App/features/doctor"
+import "github.com/KamarRS-App/features/doctor"
 
 type DoctorRequest struct {
 	Nama      string `json:"nama" form:"nama"`

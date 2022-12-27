@@ -3,7 +3,7 @@ package service
 import (
 	"strings"
 
-	"github.com/KamarRS-App/KamarRS-App/features/kamarrsteam"
+	"github.com/KamarRS-App/features/kamarrsteam"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/gommon/log"
 	"golang.org/x/crypto/bcrypt"
