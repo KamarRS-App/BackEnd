@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/KamarRS-App/features/user"
 	"github.com/KamarRS-App/features/user/service"
@@ -22,6 +23,20 @@ func New(db *gorm.DB) user.RepositoryInterface { // user.repository mengimplemen
 
 // Create implements user.RepositoryInterface
 func (repo *userRepository) Create(input user.CoreUser) (err error) {
+	var users []User
+
+	tx1 := repo.db.Find(&users)
+	if tx1.Error != nil {
+		return tx1.Error
+	}
+
+	for _, v := range users {
+		if input.Email == v.Email {
+			return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
+		}
+
+	}
+
 	userGorm := FromUserCoreToModel(input)
 
 	tx := repo.db.Create(&userGorm) // proses insert data
@@ -48,11 +63,13 @@ func (repo *userRepository) Update(id int, input user.CoreUser) error {
 
 	if input.KataSandi == "" {
 		input.KataSandi = users.Kata_Sandi
+	} else {
+		input.KataSandi = service.Bcript(input.KataSandi)
+
 	}
-
 	userGorm := FromUserCoreToModel(input)
-	input.KataSandi = service.Bcript(input.KataSandi)
 
+	fmt.Println(input.KataSandi)
 	tx := repo.db.Model(&userGorm).Where("id = ?", id).Updates(&userGorm)
 
 	if tx.Error != nil {

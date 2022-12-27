@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"strings"
 
 	"github.com/KamarRS-App/features/user"
 	"golang.org/x/crypto/bcrypt"
@@ -23,14 +24,16 @@ func New(repo user.RepositoryInterface) user.ServiceInterface { //dengan kembali
 
 // Create implements user.ServiceEntities
 func (service *UserService) Create(input user.CoreUser) (err error) {
-	// input.Role = "User"
+	lower := strings.ToLower(input.Email)
+	input.Email = lower
+
 	if validateERR := service.validate.Struct(input); validateERR != nil {
 		return validateERR
 	}
 
 	errCreate := service.userRepository.Create(input)
 	if errCreate != nil {
-		return errors.New("gagal menambah data , querry error")
+		return errors.New(" Gagal membuat akun, Email sudah terdaftar")
 	}
 
 	return nil

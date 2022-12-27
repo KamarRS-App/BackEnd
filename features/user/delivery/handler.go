@@ -2,7 +2,6 @@ package delivery
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/KamarRS-App/features/user"
 	"github.com/KamarRS-App/features/user/service"
@@ -22,9 +21,9 @@ func New(Service user.ServiceInterface, e *echo.Echo) {
 	}
 
 	e.POST("/users", handler.Create)
-	e.GET("/users/:id", handler.GetById) //untuk sementara pake param karena login belum bisa
+	e.GET("/users", handler.GetById, middlewares.JWTMiddleware()) //untuk sementara pake param karena login belum bisa
 	e.PUT("/users", handler.Update, middlewares.JWTMiddleware())
-	e.DELETE("/users/:id", handler.DeleteById)
+	e.DELETE("/users", handler.DeleteById, middlewares.JWTMiddleware())
 	// e.GET("/users/:id", handler.GetById, middlewares.JWTMiddleware())
 
 }
@@ -43,19 +42,17 @@ func (delivery *UserDeliv) Create(c echo.Context) error {
 	Inputuser.KataSandi = generatePass
 
 	if errbind != nil {
-		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"+errbind.Error()))
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr: "+errbind.Error()))
 	}
 	dataCore := Inputuser.reqToCore() //data mapping yang diminta create
 	errResultCore := delivery.UserService.Create(dataCore)
 	if errResultCore != nil {
-		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"+errResultCore.Error()))
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr:"+errResultCore.Error()))
 	}
 	return c.JSON(http.StatusCreated, helper.SuccessResponse("Akun user berhasil dibuat"))
 }
 
 func (delivery *UserDeliv) Update(c echo.Context) error {
-
-	///////////bisa digunakan ketika Login sudah selesai/////////////////////////////////////////////////////
 
 	userIdtoken := middlewares.ExtractTokenUserId(c)
 	// log.Println("user_id_token", userIdtoken)
@@ -75,17 +72,9 @@ func (delivery *UserDeliv) Update(c echo.Context) error {
 }
 
 func (delivery *UserDeliv) GetById(c echo.Context) error {
+	userIdtoken := middlewares.ExtractTokenUserId(c)
 
-	///////////bisa digunakan ketika Login sudah selesai/////////////////////////////////////////////////////
-
-	// userIdtoken := middlewares.ExtractTokenUserId(c)
-
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//sementara pake param dlu
-
-	id, _ := strconv.Atoi(c.Param("id"))
-
-	result, err := delivery.UserService.GetById(id) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
+	result, err := delivery.UserService.GetById(userIdtoken) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
@@ -95,17 +84,10 @@ func (delivery *UserDeliv) GetById(c echo.Context) error {
 }
 
 func (delivery *UserDeliv) DeleteById(c echo.Context) error {
-	///////////bisa digunakan ketika Login sudah selesai/////////////////////////////////////////////////////
 
-	// userIdtoken := middlewares.ExtractTokenUserId(c)
+	userIdtoken := middlewares.ExtractTokenUserId(c)
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//sementara pake param dlu
-
-	id, _ := strconv.Atoi(c.Param("id"))
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
-	err := delivery.UserService.DeleteById(id) //memanggil fungsi service yang ada di folder service
+	err := delivery.UserService.DeleteById(userIdtoken) //memanggil fungsi service yang ada di folder service
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr Hapus data"))
 	}
