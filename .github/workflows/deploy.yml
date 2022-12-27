@@ -20,6 +20,7 @@ jobs:
           script: |
             cd /home/kamar-rs/BackEnd
             sudo git pull origin main
+            sudo go mod tidy
             sudo docker stop kamarRSContainer
             sudo docker rm kamarRSContainer
             sudo docker rmi kamar-rs-images:latest
