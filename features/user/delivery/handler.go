@@ -5,7 +5,7 @@ import (
 
 	"github.com/KamarRS-App/features/user"
 	"github.com/KamarRS-App/features/user/service"
-	"github.com/KamarRS-App/middlewares"
+	middlewares "github.com/KamarRS-App/middlewares"
 	"github.com/KamarRS-App/utils/helper"
 
 	"github.com/labstack/echo/v4"

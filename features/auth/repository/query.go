@@ -5,7 +5,7 @@ import (
 
 	"github.com/KamarRS-App/features/auth"
 	"github.com/KamarRS-App/features/user/repository"
-	"github.com/KamarRS-App/middlewares"
+	middlewares "github.com/KamarRS-App/middlewares"
 	"gorm.io/gorm"
 )
 
