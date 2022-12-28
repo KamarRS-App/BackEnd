@@ -34,13 +34,13 @@ func (s *kamarrsteamService) Create(input kamarrsteam.KamarRsTeamCore) error {
 		return errFindEmail
 	}
 
-	hashPass, errEncrypt := bcrypt.GenerateFromPassword([]byte(input.Password), 10)
+	hashPass, errEncrypt := bcrypt.GenerateFromPassword([]byte(input.KataSandi), 10)
 	if errEncrypt != nil {
 		log.Error(errEncrypt.Error())
 		return errEncrypt
 	}
 
-	input.Password = string(hashPass)
+	input.KataSandi = string(hashPass)
 	errCreate := s.kamarrsteamRepository.Create(input)
 	if errCreate != nil {
 		log.Error(errCreate.Error())

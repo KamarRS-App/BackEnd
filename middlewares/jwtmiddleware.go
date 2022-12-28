@@ -67,3 +67,36 @@ func ExtractToken(c echo.Context) (int, string) {
 // 	}
 // 	return ""
 // }
+
+
+func ExtractTokenUserName(e echo.Context) string {
+	user := e.Get("user").(*jwt.Token)
+	if user.Valid {
+		claims := user.Claims.(jwt.MapClaims)
+		name := claims["name"].(string)
+		return name
+	}
+	return ""
+}
+
+func CreateTokenTeam(teamId int, peran string, email string) (string, error) {
+	claims := jwt.MapClaims{}
+	claims["authorized"] = true
+	claims["teamId"] = teamId
+	claims["peran"] = peran
+	claims["email"] = email
+	claims["exp"] = time.Now().Add(time.Hour * 1).Unix() //Token expires after 1 hour
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString([]byte(os.Getenv("SECRET_JWT")))
+}
+
+func ExtractTokenTeamRole(e echo.Context) string {
+	team := e.Get("team").(*jwt.Token)
+	if team.Valid {
+		claims := team.Claims.(jwt.MapClaims)
+		peran := claims["peran"].(string)
+		return peran
+	}
+	return ""
+}
+

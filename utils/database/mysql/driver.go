@@ -165,7 +165,7 @@ type User struct {
 
 type KamarRsTeam struct {
 	gorm.Model
-	Email    string
-	Password string
-	Peran    string
+	Email     string
+	KataSandi string
+	Peran     string
 }

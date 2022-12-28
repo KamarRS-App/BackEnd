@@ -1,10 +1,10 @@
 package kamarrsteam
 
 type KamarRsTeamCore struct {
-	ID       uint
-	Email    string `valiidate:"required,email,unique"`
-	Password string `validate:"required"`
-	Peran    string `validate:"required"`
+	ID        uint
+	Email     string `valiidate:"required,email,unique"`
+	KataSandi string `validate:"required"`
+	Peran     string `validate:"required"`
 }
 
 type ServiceInterface interface {
