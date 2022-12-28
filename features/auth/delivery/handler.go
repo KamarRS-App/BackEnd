@@ -20,6 +20,7 @@ func New(service auth.ServiceInterface, e *echo.Echo) {
 	}
 
 	e.POST("/login/users", handler.login)
+	e.POST("/login/staffs", handler.loginStaff)
 
 }
 
@@ -40,11 +41,40 @@ func (delivery *AuthDelivery) login(c echo.Context) error {
 	if errPass != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Incorrect Password "+errPass.Error()))
 	}
-
+	// x := middlewares.ExtractTokenUserId(c)
 	data := map[string]interface{}{
 		"user_id": dataUser.ID,
 		"token":   token,
 		"name":    dataUser.Nama,
+	}
+
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success login", data))
+
+}
+
+func (delivery *AuthDelivery) loginStaff(c echo.Context) error {
+	authInput := AuthRequest{}
+	errBind := c.Bind(&authInput)
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
+	}
+
+	token, datastaff, err := delivery.authServices.LoginStaff(authInput.Email, authInput.KataSandi)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed login"))
+	}
+
+	z := []byte(authInput.KataSandi)
+	errPass := bcrypt.CompareHashAndPassword([]byte(datastaff.Kata_Sandi), z)
+	if errPass != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Incorrect Password "+errPass.Error()))
+	}
+
+	data := map[string]interface{}{
+		"staff_id": datastaff.ID,
+		"token":    token,
+		"name":     datastaff.Nama,
+		// "peran":    x,
 	}
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success login", data))
