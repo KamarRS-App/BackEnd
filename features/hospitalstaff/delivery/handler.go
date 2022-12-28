@@ -27,6 +27,12 @@ func New(Service hospitalstaff.ServiceInterface, e *echo.Echo) {
 }
 func (delivery *StaffDeliv) Create(c echo.Context) error {
 
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "super admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses Owner"))
+
+	}
+
 	Inputstaff := HospitalStaffRequest{} //penangkapan data user reques dari entities user
 	errbind := c.Bind(&Inputstaff)
 
@@ -43,7 +49,12 @@ func (delivery *StaffDeliv) Create(c echo.Context) error {
 
 func (delivery *StaffDeliv) Update(c echo.Context) error {
 
-	staffIdtoken, _ := middlewares.ExtractToken(c)
+	staffIdtoken := middlewares.ExtractTokenTeamId(c)
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses staff"))
+
+	}
 	// log.Println("user_id_token", userIdtoken)
 	Inputstaff := HospitalStaffRequest{}
 	errBind := c.Bind(&Inputstaff) // menangkap data yg dikirim dari req body dan disimpan ke variabel
@@ -62,7 +73,12 @@ func (delivery *StaffDeliv) Update(c echo.Context) error {
 
 func (delivery *StaffDeliv) GetStaff(c echo.Context) error {
 
-	staffIdtoken, _ := middlewares.ExtractToken(c)
+	staffIdtoken := middlewares.ExtractTokenTeamId(c)
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses staff"))
+
+	}
 
 	result, err := delivery.StaffService.GetStaff(staffIdtoken)
 
@@ -75,7 +91,12 @@ func (delivery *StaffDeliv) GetStaff(c echo.Context) error {
 
 func (delivery *StaffDeliv) DeleteById(c echo.Context) error {
 
-	staffIdtoken, _ := middlewares.ExtractToken(c)
+	staffIdtoken := middlewares.ExtractTokenTeamId(c)
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses staff"))
+
+	}
 
 	err := delivery.StaffService.DeleteById(staffIdtoken) //memanggil fungsi service yang ada di folder service
 	if err != nil {

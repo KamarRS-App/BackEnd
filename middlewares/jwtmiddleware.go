@@ -20,33 +20,33 @@ func JWTMiddleware() echo.MiddlewareFunc {
 
 }
 
-func CreateToken(userId int, role string) (string, error) {
+// func CreateToken(userId int, role string) (string, error) {
 
-	claims := jwt.MapClaims{}
-	claims["authorized"] = true
-	claims["userId"] = userId
-	claims["role"] = role
-	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+// 	claims := jwt.MapClaims{}
+// 	claims["authorized"] = true
+// 	claims["userId"] = userId
+// 	claims["role"] = role
+// 	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(os.Getenv("SECRET_JWT")))
+// 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+// 	return token.SignedString([]byte(os.Getenv("SECRET_JWT")))
 
-}
+// }
 
-func ExtractToken(c echo.Context) (int, string) {
+// func ExtractToken(c echo.Context) (int, string) {
 
-	user := c.Get("user").(*jwt.Token)
+// 	user := c.Get("user").(*jwt.Token)
 
-	if user.Valid {
-		claims := user.Claims.(jwt.MapClaims)
-		userId := claims["userId"].(float64)
-		role := claims["role"].(string)
+// 	if user.Valid {
+// 		claims := user.Claims.(jwt.MapClaims)
+// 		userId := claims["userId"].(float64)
+// 		role := claims["role"].(string)
 
-		return int(userId), role
-	}
+// 		return int(userId), role
+// 	}
 
-	return 0, ""
-}
+// 	return 0, ""
+// }
 
 // // func ExtractTokenUserRole(e echo.Context) string {
 // // 	user := e.Get("user").(*jwt.Token)
@@ -68,7 +68,6 @@ func ExtractToken(c echo.Context) (int, string) {
 // 	return ""
 // }
 
-
 func ExtractTokenUserName(e echo.Context) string {
 	user := e.Get("user").(*jwt.Token)
 	if user.Valid {
@@ -82,7 +81,7 @@ func ExtractTokenUserName(e echo.Context) string {
 func CreateTokenTeam(teamId int, peran string, email string) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
-	claims["teamId"] = teamId
+	claims["userId"] = teamId
 	claims["peran"] = peran
 	claims["email"] = email
 	claims["exp"] = time.Now().Add(time.Hour * 1).Unix() //Token expires after 1 hour
@@ -91,7 +90,7 @@ func CreateTokenTeam(teamId int, peran string, email string) (string, error) {
 }
 
 func ExtractTokenTeamRole(e echo.Context) string {
-	team := e.Get("team").(*jwt.Token)
+	team := e.Get("user").(*jwt.Token)
 	if team.Valid {
 		claims := team.Claims.(jwt.MapClaims)
 		peran := claims["peran"].(string)
@@ -99,4 +98,12 @@ func ExtractTokenTeamRole(e echo.Context) string {
 	}
 	return ""
 }
-
+func ExtractTokenTeamId(e echo.Context) int {
+	team := e.Get("user").(*jwt.Token)
+	if team.Valid {
+		claims := team.Claims.(jwt.MapClaims)
+		userId := claims["userId"].(float64)
+		return int(userId)
+	}
+	return 0
+}
