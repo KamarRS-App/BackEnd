@@ -19,7 +19,7 @@ func New(service bed.ServiceInterface, e *echo.Echo) {
 		bedService: service,
 	}
 	e.POST("/beds", handler.Create, middlewares.JWTMiddleware())
-	e.GET("/beds", handler.GetAll, middlewares.JWTMiddleware())
+	e.GET("/hospitals/:id/beds", handler.GetAll, middlewares.JWTMiddleware())
 	e.GET("/beds/:id", handler.GetById, middlewares.JWTMiddleware())
 	e.PUT("/beds/:id", handler.UpdateData, middlewares.JWTMiddleware())
 	e.DELETE("/beds/:id", handler.Delete, middlewares.JWTMiddleware())
@@ -41,9 +41,18 @@ func (delivery *BedDelivery) Create(c echo.Context) error {
 	return c.JSON(http.StatusCreated, helper.SuccessResponse("success create data"))
 }
 
-// Get All
+// Get All by Hospital_ID
 func (delivery *BedDelivery) GetAll(c echo.Context) error {
-	results, err := delivery.bedService.GetAll()
+	limitcnv := c.QueryParam("limit")
+	offsetcnv := c.QueryParam("offset")
+	limit, _ := strconv.Atoi(limitcnv)
+	offset, _ := strconv.Atoi(offsetcnv)
+	hospitalId, errBind := strconv.Atoi(c.Param("id"))
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data"+errBind.Error()))
+	}
+
+	results, err := delivery.bedService.GetAll(limit, offset, hospitalId)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
 	}

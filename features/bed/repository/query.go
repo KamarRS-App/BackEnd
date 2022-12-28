@@ -30,6 +30,21 @@ func (repo *bedRepository) Create(input bed.BedCore) (row int, err error) {
 	return int(tx.RowsAffected), nil
 }
 
+// GetAll
+func (repo *bedRepository) GetAll(limit, offset, id int) (data []bed.BedCore, err error) {
+	var beds []Bed
+	tx := repo.db.Where("hospital_id= ?", id).Limit(limit).Offset(offset).Find(&beds)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	if tx.RowsAffected == 0 {
+		return nil, errors.New("get all data failed, error query")
+	}
+	var dataCore = ToCoreList(beds)
+	return dataCore, nil
+}
+
 // Get by (ID)
 func (repo *bedRepository) GetById(id int) (data bed.BedCore, err error) {
 	var IdBed Bed
@@ -41,18 +56,6 @@ func (repo *bedRepository) GetById(id int) (data bed.BedCore, err error) {
 	}
 	IdBedCore = IdBed.ToCore()
 	return IdBedCore, nil
-}
-
-// GetAll
-func (repo *bedRepository) GetAll() (data []bed.BedCore, err error) {
-	var beds []Bed
-
-	tx := repo.db.Find(&beds)
-	if tx.Error != nil {
-		return nil, tx.Error
-	}
-	var dataCore = ToCoreList(beds)
-	return dataCore, nil
 }
 
 // Update
