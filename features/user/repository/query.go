@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/KamarRS-App/KamarRS-App/features/user"
-	"github.com/KamarRS-App/KamarRS-App/features/user/service"
+	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 
 	"gorm.io/gorm"
 )
@@ -77,7 +77,7 @@ func (repo *userRepository) Update(id int, input user.CoreUser) error {
 	if input.KataSandi == "" {
 		input.KataSandi = users.Kata_Sandi
 	} else {
-		input.KataSandi = service.Bcript(input.KataSandi)
+		input.KataSandi = helper.Bcript(input.KataSandi)
 
 	}
 	userGorm := FromUserCoreToModel(input)

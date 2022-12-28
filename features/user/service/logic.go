@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/KamarRS-App/KamarRS-App/features/user"
-	"golang.org/x/crypto/bcrypt"
+	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -28,7 +28,7 @@ func (service *UserService) Create(input user.CoreUser) (err error) {
 
 	input.Email = lower
 
-	generatePass := Bcript(input.KataSandi)
+	generatePass := helper.Bcript(input.KataSandi)
 
 	input.KataSandi = generatePass
 
@@ -65,17 +65,4 @@ func (service *UserService) GetById(id int) (data user.CoreUser, err error) {
 func (service *UserService) DeleteById(id int) error {
 	err := service.userRepository.DeleteById(id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
 	return err
-}
-
-func Bcript(y string) string {
-	password := []byte(y)
-
-	// Hashing the password with the default cost of 10
-	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
-	if err != nil {
-		panic(err)
-	}
-
-	return string(hashedPassword)
-
 }
