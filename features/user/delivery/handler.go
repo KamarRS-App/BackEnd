@@ -50,7 +50,12 @@ func (delivery *UserDeliv) Create(c echo.Context) error {
 
 func (delivery *UserDeliv) Update(c echo.Context) error {
 
-	userIdtoken, _ := middlewares.ExtractToken(c)
+	userIdtoken := middlewares.ExtractTokenTeamId(c)
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses user"))
+
+	}
 	// log.Println("user_id_token", userIdtoken)
 	userInput := RequestUser{}
 	errBind := c.Bind(&userInput) // menangkap data yg dikirim dari req body dan disimpan ke variabel
@@ -68,7 +73,12 @@ func (delivery *UserDeliv) Update(c echo.Context) error {
 }
 
 func (delivery *UserDeliv) GetById(c echo.Context) error {
-	userIdtoken, _ := middlewares.ExtractToken(c)
+	userIdtoken := middlewares.ExtractTokenTeamId(c)
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses user"))
+
+	}
 
 	result, err := delivery.UserService.GetById(userIdtoken) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
 
@@ -81,7 +91,12 @@ func (delivery *UserDeliv) GetById(c echo.Context) error {
 
 func (delivery *UserDeliv) DeleteById(c echo.Context) error {
 
-	userIdtoken, _ := middlewares.ExtractToken(c)
+	userIdtoken := middlewares.ExtractTokenTeamId(c)
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses user"))
+
+	}
 
 	err := delivery.UserService.DeleteById(userIdtoken) //memanggil fungsi service yang ada di folder service
 	if err != nil {

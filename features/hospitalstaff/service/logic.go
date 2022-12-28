@@ -25,7 +25,7 @@ func New(repo hospitalstaff.RepositoryInterface) hospitalstaff.ServiceInterface 
 func (service *staffService) Create(input hospitalstaff.HospitalStaffCore) (err error) {
 	lower := strings.ToLower(input.Email)
 	input.Email = lower
-	input.Peran = "Admin"
+	input.Peran = "admin"
 	generatePass := helper.Bcript(input.KataSandi)
 	input.KataSandi = generatePass
 

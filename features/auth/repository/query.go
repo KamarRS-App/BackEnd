@@ -36,14 +36,13 @@ func (repo *authRepository) Login(email string, pass string) (string, repository
 		return "", repository.User{}, errors.New("login failed")
 	}
 
-	token, errToken := middlewares.CreateToken(int(userData.ID), "")
+	token, errToken := middlewares.CreateTokenTeam(int(userData.ID), "", "")
 	if errToken != nil {
 		return "", repository.User{}, errToken
 	}
 
 	return token, userData, nil
 }
-
 
 // LoginTeam implements auth.RepositoryInterface
 func (r *authRepository) LoginTeam(email string, password string) (string, teamrepo.KamarRsTeam, error) {
@@ -64,6 +63,7 @@ func (r *authRepository) LoginTeam(email string, password string) (string, teamr
 
 	return token, teamData, nil
 }
+
 // LoginStaff implements auth.RepositoryInterface
 func (repo *authRepository) LoginStaff(email string, pass string) (string, staff.HospitalStaff, error) {
 	var staffs staff.HospitalStaff
@@ -76,7 +76,7 @@ func (repo *authRepository) LoginStaff(email string, pass string) (string, staff
 		return "", staff.HospitalStaff{}, errors.New("login failed")
 	}
 
-	token, errToken := middlewares.CreateToken(int(staffs.ID), staffs.Peran)
+	token, errToken := middlewares.CreateTokenTeam(int(staffs.ID), staffs.Peran, "")
 	if errToken != nil {
 		return "", staff.HospitalStaff{}, errToken
 	}
