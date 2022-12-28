@@ -8,25 +8,25 @@ import (
 
 type KamarRsTeam struct {
 	gorm.Model
-	Email    string
-	Password string
-	Peran    string
+	Email     string
+	KataSandi string
+	Peran     string
 }
 
 func FromKamarRsTeamCoretoModel(dataCore kamarrsteam.KamarRsTeamCore) KamarRsTeam {
 	kamarrsteamGorm := KamarRsTeam{
-		Email:    dataCore.Email,
-		Password: dataCore.Password,
-		Peran:    dataCore.Peran,
+		Email:     dataCore.Email,
+		KataSandi: dataCore.KataSandi,
+		Peran:     dataCore.Peran,
 	}
 	return kamarrsteamGorm
 }
 
 func (dataModel *KamarRsTeam) ToKamarRsTeamCore() kamarrsteam.KamarRsTeamCore {
 	return kamarrsteam.KamarRsTeamCore{
-		ID:       dataModel.ID,
-		Email:    dataModel.Email,
-		Password: dataModel.Password,
-		Peran:    dataModel.Peran,
+		ID:        dataModel.ID,
+		Email:     dataModel.Email,
+		KataSandi: dataModel.KataSandi,
+		Peran:     dataModel.Peran,
 	}
 }

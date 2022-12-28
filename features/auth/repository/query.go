@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/KamarRS-App/KamarRS-App/features/auth"
+	teamrepo "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/repository"
 	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
 	middlewares "github.com/KamarRS-App/KamarRS-App/middlewares"
 	"gorm.io/gorm"
@@ -37,4 +38,24 @@ func (repo *authRepository) Login(email string, pass string) (string, repository
 	}
 
 	return token, userData, nil
+}
+
+// LoginTeam implements auth.RepositoryInterface
+func (r *authRepository) LoginTeam(email string, password string) (string, teamrepo.KamarRsTeam, error) {
+	var teamData teamrepo.KamarRsTeam
+	tx := r.db.Where("email = ?", email).First(&teamData)
+	if tx.Error != nil {
+		return "", teamrepo.KamarRsTeam{}, tx.Error
+	}
+
+	if tx.RowsAffected == 0 {
+		return "", teamrepo.KamarRsTeam{}, errors.New("logifn failed")
+	}
+
+	token, errToken := middlewares.CreateTokenTeam(int(teamData.ID), teamData.Peran, teamData.Email)
+	if errToken != nil {
+		return "", teamrepo.KamarRsTeam{}, errToken
+	}
+
+	return token, teamData, nil
 }
