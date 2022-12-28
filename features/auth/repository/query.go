@@ -32,7 +32,7 @@ func (repo *authRepository) Login(email string, pass string) (string, repository
 		return "", repository.User{}, errors.New("login failed")
 	}
 
-	token, errToken := middlewares.CreateToken(int(userData.ID), 0, "", "")
+	token, errToken := middlewares.CreateToken(int(userData.ID), "")
 	if errToken != nil {
 		return "", repository.User{}, errToken
 	}
@@ -52,7 +52,7 @@ func (repo *authRepository) LoginStaff(email string, pass string) (string, staff
 		return "", staff.HospitalStaff{}, errors.New("login failed")
 	}
 
-	token, errToken := middlewares.CreateToken(int(staffs.ID), 0, staffs.Peran, staffs.Email)
+	token, errToken := middlewares.CreateToken(int(staffs.ID), staffs.Peran)
 	if errToken != nil {
 		return "", staff.HospitalStaff{}, errToken
 	}

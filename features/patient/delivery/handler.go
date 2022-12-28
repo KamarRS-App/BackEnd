@@ -1,6 +1,7 @@
 package delivery
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -29,7 +30,7 @@ func New(Service patient.ServiceInterface, e *echo.Echo) {
 }
 func (delivery *PatientDeliv) Create(c echo.Context) error {
 
-	userId, _, _ := middlewares.ExtractToken(c)
+	userId, _ := middlewares.ExtractToken(c)
 
 	InputPatient := RequestPatient{}
 	errbind := c.Bind(&InputPatient)
@@ -85,6 +86,12 @@ func (delivery *PatientDeliv) GetByUserId(c echo.Context) error {
 }
 
 func (delivery *PatientDeliv) GetAllPatient(c echo.Context) error {
+
+	_, role := middlewares.ExtractToken(c)
+	fmt.Println(role)
+	if role != "Admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Maaf anda tidak punya akses ke data ini"))
+	}
 
 	result, err := delivery.PatientService.GetAllPatient() //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
 

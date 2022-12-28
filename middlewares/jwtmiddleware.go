@@ -20,13 +20,12 @@ func JWTMiddleware() echo.MiddlewareFunc {
 
 }
 
-func CreateToken(userId int, IdClass int, role string, email string) (string, error) {
+func CreateToken(userId int, role string) (string, error) {
 
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
 	claims["userId"] = userId
 	claims["role"] = role
-	claims["role"] = email
 	claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -34,7 +33,7 @@ func CreateToken(userId int, IdClass int, role string, email string) (string, er
 
 }
 
-func ExtractToken(c echo.Context) (int, string, string) {
+func ExtractToken(c echo.Context) (int, string) {
 
 	user := c.Get("user").(*jwt.Token)
 
@@ -42,12 +41,11 @@ func ExtractToken(c echo.Context) (int, string, string) {
 		claims := user.Claims.(jwt.MapClaims)
 		userId := claims["userId"].(float64)
 		role := claims["role"].(string)
-		email := claims["role"].(string)
 
-		return int(userId), role, email
+		return int(userId), role
 	}
 
-	return 0, "", ""
+	return 0, ""
 }
 
 // // func ExtractTokenUserRole(e echo.Context) string {
