@@ -10,7 +10,7 @@ type BedRequest struct {
 	HospitalID      uint   `json:"hospital_id" form:"hospital_id"`
 }
 
-func (req *BedRequest) reqToCore() bed.BedCore {
+func (req *BedRequest) ToCore() bed.BedCore {
 	return bed.BedCore{
 		NamaTempatTidur: req.NamaTempatTidur,
 		Ruangan:         req.Ruangan,

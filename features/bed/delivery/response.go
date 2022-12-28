@@ -18,7 +18,7 @@ type BedResponse struct {
 // }
 
 // -----------------Bed--------------------------------
-func fromCore(dataCore bed.BedCore) BedResponse {
+func FromCore(dataCore bed.BedCore) BedResponse {
 	return BedResponse{
 		ID:              dataCore.ID,
 		NamaTempatTidur: dataCore.NamaTempatTidur,
@@ -30,10 +30,10 @@ func fromCore(dataCore bed.BedCore) BedResponse {
 }
 
 // data dari core ke response
-func fromCoreList(dataCore []bed.BedCore) []BedResponse {
+func FromCoreList(dataCore []bed.BedCore) []BedResponse {
 	var dataResponse []BedResponse
 	for _, v := range dataCore {
-		dataResponse = append(dataResponse, fromCore(v))
+		dataResponse = append(dataResponse, FromCore(v))
 	}
 	return dataResponse
 }

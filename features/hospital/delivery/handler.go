@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/KamarRS-App/KamarRS-App/features/hospital"
-	middlewares "github.com/KamarRS-App/KamarRS-App/middlewares"
+	"github.com/KamarRS-App/KamarRS-App/middlewares"
 	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"github.com/labstack/echo/v4"
 )
