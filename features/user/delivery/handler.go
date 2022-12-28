@@ -50,7 +50,7 @@ func (delivery *UserDeliv) Create(c echo.Context) error {
 
 func (delivery *UserDeliv) Update(c echo.Context) error {
 
-	userIdtoken := middlewares.ExtractTokenUserId(c)
+	userIdtoken, _ := middlewares.ExtractToken(c)
 	// log.Println("user_id_token", userIdtoken)
 	userInput := RequestUser{}
 	errBind := c.Bind(&userInput) // menangkap data yg dikirim dari req body dan disimpan ke variabel
@@ -68,7 +68,7 @@ func (delivery *UserDeliv) Update(c echo.Context) error {
 }
 
 func (delivery *UserDeliv) GetById(c echo.Context) error {
-	userIdtoken := middlewares.ExtractTokenUserId(c)
+	userIdtoken, _ := middlewares.ExtractToken(c)
 
 	result, err := delivery.UserService.GetById(userIdtoken) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
 
@@ -81,7 +81,7 @@ func (delivery *UserDeliv) GetById(c echo.Context) error {
 
 func (delivery *UserDeliv) DeleteById(c echo.Context) error {
 
-	userIdtoken := middlewares.ExtractTokenUserId(c)
+	userIdtoken, _ := middlewares.ExtractToken(c)
 
 	err := delivery.UserService.DeleteById(userIdtoken) //memanggil fungsi service yang ada di folder service
 	if err != nil {

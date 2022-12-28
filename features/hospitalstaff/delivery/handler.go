@@ -43,7 +43,7 @@ func (delivery *StaffDeliv) Create(c echo.Context) error {
 
 func (delivery *StaffDeliv) Update(c echo.Context) error {
 
-	userIdtoken := middlewares.ExtractTokenUserId(c)
+	staffIdtoken, _ := middlewares.ExtractToken(c)
 	// log.Println("user_id_token", userIdtoken)
 	Inputstaff := HospitalStaffRequest{}
 	errBind := c.Bind(&Inputstaff) // menangkap data yg dikirim dari req body dan disimpan ke variabel
@@ -53,7 +53,7 @@ func (delivery *StaffDeliv) Update(c echo.Context) error {
 
 	dataCore := Inputstaff.reqToCore()
 
-	err := delivery.StaffService.Update(userIdtoken, dataCore)
+	err := delivery.StaffService.Update(staffIdtoken, dataCore)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Gagal merubah data user"+err.Error()))
 	}
@@ -61,9 +61,10 @@ func (delivery *StaffDeliv) Update(c echo.Context) error {
 }
 
 func (delivery *StaffDeliv) GetStaff(c echo.Context) error {
-	userIdtoken := middlewares.ExtractTokenUserId(c)
 
-	result, err := delivery.StaffService.GetStaff(userIdtoken)
+	staffIdtoken, _ := middlewares.ExtractToken(c)
+
+	result, err := delivery.StaffService.GetStaff(staffIdtoken)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
@@ -74,9 +75,9 @@ func (delivery *StaffDeliv) GetStaff(c echo.Context) error {
 
 func (delivery *StaffDeliv) DeleteById(c echo.Context) error {
 
-	userIdtoken := middlewares.ExtractTokenUserId(c)
+	staffIdtoken, _ := middlewares.ExtractToken(c)
 
-	err := delivery.StaffService.DeleteById(userIdtoken) //memanggil fungsi service yang ada di folder service
+	err := delivery.StaffService.DeleteById(staffIdtoken) //memanggil fungsi service yang ada di folder service
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr Hapus data"))
 	}

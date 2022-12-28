@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/KamarRS-App/KamarRS-App/features/hospitalstaff"
-	"github.com/KamarRS-App/KamarRS-App/features/hospitalstaff/service"
+	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"gorm.io/gorm"
 )
 
@@ -107,7 +107,7 @@ func (repo *staffRepository) Update(id int, input hospitalstaff.HospitalStaffCor
 	if input.KataSandi == "" {
 		input.KataSandi = staff.Kata_Sandi
 	} else {
-		input.KataSandi = service.Bcript(input.KataSandi)
+		input.KataSandi = helper.Bcript(input.KataSandi)
 
 	}
 	userGorm := FromStaffCore(input)

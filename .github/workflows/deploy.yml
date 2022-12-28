@@ -1,4 +1,4 @@
-name : Deploy to AWS
+name : Deploy to GCP
 
 on:
   push:
@@ -18,9 +18,9 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            sudo chmod 777 /var/run/docker.sock
             cd /home/kamar-rs/BackEnd
             sudo git pull origin main
-            sudo go mod tidy
             sudo docker stop kamarRSContainer
             sudo docker rm kamarRSContainer
             sudo docker rmi kamar-rs-images:latest

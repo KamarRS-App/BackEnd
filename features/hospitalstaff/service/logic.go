@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/KamarRS-App/KamarRS-App/features/hospitalstaff"
+	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"github.com/go-playground/validator/v10"
-	"golang.org/x/crypto/bcrypt"
 )
 
 type staffService struct {
@@ -26,7 +26,7 @@ func (service *staffService) Create(input hospitalstaff.HospitalStaffCore) (err 
 	lower := strings.ToLower(input.Email)
 	input.Email = lower
 	input.Peran = "Admin"
-	generatePass := Bcript(input.KataSandi)
+	generatePass := helper.Bcript(input.KataSandi)
 	input.KataSandi = generatePass
 
 	if validateERR := service.validate.Struct(input); validateERR != nil {
@@ -62,17 +62,4 @@ func (service *staffService) Update(id int, input hospitalstaff.HospitalStaffCor
 	}
 
 	return nil
-}
-
-func Bcript(y string) string {
-	password := []byte(y)
-
-	// Hashing the password with the default cost of 10
-	hashedPassword, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
-	if err != nil {
-		panic(err)
-	}
-
-	return string(hashedPassword)
-
 }

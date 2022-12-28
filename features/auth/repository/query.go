@@ -4,7 +4,11 @@ import (
 	"errors"
 
 	"github.com/KamarRS-App/KamarRS-App/features/auth"
+
 	teamrepo "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/repository"
+
+	staff "github.com/KamarRS-App/KamarRS-App/features/hospitalstaff/repository"
+
 	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
 	middlewares "github.com/KamarRS-App/KamarRS-App/middlewares"
 	"gorm.io/gorm"
@@ -32,13 +36,14 @@ func (repo *authRepository) Login(email string, pass string) (string, repository
 		return "", repository.User{}, errors.New("login failed")
 	}
 
-	token, errToken := middlewares.CreateToken(int(userData.ID), userData.Nama)
+	token, errToken := middlewares.CreateToken(int(userData.ID), "")
 	if errToken != nil {
 		return "", repository.User{}, errToken
 	}
 
 	return token, userData, nil
 }
+
 
 // LoginTeam implements auth.RepositoryInterface
 func (r *authRepository) LoginTeam(email string, password string) (string, teamrepo.KamarRsTeam, error) {
@@ -58,4 +63,24 @@ func (r *authRepository) LoginTeam(email string, password string) (string, teamr
 	}
 
 	return token, teamData, nil
+}
+// LoginStaff implements auth.RepositoryInterface
+func (repo *authRepository) LoginStaff(email string, pass string) (string, staff.HospitalStaff, error) {
+	var staffs staff.HospitalStaff
+	tx := repo.db.Where("email = ?", email).First(&staffs)
+	if tx.Error != nil {
+		return "", staff.HospitalStaff{}, tx.Error
+	}
+
+	if tx.RowsAffected == 0 {
+		return "", staff.HospitalStaff{}, errors.New("login failed")
+	}
+
+	token, errToken := middlewares.CreateToken(int(staffs.ID), staffs.Peran)
+	if errToken != nil {
+		return "", staff.HospitalStaff{}, errToken
+	}
+
+	return token, staffs, nil
+
 }
