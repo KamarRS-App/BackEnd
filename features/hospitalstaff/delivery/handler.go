@@ -43,7 +43,7 @@ func (delivery *StaffDeliv) Create(c echo.Context) error {
 
 func (delivery *StaffDeliv) Update(c echo.Context) error {
 
-	staffIdtoken, _, _ := middlewares.ExtractToken(c)
+	staffIdtoken, _ := middlewares.ExtractToken(c)
 	// log.Println("user_id_token", userIdtoken)
 	Inputstaff := HospitalStaffRequest{}
 	errBind := c.Bind(&Inputstaff) // menangkap data yg dikirim dari req body dan disimpan ke variabel
@@ -62,7 +62,7 @@ func (delivery *StaffDeliv) Update(c echo.Context) error {
 
 func (delivery *StaffDeliv) GetStaff(c echo.Context) error {
 
-	staffIdtoken, _, _ := middlewares.ExtractToken(c)
+	staffIdtoken, _ := middlewares.ExtractToken(c)
 
 	result, err := delivery.StaffService.GetStaff(staffIdtoken)
 
@@ -75,7 +75,7 @@ func (delivery *StaffDeliv) GetStaff(c echo.Context) error {
 
 func (delivery *StaffDeliv) DeleteById(c echo.Context) error {
 
-	staffIdtoken, _, _ := middlewares.ExtractToken(c)
+	staffIdtoken, _ := middlewares.ExtractToken(c)
 
 	err := delivery.StaffService.DeleteById(staffIdtoken) //memanggil fungsi service yang ada di folder service
 	if err != nil {
