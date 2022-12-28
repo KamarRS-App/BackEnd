@@ -47,7 +47,7 @@ type BedReservation struct {
 	BedID             uint
 }
 
-func FromCoreToModel(dataCore bed.BedCore) Bed {
+func FromCore(dataCore bed.BedCore) Bed {
 	bedGorm := Bed{
 		Nama_Tempat_Tidur: dataCore.NamaTempatTidur,
 		Ruangan:           dataCore.Ruangan,
@@ -61,7 +61,7 @@ func FromCoreToModel(dataCore bed.BedCore) Bed {
 //-------------------------------------------------------
 // Bed aja
 
-func (dataModel *Bed) toCore() bed.BedCore {
+func (dataModel *Bed) ToCore() bed.BedCore {
 	return bed.BedCore{
 		ID:              dataModel.ID,
 		NamaTempatTidur: dataModel.Nama_Tempat_Tidur,
@@ -73,10 +73,10 @@ func (dataModel *Bed) toCore() bed.BedCore {
 }
 
 // mengubah slice struct model gorm ke slice struct core
-func toCoreList(dataModel []Bed) []bed.BedCore {
+func ToCoreList(dataModel []Bed) []bed.BedCore {
 	var dataCore []bed.BedCore
 	for _, v := range dataModel {
-		dataCore = append(dataCore, v.toCore())
+		dataCore = append(dataCore, v.ToCore())
 	}
 	return dataCore
 }
