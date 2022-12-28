@@ -29,7 +29,7 @@ func New(Service patient.ServiceInterface, e *echo.Echo) {
 }
 func (delivery *PatientDeliv) Create(c echo.Context) error {
 
-	userId := middlewares.ExtractTokenUserId(c)
+	userId, _, _ := middlewares.ExtractToken(c)
 
 	InputPatient := RequestPatient{}
 	errbind := c.Bind(&InputPatient)
