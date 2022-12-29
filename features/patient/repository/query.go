@@ -24,19 +24,19 @@ func New(db *gorm.DB) patient.RepositoryInterface { // user.repository mengimple
 // Create implements patient.RepositoryInterface
 func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
 
-	var patient []Patient
+	// var patient []Patient
 
-	tx1 := repo.db.Find(&patient)
-	if tx1.Error != nil {
-		return tx1.Error
-	}
+	// tx1 := repo.db.Find(&patient)
+	// if tx1.Error != nil {
+	// 	return tx1.Error
+	// }
 
-	for _, v := range patient {
-		if input.Nik == v.Nik || input.NoBpjs == v.NoBpjs {
-			return errors.New("eror input data")
-		}
+	// for _, v := range patient {
+	// 	if input.Nik == v.Nik || input.NoBpjs == v.NoBpjs {
+	// 		return errors.New("eror input data")
+	// 	}
 
-	}
+	// }
 	var user repository.User
 	tx2 := repo.db.First(&user, input.UserID)
 	if tx2.Error != nil {

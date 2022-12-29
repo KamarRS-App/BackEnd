@@ -4,26 +4,26 @@ import "time"
 
 type CorePatient struct {
 	ID                    uint
-	NoKk                  string `validate:"required"`
-	Nik                   string `validate:"required"`
-	NamaPasien            string `validate:"required"`
-	JenisKelamin          string `validate:"required"`
-	TanggalLahir          string `validate:"required"`
-	Usia                  int    `validate:"required"`
-	NamaWali              string `validate:"required"`
-	EmailWali             string `validate:"required"`
-	NoTelponWali          string `validate:"required"`
-	AlamatKtp             string `validate:"required"`
-	ProvinsiKtp           string `validate:"required"`
-	KabupatenKotaKtp      string `validate:"required"`
-	AlamatDomisili        string `validate:"required"`
-	ProvinsiDomisili      string `validate:"required"`
-	KabupatenKotaDomisili string `validate:"required"`
+	NoKk                  string
+	Nik                   string
+	NamaPasien            string
+	JenisKelamin          string
+	TanggalLahir          string
+	Usia                  int
+	NamaWali              string
+	EmailWali             string
+	NoTelponWali          string
+	AlamatKtp             string
+	ProvinsiKtp           string
+	KabupatenKotaKtp      string
+	AlamatDomisili        string
+	ProvinsiDomisili      string
+	KabupatenKotaDomisili string
 	NoBpjs                string
 	KelasBpjs             string
 	FotoKtp               string
 	FotoBpjs              string
-	UserID                uint `validate:"required"`
+	UserID                uint
 	CreatedAt             time.Time
 	UpdatedAt             time.Time
 	// BedReservation          BedReservation
