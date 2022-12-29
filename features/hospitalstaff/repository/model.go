@@ -10,7 +10,7 @@ type HospitalStaff struct {
 	gorm.Model
 	Nama       string
 	Email      string
-	Kata_Sandi string
+	KataSandi  string
 	Peran      string
 	HospitalID uint
 	// Hospital   Hospital
@@ -18,28 +18,29 @@ type HospitalStaff struct {
 
 type Hospital struct {
 	gorm.Model
-	Kode_Rs             string
-	Nama                string
-	Foto                string
-	Alamat              string
-	Provinsi            string
-	Kabupaten_Kota      string
-	Kecamatan           string
-	No_Telpon           string
-	Email               string
-	Kelas_Rs            string
-	Pengelola           string
-	Jumlah_Tempat_Tidur string
-	Status_Penggunaan   string
-	Biaya_Pendaftaran   string
-	HospitalStaffs      []HospitalStaff
+	KodeRs            string
+	Nama              string
+	Foto              string
+	Alamat            string
+	Provinsi          string
+	KabupatenKota     string
+	Kecamatan         string
+	KodePos           string
+	NoTelpon          string
+	Email             string
+	KelasRs           string
+	Pengelola         string
+	JumlahTempatTidur string
+	StatusPenggunaan  string
+	BiayaPendaftaran  string
+	HospitalStaffs    []HospitalStaff `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 func FromStaffCore(dataCore hospitalstaff.HospitalStaffCore) HospitalStaff { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)
 	staffGorm := HospitalStaff{
 		Nama:       dataCore.Nama,
 		Email:      dataCore.Email,
-		Kata_Sandi: dataCore.KataSandi,
+		KataSandi:  dataCore.KataSandi,
 		Peran:      dataCore.Peran,
 		HospitalID: dataCore.HospitalID,
 	}
@@ -50,7 +51,7 @@ func (dataModel *HospitalStaff) ModelsToCore() hospitalstaff.HospitalStaffCore {
 		ID:         dataModel.ID,
 		Nama:       dataModel.Nama,
 		Email:      dataModel.Email,
-		KataSandi:  dataModel.Kata_Sandi,
+		KataSandi:  dataModel.KataSandi,
 		Peran:      dataModel.Peran,
 		HospitalID: dataModel.HospitalID,
 		// Hospital: hospitalstaff.HospitalCore{

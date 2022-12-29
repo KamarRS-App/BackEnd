@@ -38,7 +38,7 @@ func (delivery *AuthDelivery) login(c echo.Context) error {
 	}
 
 	z := []byte(authInput.KataSandi)
-	errPass := bcrypt.CompareHashAndPassword([]byte(dataUser.Kata_Sandi), z)
+	errPass := bcrypt.CompareHashAndPassword([]byte(dataUser.KataSandi), z)
 	if errPass != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Incorrect Password "+errPass.Error()))
 	}
@@ -91,7 +91,7 @@ func (delivery *AuthDelivery) loginStaff(c echo.Context) error {
 	}
 
 	z := []byte(authInput.KataSandi)
-	errPass := bcrypt.CompareHashAndPassword([]byte(datastaff.Kata_Sandi), z)
+	errPass := bcrypt.CompareHashAndPassword([]byte(datastaff.KataSandi), z)
 	if errPass != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Incorrect Password "+errPass.Error()))
 	}

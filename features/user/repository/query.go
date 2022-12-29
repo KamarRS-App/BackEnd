@@ -75,7 +75,7 @@ func (repo *userRepository) Update(id int, input user.CoreUser) error {
 	}
 
 	if input.KataSandi == "" {
-		input.KataSandi = users.Kata_Sandi
+		input.KataSandi = users.KataSandi
 	} else {
 		input.KataSandi = helper.Bcript(input.KataSandi)
 

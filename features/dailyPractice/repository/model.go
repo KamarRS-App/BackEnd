@@ -7,27 +7,27 @@ import (
 
 type Practice struct {
 	gorm.Model
-	Tanggal_Praktik string
-	Kuota_Harian    int
-	Status          string
-	PoliclinicID    uint
+	TanggalPraktik string
+	KuotaHarian    int
+	Status         string
+	PoliclinicID   uint
 }
 
 type Policlinic struct {
 	gorm.Model
-	Nama_Poli   string
-	Jam_Praktik string
-	HospitalID  uint
-	DoctorID    uint
-	Practices   []Practice
+	NamaPoli   string
+	JamPraktik string
+	HospitalID uint
+	DoctorID   uint
+	Practices  []Practice `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 func FromCore(dataCore dailypractice.PracticeCore) Practice {
 	practiceGorm := Practice{
-		Tanggal_Praktik: dataCore.TanggalPraktik,
-		Kuota_Harian:    dataCore.KuotaHarian,
-		Status:          dataCore.Status,
-		PoliclinicID:    dataCore.PoliclinicID,
+		TanggalPraktik: dataCore.TanggalPraktik,
+		KuotaHarian:    dataCore.KuotaHarian,
+		Status:         dataCore.Status,
+		PoliclinicID:   dataCore.PoliclinicID,
 	}
 	return practiceGorm //insert practice from core
 }
@@ -37,8 +37,8 @@ func FromCore(dataCore dailypractice.PracticeCore) Practice {
 func (dataModel *Practice) ToCore() dailypractice.PracticeCore {
 	return dailypractice.PracticeCore{
 		ID:             dataModel.ID,
-		TanggalPraktik: dataModel.Tanggal_Praktik,
-		KuotaHarian:    dataModel.Kuota_Harian,
+		TanggalPraktik: dataModel.TanggalPraktik,
+		KuotaHarian:    dataModel.KuotaHarian,
 		Status:         dataModel.Status,
 		PoliclinicID:   dataModel.PoliclinicID,
 	}

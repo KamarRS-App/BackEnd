@@ -10,6 +10,7 @@ type HospitalRequest struct {
 	Provinsi          string `json:"provinsi" form:"provinsi"`
 	KabupatenKota     string `json:"kabupaten_kota" form:"kabupaten_kota"`
 	Kecamatan         string `json:"kecamatan" form:"kecamatan"`
+	KodePos           string `json:"kode_pos" form:"kode_pos"`
 	NoTelpon          string `json:"no_telpon" form:"no_telpon"`
 	Email             string `json:"email" form:"email"`
 	KelasRs           string `json:"kelas_rs" form:"kelas_rs"`
@@ -28,6 +29,7 @@ func (req *HospitalRequest) ToCore() hospital.HospitalCore {
 		Provinsi:          req.Provinsi,
 		KabupatenKota:     req.KabupatenKota,
 		Kecamatan:         req.Kecamatan,
+		KodePos:           req.KodePos,
 		NoTelpon:          req.NoTelpon,
 		Email:             req.Email,
 		KelasRs:           req.KelasRs,
