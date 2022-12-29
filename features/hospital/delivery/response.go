@@ -13,6 +13,7 @@ type HospitalResponse struct {
 	Provinsi          string `json:"provinsi"`
 	KabupatenKota     string `json:"kabupaten_kota"`
 	Kecamatan         string `json:"kecamatan"`
+	KodePos           string `json:"kode_pos"`
 	NoTelpon          string `json:"no_telpon"`
 	Email             string `json:"email"`
 	KelasRs           string `json:"kelas_rs"`
@@ -33,6 +34,7 @@ func FromCore(dataCore hospital.HospitalCore) HospitalResponse {
 		Provinsi:          dataCore.Provinsi,
 		KabupatenKota:     dataCore.KabupatenKota,
 		Kecamatan:         dataCore.Kecamatan,
+		KodePos:           dataCore.KodePos,
 		NoTelpon:          dataCore.NoTelpon,
 		Email:             dataCore.Email,
 		KelasRs:           dataCore.KelasRs,

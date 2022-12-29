@@ -31,7 +31,7 @@ func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
 	}
 
 	for _, v := range patient {
-		if input.Nik == v.Nik || input.NoBpjs == v.No_Bpjs {
+		if input.Nik == v.Nik || input.NoBpjs == v.NoBpjs {
 			return errors.New("eror input data")
 		}
 
@@ -42,11 +42,11 @@ func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
 		return tx2.Error
 	}
 
-	if user.No_kk == "" {
+	if user.Nokk == "" {
 		return errors.New("anda harus melengkapai data diri anda terlebih dahulu untuk mendaftarkan pasien")
 	}
 
-	if input.NoKk != user.No_kk {
+	if input.NoKk != user.Nokk {
 		return errors.New("hanya bisa mendaftarkan keluarga")
 	}
 
@@ -119,7 +119,7 @@ func (repo *patientRepository) Update(id int, input patient.CorePatient) error {
 	}
 
 	for _, v := range patient {
-		if input.Nik == v.Nik || input.NoBpjs == v.No_Bpjs {
+		if input.Nik == v.Nik || input.NoBpjs == v.NoBpjs {
 			return errors.New("eror input data")
 		}
 
@@ -142,7 +142,7 @@ func (repo *patientRepository) Update(id int, input patient.CorePatient) error {
 	}
 
 	if input.NoKk != "" {
-		if input.NoKk != users.No_kk {
+		if input.NoKk != users.Nokk {
 			return errors.New("no kk pasien harus sama dengan no kk user")
 		}
 

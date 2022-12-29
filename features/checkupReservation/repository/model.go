@@ -10,42 +10,42 @@ type CheckupReservation struct {
 	gorm.Model
 	PatientID  uint
 	PracticeID uint
-	Patient    Patient
-	Practice   Practice
+	Patient    Patient  `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Practice   Practice `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Patient struct {
 	gorm.Model
-	No_Kk                   string
-	Nik                     string
-	Nama_Pasien             string
-	Jenis_Kelamin           string
-	Tanggal_Lahir           string
-	Usia                    int
-	Nama_Wali               string
-	Email_Wali              string
-	No_Telpon_Wali          string
-	Alamat_Ktp              string
-	Provinsi_Ktp            string
-	Kabupaten_Kota_Ktp      string
-	Alamat_Domisili         string
-	Provinsi_Domisili       string
-	Kabupaten_Kota_Domisili string
-	No_Bpjs                 string
-	Kelas_Bpjs              string
-	Foto_Ktp                string
-	Foto_Bpjs               string
-	UserID                  uint
+	NoKk                  string
+	Nik                   string
+	NamaPasien            string
+	JenisKelamin          string
+	TanggalLahir          string
+	Usia                  int
+	NamaWali              string
+	EmailWali             string
+	NoTelponWali          string
+	AlamatKtp             string
+	ProvinsiKtp           string
+	KabupatenKotaKtp      string
+	AlamatDomisili        string
+	ProvinsiDomisili      string
+	KabupatenKotaDomisili string
+	NoBpjs                string
+	KelasBpjs             string
+	FotoKtp               string
+	FotoBpjs              string
+	UserID                uint
 	// CheckupReservation      CheckupReservation
 }
 
 type Practice struct {
 	gorm.Model
-	Tanggal_Praktik     string
-	Kuota_Harian        int
+	TanggalPraktik      string
+	KuotaHarian         int
 	Status              string
 	PoliclinicID        uint
-	CheckupReservations []CheckupReservation
+	CheckupReservations []CheckupReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 func FromCoreToModel(dataCore checkupreservation.CheckupReservationCore) CheckupReservation {
@@ -65,29 +65,29 @@ func (dataModel *CheckupReservation) toCore() checkupreservation.CheckupReservat
 		CreatedAt: dataModel.CreatedAt,
 		Patient: checkupreservation.PatientCore{
 			ID:                    dataModel.Patient.ID,
-			NoKk:                  dataModel.Patient.No_Kk,
+			NoKk:                  dataModel.Patient.NoKk,
 			Nik:                   dataModel.Patient.Nik,
-			NamaPasien:            dataModel.Patient.Nama_Pasien,
-			JenisKelamin:          dataModel.Patient.Jenis_Kelamin,
-			TanggalLahir:          dataModel.Patient.Tanggal_Lahir,
+			NamaPasien:            dataModel.Patient.NamaPasien,
+			JenisKelamin:          dataModel.Patient.JenisKelamin,
+			TanggalLahir:          dataModel.Patient.TanggalLahir,
 			Usia:                  dataModel.Patient.Usia,
-			NamaWali:              dataModel.Patient.Nama_Wali,
-			EmailWali:             dataModel.Patient.Email_Wali,
-			NoTelponWali:          dataModel.Patient.No_Telpon_Wali,
-			AlamatKtp:             dataModel.Patient.Alamat_Ktp,
-			ProvinsiKtp:           dataModel.Patient.Provinsi_Ktp,
-			KabupatenKotaKtp:      dataModel.Patient.Kabupaten_Kota_Ktp,
-			AlamatDomisili:        dataModel.Patient.Alamat_Domisili,
-			ProvinsiDomisili:      dataModel.Patient.Provinsi_Domisili,
-			KabupatenKotaDomisili: dataModel.Patient.Kabupaten_Kota_Domisili,
-			NoBpjs:                dataModel.Patient.No_Bpjs,
-			KelasBpjs:             dataModel.Patient.Kelas_Bpjs,
-			FotoKtp:               dataModel.Patient.Foto_Ktp,
-			FotoBpjs:              dataModel.Patient.Foto_Bpjs,
+			NamaWali:              dataModel.Patient.NamaWali,
+			EmailWali:             dataModel.Patient.EmailWali,
+			NoTelponWali:          dataModel.Patient.NoTelponWali,
+			AlamatKtp:             dataModel.Patient.AlamatKtp,
+			ProvinsiKtp:           dataModel.Patient.ProvinsiKtp,
+			KabupatenKotaKtp:      dataModel.Patient.KabupatenKotaKtp,
+			AlamatDomisili:        dataModel.Patient.AlamatDomisili,
+			ProvinsiDomisili:      dataModel.Patient.ProvinsiDomisili,
+			KabupatenKotaDomisili: dataModel.Patient.KabupatenKotaDomisili,
+			NoBpjs:                dataModel.Patient.NoBpjs,
+			KelasBpjs:             dataModel.Patient.KelasBpjs,
+			FotoKtp:               dataModel.Patient.FotoKtp,
+			FotoBpjs:              dataModel.Patient.FotoBpjs,
 		},
 		Practice: checkupreservation.PracticeCore{
 			ID:             dataModel.Practice.ID,
-			TanggalPraktik: dataModel.Practice.Tanggal_Praktik,
+			TanggalPraktik: dataModel.Practice.TanggalPraktik,
 			Status:         dataModel.Practice.Status,
 			PoliclinicID:   dataModel.Practice.PoliclinicID,
 		},

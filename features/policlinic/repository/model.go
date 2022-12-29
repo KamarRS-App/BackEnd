@@ -8,58 +8,57 @@ import (
 
 type Policlinic struct {
 	gorm.Model
-	Nama_Poli   string
-	Jam_Praktik string
-	HospitalID  uint
-	DoctorID    uint
-	Practices   []Practice
-	Doctor      Doctor
+	NamaPoli   string
+	JamPraktik string
+	HospitalID uint
+	Practices  []Practice `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Doctors    []Doctor   `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Hospital struct {
 	gorm.Model
-	Kode_Rs             string
-	Nama                string
-	Foto                string
-	Alamat              string
-	Provinsi            string
-	Kabupaten_Kota      string
-	Kecamatan           string
-	No_Telpon           string
-	Email               string
-	Kelas_Rs            string
-	Pengelola           string
-	Jumlah_Tempat_Tidur string
-	Status_Penggunaan   string
-	Biaya_Pendaftaran   string
-	Policlinics         []Policlinic
+	KodeRs            string
+	Nama              string
+	Foto              string
+	Alamat            string
+	Provinsi          string
+	KabupatenKota     string
+	Kecamatan         string
+	KodePos           string
+	NoTelpon          string
+	Email             string
+	KelasRs           string
+	Pengelola         string
+	JumlahTempatTidur string
+	StatusPenggunaan  string
+	BiayaPendaftaran  string
+	Policlinics       []Policlinic `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Doctor struct {
 	gorm.Model
-	Nama        string
-	Spesialis   string
-	Email       string
-	No_Telpon   string
-	Foto        string
-	Policlinics []Policlinic
+	Nama         string
+	Spesialis    string
+	Email        string
+	NoTelpon     string
+	Foto         string
+	PoliclinicID uint
 }
 
 type Practice struct {
 	gorm.Model
-	Tanggal_Praktik string
-	Kuota_Harian    int
-	Status          string
-	PoliclinicID    uint
+	TanggalPraktik string
+	KuotaHarian    int
+	Status         string
+	PoliclinicID   uint
 }
 
 func FromCore(dataCore policlinic.CorePoliclinic) Policlinic {
 	poliGorm := Policlinic{
 
-		Nama_Poli:   dataCore.NamaPoli,
-		Jam_Praktik: dataCore.JamPraktik,
-		HospitalID:  dataCore.HospitalID,
-		DoctorID:    dataCore.DoctorID,
+		NamaPoli:   dataCore.NamaPoli,
+		JamPraktik: dataCore.JamPraktik,
+		HospitalID: dataCore.HospitalID,
 	}
 	return poliGorm //insert user
 }
@@ -67,17 +66,17 @@ func (dataModel *Policlinic) ToCore() policlinic.CorePoliclinic {
 	return policlinic.CorePoliclinic{
 
 		ID:         dataModel.ID,
-		NamaPoli:   dataModel.Nama_Poli,
-		JamPraktik: dataModel.Jam_Praktik,
+		NamaPoli:   dataModel.NamaPoli,
+		JamPraktik: dataModel.JamPraktik,
 		HospitalID: dataModel.HospitalID,
-		Doctor: policlinic.CoreDoctor{
-			ID:        dataModel.Doctor.ID,
-			Nama:      dataModel.Doctor.Nama,
-			Spesialis: dataModel.Doctor.Spesialis,
-			Email:     dataModel.Doctor.Email,
-			NoTelpon:  dataModel.Doctor.No_Telpon,
-			Foto:      dataModel.Doctor.Foto,
-		},
+		// Doctor: policlinic.CoreDoctor{
+		// 	ID:        dataModel.ToCore().Doctor.ID,
+		// 	Nama:      dataModel.ToCore().Doctor.Nama,
+		// 	Spesialis: dataModel.ToCore().Doctor.Spesialis,
+		// 	Email:     dataModel.ToCore().Doctor.Email,
+		// 	NoTelpon:  dataModel.ToCore().Doctor.NoTelpon,
+		// 	Foto:      dataModel.ToCore().Doctor.Foto,
+		// },
 		CreatedAt: dataModel.CreatedAt,
 		UpdatedAt: dataModel.UpdatedAt,
 	}
@@ -93,7 +92,7 @@ func ToCoreList(dataModel []Policlinic) []policlinic.CorePoliclinic {
 //jika diperlukan untuk preload data daily pracctice
 // func LoadpraccticeModeltoCore(model []Practice) []practice.Core {
 // 	var core []practice.Core
-// 	for _, v := range model {
+// 	for , v := range model {
 // 		core = append(core, v.ModeltoCore())
 // 	}
 // 	return core

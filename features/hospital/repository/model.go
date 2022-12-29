@@ -8,66 +8,68 @@ import (
 
 type Hospital struct {
 	gorm.Model
-	Kode_Rs             string
-	Nama                string
-	Foto                string
-	Alamat              string
-	Provinsi            string
-	Kabupaten_Kota      string
-	Kecamatan           string
-	No_Telpon           string
-	Email               string
-	Kelas_Rs            string
-	Pengelola           string
-	Jumlah_Tempat_Tidur int
-	Status_Penggunaan   string
-	Biaya_Pendaftaran   int
-	HospitalStaffs      []HospitalStaff
-	Beds                []Bed
-	Policlinics         []Policlinic
+	KodeRs            string
+	Nama              string
+	Foto              string
+	Alamat            string
+	Provinsi          string
+	KabupatenKota     string
+	Kecamatan         string
+	KodePos           string
+	NoTelpon          string
+	Email             string
+	KelasRs           string
+	Pengelola         string
+	JumlahTempatTidur int
+	StatusPenggunaan  string
+	BiayaPendaftaran  int
+	HospitalStaffs    []HospitalStaff `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Beds              []Bed           `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Policlinics       []Policlinic    `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type HospitalStaff struct {
 	gorm.Model
 	Nama       string
 	Email      string
-	Kata_Sandi string
+	KataSandi  string
 	Peran      string
 	HospitalID uint
 }
 
 type Bed struct {
 	gorm.Model
-	Nama_Tempat_Tidur string
-	Ruangan           string
-	Kelas             string
-	Status            string
-	HospitalID        uint
+	NamaTempatTidur string
+	Ruangan         string
+	Kelas           string
+	Status          string
+	HospitalID      uint
 }
 
 type Policlinic struct {
 	gorm.Model
-	Nama_Poli   string
-	Jam_Praktik string
-	HospitalID  uint
+	NamaPoli   string
+	JamPraktik string
+	HospitalID uint
 }
 
 func FromCore(dataCore hospital.HospitalCore) Hospital {
 	hospitalGorm := Hospital{
-		Kode_Rs:             dataCore.KodeRs,
-		Nama:                dataCore.Nama,
-		Foto:                dataCore.Foto,
-		Alamat:              dataCore.Alamat,
-		Provinsi:            dataCore.Provinsi,
-		Kabupaten_Kota:      dataCore.KabupatenKota,
-		Kecamatan:           dataCore.Kecamatan,
-		No_Telpon:           dataCore.NoTelpon,
-		Email:               dataCore.Email,
-		Kelas_Rs:            dataCore.KelasRs,
-		Pengelola:           dataCore.PemilikPengelola,
-		Jumlah_Tempat_Tidur: dataCore.JumlahTempatTidur,
-		Status_Penggunaan:   dataCore.StatusPenggunaan,
-		Biaya_Pendaftaran:   dataCore.BiayaRegistrasi,
+		KodeRs:            dataCore.KodeRs,
+		Nama:              dataCore.Nama,
+		Foto:              dataCore.Foto,
+		Alamat:            dataCore.Alamat,
+		Provinsi:          dataCore.Provinsi,
+		KabupatenKota:     dataCore.KabupatenKota,
+		Kecamatan:         dataCore.Kecamatan,
+		KodePos:           dataCore.KodePos,
+		NoTelpon:          dataCore.NoTelpon,
+		Email:             dataCore.Email,
+		KelasRs:           dataCore.KelasRs,
+		Pengelola:         dataCore.PemilikPengelola,
+		JumlahTempatTidur: dataCore.JumlahTempatTidur,
+		StatusPenggunaan:  dataCore.StatusPenggunaan,
+		BiayaPendaftaran:  dataCore.BiayaRegistrasi,
 	}
 	return hospitalGorm //insert hospital from core
 }
@@ -77,20 +79,21 @@ func FromCore(dataCore hospital.HospitalCore) Hospital {
 func (dataModel *Hospital) ToCore() hospital.HospitalCore {
 	return hospital.HospitalCore{
 		ID:                dataModel.ID,
-		KodeRs:            dataModel.Kode_Rs,
+		KodeRs:            dataModel.KodeRs,
 		Nama:              dataModel.Nama,
 		Foto:              dataModel.Foto,
 		Alamat:            dataModel.Alamat,
 		Provinsi:          dataModel.Provinsi,
-		KabupatenKota:     dataModel.Kabupaten_Kota,
+		KabupatenKota:     dataModel.KabupatenKota,
 		Kecamatan:         dataModel.Kecamatan,
-		NoTelpon:          dataModel.No_Telpon,
+		KodePos:           dataModel.KodePos,
+		NoTelpon:          dataModel.NoTelpon,
 		Email:             dataModel.Email,
-		KelasRs:           dataModel.Kelas_Rs,
+		KelasRs:           dataModel.KelasRs,
 		PemilikPengelola:  dataModel.Pengelola,
-		JumlahTempatTidur: dataModel.Jumlah_Tempat_Tidur,
-		StatusPenggunaan:  dataModel.Status_Penggunaan,
-		BiayaRegistrasi:   dataModel.Biaya_Pendaftaran,
+		JumlahTempatTidur: dataModel.JumlahTempatTidur,
+		StatusPenggunaan:  dataModel.StatusPenggunaan,
+		BiayaRegistrasi:   dataModel.BiayaPendaftaran,
 	}
 }
 

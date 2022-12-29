@@ -105,7 +105,7 @@ func (repo *staffRepository) Update(id int, input hospitalstaff.HospitalStaffCor
 	}
 
 	if input.KataSandi == "" {
-		input.KataSandi = staff.Kata_Sandi
+		input.KataSandi = staff.KataSandi
 	} else {
 		input.KataSandi = helper.Bcript(input.KataSandi)
 

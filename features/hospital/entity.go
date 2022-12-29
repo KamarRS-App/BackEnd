@@ -9,6 +9,7 @@ type HospitalCore struct {
 	Provinsi          string
 	KabupatenKota     string
 	Kecamatan         string
+	KodePos           string
 	NoTelpon          string
 	Email             string
 	KelasRs           string
