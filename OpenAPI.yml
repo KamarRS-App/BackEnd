@@ -194,7 +194,7 @@ paths:
               example:
                 nama: "budi"
                 email:  "budi@mail.com"
-                no_nik: "7109287651997"
+                nik: "7109287651997"
                 no_kk:  "7190398173764"
                 kata_sandi: "qwerty"
                 no_telepon: "081234"
@@ -236,7 +236,7 @@ paths:
               example:
                 nama: "budi"
                 email:  "budi@mail.com"
-                no_nik: "7109287651997"
+                nik: "7109287651997"
                 no_kk:  "7190398173764"
                 kata_sandi: "qwerty"
                 no_telepon: "081234"
@@ -283,7 +283,7 @@ paths:
                      id : 1
                      nama: "budi"
                      email:  "budi@mail.com"
-                     no_nik: "7109287651997"
+                     nik: "7109287651997"
                      no_kk:  "7190398173764"
                      no_telepon: "081234"
                      
