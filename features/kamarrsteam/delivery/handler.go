@@ -17,7 +17,7 @@ func New(service kamarrsteam.ServiceInterface, e *echo.Echo) {
 		kamarrsteamService: service,
 	}
 
-	e.POST("/kamarrsteam", handler.CreateTeam)
+	e.POST("/kamarrsteams", handler.CreateTeam)
 }
 
 func (d *KamarRsTeamDelivery) CreateTeam(c echo.Context) error {
@@ -33,5 +33,5 @@ func (d *KamarRsTeamDelivery) CreateTeam(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed insert data"+err.Error()))
 	}
 
-	return c.JSON(http.StatusOK, helper.SuccessResponse("Success Create New Homestay"))
+	return c.JSON(http.StatusOK, helper.SuccessResponse("Success Create New Kamar Rs Team"))
 }
