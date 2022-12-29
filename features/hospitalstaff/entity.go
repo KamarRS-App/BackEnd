@@ -7,6 +7,7 @@ type HospitalStaffCore struct {
 	KataSandi  string
 	Peran      string
 	HospitalID uint
+	// Hospital   HospitalCore
 }
 
 type ServiceInterface interface { //sebagai contract yang dibuat di layer service
@@ -23,4 +24,22 @@ type RepositoryInterface interface { // berkaitan database
 	Update(id int, input HospitalStaffCore) error
 	GetStaff(id int) (data HospitalStaffCore, err error)
 	DeleteById(id int) error
+}
+
+type HospitalCore struct {
+	ID                uint
+	KodeRs            string
+	Nama              string
+	Foto              string
+	Alamat            string
+	Provinsi          string
+	KabupatenKota     string
+	Kecamatan         string
+	NoTelpon          string
+	Email             string
+	KelasRs           string
+	PemilikPengelola  string
+	JumlahTempatTidur int
+	StatusPenggunaan  string
+	BiayaRegistrasi   int
 }

@@ -13,6 +13,7 @@ type HospitalStaff struct {
 	Kata_Sandi string
 	Peran      string
 	HospitalID uint
+	// Hospital   Hospital
 }
 
 type Hospital struct {
@@ -52,6 +53,9 @@ func (dataModel *HospitalStaff) ModelsToCore() hospitalstaff.HospitalStaffCore {
 		KataSandi:  dataModel.Kata_Sandi,
 		Peran:      dataModel.Peran,
 		HospitalID: dataModel.HospitalID,
+		// Hospital: hospitalstaff.HospitalCore{
+		// 	Nama: dataModel.Hospital.Nama,
+		// },
 	}
 }
 

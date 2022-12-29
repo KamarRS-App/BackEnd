@@ -38,7 +38,7 @@ func (service *UserService) Create(input user.CoreUser) (err error) {
 
 	errCreate := service.userRepository.Create(input)
 	if errCreate != nil {
-		return errors.New(" Gagal membuat akun, Email sudah terdaftar")
+		return errors.New(" Gagal membuat akun, intput data salah atau Email sudah terdaftar")
 	}
 
 	return nil
