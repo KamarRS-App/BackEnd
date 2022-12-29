@@ -31,18 +31,33 @@ func (repo *bedRepository) Create(input bed.BedCore) (row int, err error) {
 }
 
 // GetAll
-func (repo *bedRepository) GetAll(limit, offset, id int) (data []bed.BedCore, err error) {
+func (repo *bedRepository) GetAll(limit, offset, id int) (data []bed.BedCore, totalpage int, err error) {
 	var beds []Bed
-	tx := repo.db.Where("hospital_id= ?", id).Limit(limit).Offset(offset).Find(&beds)
-	if tx.Error != nil {
-		return nil, tx.Error
+	var count int64
+	rx := repo.db.Model(&Bed{}).Where("hospital_id = ?", id).Count(&count)
+	if rx.Error != nil {
+		return nil, 0, rx.Error
+	}
+	if rx.RowsAffected == 0 {
+		return nil, 0, errors.New("error query count")
 	}
 
+	// var totalpage int
+	if int(count)%limit == 0 {
+		totalpage = int(count) / limit
+	} else {
+		totalpage = (int(count) / limit) + 1
+	}
+
+	tx := repo.db.Where("hospital_id = ?", id).Limit(limit).Offset(offset).Find(&beds)
+	if tx.Error != nil {
+		return nil, 0, tx.Error
+	}
 	if tx.RowsAffected == 0 {
-		return nil, errors.New("get all data failed, error query")
+		return nil, 0, errors.New("get all data failed, error query data")
 	}
 	var dataCore = ToCoreList(beds)
-	return dataCore, nil
+	return dataCore, totalpage, nil
 }
 
 // Get by (ID)

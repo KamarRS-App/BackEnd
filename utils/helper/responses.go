@@ -27,3 +27,12 @@ func CheckResponse(msg string) map[string]any {
 		"message": msg,
 	}
 }
+
+func SuccessWithDataPaginationResponse(msg string, data any, totalpage int) map[string]any {
+	return map[string]any{
+		"status":     "success",
+		"message":    msg,
+		"data":       data,
+		"total_page": totalpage,
+	}
+}

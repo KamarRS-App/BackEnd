@@ -43,23 +43,22 @@ func (delivery *BedDelivery) Create(c echo.Context) error {
 
 // Get All by Hospital_ID
 func (delivery *BedDelivery) GetAll(c echo.Context) error {
-	limitcnv := c.QueryParam("limit")
-	offsetcnv := c.QueryParam("offset")
-	limit, _ := strconv.Atoi(limitcnv)
-	offset, _ := strconv.Atoi(offsetcnv)
+	page := c.QueryParam("page") // input page
+	pagination, _ := strconv.Atoi(page)
+	limit := 10 // set default limit buat pagination
 	hospitalId, errBind := strconv.Atoi(c.Param("id"))
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data"+errBind.Error()))
 	}
 
-	results, err := delivery.bedService.GetAll(limit, offset, hospitalId)
+	results, totalpage, err := delivery.bedService.GetAll(pagination, limit, hospitalId)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
 	}
 
 	dataResponse := FromCoreList(results)
 
-	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success read all beds", dataResponse))
+	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("success read all beds", dataResponse, totalpage))
 }
 
 // Get by ID
