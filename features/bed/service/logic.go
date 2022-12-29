@@ -31,6 +31,17 @@ func (service *bedService) Create(input bed.BedCore) (err error) {
 	return nil
 }
 
+// GetAll
+func (service *bedService) GetAll(pagination, limit, id int) (data []bed.BedCore, totalpage int, err error) {
+	offset := (pagination - 1) * limit
+	data, totalpage, err = service.bedRepository.GetAll(limit, offset, id)
+	if err != nil {
+		return nil, 0, errors.New("failed get bed by hospital id, error logic")
+	}
+	return
+
+}
+
 // Get by (ID)
 func (service *bedService) GetById(id int) (data bed.BedCore, err error) {
 	data, errGet := service.bedRepository.GetById(id)
@@ -38,13 +49,6 @@ func (service *bedService) GetById(id int) (data bed.BedCore, err error) {
 		return data, errors.New("failed get bed by id data, error logic")
 	}
 	return data, nil
-}
-
-// GetAll
-func (service *bedService) GetAll() (data []bed.BedCore, err error) {
-	data, err = service.bedRepository.GetAll()
-	return
-
 }
 
 // Update

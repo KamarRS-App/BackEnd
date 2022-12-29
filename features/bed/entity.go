@@ -17,7 +17,7 @@ type HospitalCore struct {
 
 type ServiceInterface interface {
 	Create(input BedCore) (err error)
-	GetAll() (data []BedCore, err error)
+	GetAll(pagination, limit, id int) (data []BedCore, totalpage int, err error)
 	GetById(id int) (data BedCore, err error)
 	Update(input BedCore, id int) (err error)
 	Delete(id int) (err error)
@@ -25,7 +25,7 @@ type ServiceInterface interface {
 
 type RepositoryInterface interface {
 	Create(input BedCore) (row int, err error)
-	GetAll() (data []BedCore, err error)
+	GetAll(limit, offset, id int) (data []BedCore, totalpage int, err error)
 	GetById(id int) (data BedCore, err error)
 	Update(input BedCore, id int) (err error)
 	Delete(id int) (row int, err error)
