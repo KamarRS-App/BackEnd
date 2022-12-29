@@ -132,3 +132,35 @@ func UploadFotoHospital(c echo.Context, r string) (string, error) {
 	// return url location in aws
 	return res.Location, err
 }
+
+func UploadFotoDoctor(c echo.Context, r string) (string, error) {
+
+	file, fileheader, err := c.Request().FormFile(r)
+	if err != nil {
+		log.Print(err)
+		return "", err
+	}
+
+	str := fileName(20)
+
+	godotenv.Load(".env")
+
+	s3Config := &aws.Config{
+		Region:      aws.String(os.Getenv("AWS_REGION")),
+		Credentials: credentials.NewStaticCredentials(os.Getenv("ACCESS_KEY_IAM"), os.Getenv("SECRET_KEY_IAM"), ""),
+	}
+	s3Session := session.New(s3Config)
+
+	uploader := s3manager.NewUploader(s3Session)
+
+	input := &s3manager.UploadInput{
+		Bucket:      aws.String(os.Getenv("AWS_BUCKET_NAME")),                     // bucket's name
+		Key:         aws.String("foto-doctor/" + str + "-" + fileheader.Filename), // files destination location
+		Body:        file,                                                         // content of the file
+		ContentType: aws.String("image/jpg"),                                      // content type
+	}
+	res, err := uploader.UploadWithContext(context.Background(), input)
+
+	// return url location in aws
+	return res.Location, err
+}
