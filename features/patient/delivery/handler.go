@@ -31,6 +31,10 @@ func New(Service patient.ServiceInterface, e *echo.Echo) {
 func (delivery *PatientDeliv) Create(c echo.Context) error {
 
 	userId := middlewares.ExtractTokenTeamId(c)
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("fitur hanya untuk user"))
+	}
 
 	InputPatient := RequestPatient{}
 	errbind := c.Bind(&InputPatient)
@@ -89,7 +93,7 @@ func (delivery *PatientDeliv) GetAllPatient(c echo.Context) error {
 
 	role := middlewares.ExtractTokenTeamRole(c)
 	fmt.Println(role)
-	if role != "Admin" {
+	if role != "admin" {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Maaf anda tidak punya akses ke data ini"))
 	}
 
