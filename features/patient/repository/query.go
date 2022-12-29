@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/KamarRS-App/KamarRS-App/features/patient"
 	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
@@ -96,17 +97,33 @@ func (repo *patientRepository) GetByPatientId(id int) (data patient.CorePatient,
 }
 
 // GetByUserId implements patient.RepositoryInterface
-func (repo *patientRepository) GetByUserId(userid int) (data []patient.CorePatient, err error) {
+func (repo *patientRepository) GetByUserId(limit, offset, id int) (data []patient.CorePatient, totalpage int, err error) {
+	var patient []Patient
+	var count int64
+	rx := repo.db.Model(&patient).Where("user_id", id).Count(&count)
+	if rx.Error != nil {
+		return nil, 0, rx.Error
+	}
+	fmt.Println("count", count)
+	if rx.RowsAffected == 0 {
+		return nil, 0, errors.New("error query count")
+	}
+	// var totalpage int
+	if int(count)%limit == 0 {
+		totalpage = int(count) / limit
+	} else {
+		totalpage = (int(count) / limit) + 1
+	}
 	var patients []Patient
 
-	tx := repo.db.Where("user_id=?", userid).Find(&patients)
+	tx := repo.db.Where("user_id=?", id).Limit(limit).Offset(offset).Find(&patients)
 
 	if tx.Error != nil {
 
-		return nil, tx.Error
+		return nil, 0, tx.Error
 	}
 	gorms := ListModelTOCore(patients)
-	return gorms, nil
+	return gorms, totalpage, nil
 }
 
 // Update implements patient.RepositoryInterface

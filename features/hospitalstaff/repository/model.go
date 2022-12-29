@@ -13,7 +13,7 @@ type HospitalStaff struct {
 	Kata_Sandi string
 	Peran      string
 	HospitalID uint
-	// Hospital   Hospital
+	Hospital   Hospital
 }
 
 type Hospital struct {
@@ -60,6 +60,28 @@ func (dataModel *HospitalStaff) ModelsToCore() hospitalstaff.HospitalStaffCore {
 }
 
 func ListModelTOCore(dataModel []HospitalStaff) []hospitalstaff.HospitalStaffCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+	var dataCore []hospitalstaff.HospitalStaffCore
+	for _, value := range dataModel {
+		dataCore = append(dataCore, value.ModelsToCore())
+	}
+	return dataCore //  untuk menampilkan data ke controller
+}
+
+func (dataModel *HospitalStaff) ModelsToCorePreload() hospitalstaff.HospitalStaffCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
+	return hospitalstaff.HospitalStaffCore{
+		ID:         dataModel.ID,
+		Nama:       dataModel.Nama,
+		Email:      dataModel.Email,
+		KataSandi:  dataModel.Kata_Sandi,
+		Peran:      dataModel.Peran,
+		HospitalID: dataModel.HospitalID,
+		Hospital: hospitalstaff.HospitalCore{
+			Nama: dataModel.Hospital.Nama,
+		},
+	}
+}
+
+func ListModelTOCorePreload(dataModel []HospitalStaff) []hospitalstaff.HospitalStaffCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
 	var dataCore []hospitalstaff.HospitalStaffCore
 	for _, value := range dataModel {
 		dataCore = append(dataCore, value.ModelsToCore())

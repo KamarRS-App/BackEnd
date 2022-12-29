@@ -70,13 +70,13 @@ func (repo *staffRepository) DeleteById(id int) error {
 func (repo *staffRepository) GetStaff(id int) (data hospitalstaff.HospitalStaffCore, err error) {
 	var staff HospitalStaff
 
-	tx := repo.db.First(&staff, id)
+	tx := repo.db.Preload("Hospital").First(&staff, id)
 
 	if tx.Error != nil {
 
 		return hospitalstaff.HospitalStaffCore{}, tx.Error
 	}
-	gorms := staff.ModelsToCore()
+	gorms := staff.ModelsToCorePreload()
 	return gorms, nil
 }
 
@@ -120,4 +120,28 @@ func (repo *staffRepository) Update(id int, input hospitalstaff.HospitalStaffCor
 	}
 
 	return nil
+}
+
+// GetAllStaff implements hospitalstaff.RepositoryInterface
+func (repo *staffRepository) GetAllStaff(limit int, offset int) (data []hospitalstaff.HospitalStaffCore, totalPage int, err error) {
+	var staffs []HospitalStaff
+	tx := repo.db.Find(&staffs)
+
+	if int(tx.RowsAffected)%limit == 0 {
+		totalPage = int(tx.RowsAffected) / limit
+
+	} else {
+		totalPage = (int(tx.RowsAffected) / limit) + 1
+	}
+	fmt.Println("rowsaffec", tx.RowsAffected)
+	fmt.Println("total", totalPage)
+	var staff []HospitalStaff
+	tx1 := repo.db.Limit(limit).Offset(offset).Find(&staff)
+
+	if tx1.RowsAffected == 0 {
+		return nil, 0, errors.New("data not found")
+	}
+	data = ListModelTOCore(staff)
+	return data, totalPage, nil
+
 }

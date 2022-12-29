@@ -34,7 +34,7 @@ func (repo *bedRepository) Create(input bed.BedCore) (row int, err error) {
 func (repo *bedRepository) GetAll(limit, offset, id int) (data []bed.BedCore, totalpage int, err error) {
 	var beds []Bed
 	var count int64
-	rx := repo.db.Model(&Bed{}).Where("hospital_id = ?", id).Count(&count)
+	rx := repo.db.Model(&beds).Where("hospital_id = ?", id).Count(&count)
 	if rx.Error != nil {
 		return nil, 0, rx.Error
 	}
@@ -56,8 +56,8 @@ func (repo *bedRepository) GetAll(limit, offset, id int) (data []bed.BedCore, to
 	if tx.RowsAffected == 0 {
 		return nil, 0, errors.New("get all data failed, error query data")
 	}
-	var dataCore = ToCoreList(beds)
-	return dataCore, totalpage, nil
+	data = ToCoreList(beds)
+	return data, totalpage, nil
 }
 
 // Get by (ID)
