@@ -23,7 +23,6 @@ func New(service auth.ServiceInterface, e *echo.Echo) {
 	e.POST("/login/kamarrsteams", handler.loginTeam)
 	e.POST("/login/staffs", handler.loginStaff)
 
-
 }
 
 func (delivery *AuthDelivery) login(c echo.Context) error {
@@ -55,15 +54,15 @@ func (delivery *AuthDelivery) login(c echo.Context) error {
 }
 func (d *AuthDelivery) loginTeam(c echo.Context) error {
 	authInput := AuthRequestTeam{}
-  errBind := c.Bind(&authInput)
+	errBind := c.Bind(&authInput)
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
 	}
-  token, data, err := d.authServices.LoginTeam(authInput.Email, authInput.KataSandi)
-  if err != nil {
+	token, data, err := d.authServices.LoginTeam(authInput.Email, authInput.KataSandi)
+	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed login"))
 	}
-  passCheck := helper.CheckPasswordHash(authInput.KataSandi, data.KataSandi)
+	passCheck := helper.CheckPasswordHash(authInput.KataSandi, data.KataSandi)
 	if !passCheck {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Incorrect Password"))
 	}
@@ -71,11 +70,11 @@ func (d *AuthDelivery) loginTeam(c echo.Context) error {
 	res := map[string]interface{}{
 		"team_id": data.ID,
 		"token":   token,
+		"peran":   data.Peran,
 		"email":   data.Email,
 	}
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success login", res))
- }
- 
+}
 
 func (delivery *AuthDelivery) loginStaff(c echo.Context) error {
 	authInput := AuthRequest{}
