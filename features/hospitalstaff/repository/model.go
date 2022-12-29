@@ -73,7 +73,7 @@ func (dataModel *HospitalStaff) ModelsToCorePreload() hospitalstaff.HospitalStaf
 		ID:         dataModel.ID,
 		Nama:       dataModel.Nama,
 		Email:      dataModel.Email,
-		KataSandi:  dataModel.Kata_Sandi,
+		KataSandi:  dataModel.KataSandi,
 		Peran:      dataModel.Peran,
 		HospitalID: dataModel.HospitalID,
 		Hospital: hospitalstaff.HospitalCore{
