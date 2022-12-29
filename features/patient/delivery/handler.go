@@ -75,18 +75,21 @@ func (delivery *PatientDeliv) GetByPatientId(c echo.Context) error {
 }
 
 func (delivery *PatientDeliv) GetByUserId(c echo.Context) error {
-	userIdtoken, errConv := strconv.Atoi(c.Param("id"))
+	page := c.QueryParam("page") // input page
+	pagination, _ := strconv.Atoi(page)
+	limit := 10 // set default limit buat pagination
+	userId, errConv := strconv.Atoi(c.Param("id"))
 	if errConv != nil {
 		return errConv
 	}
 
-	result, err := delivery.PatientService.GetByUserId(userIdtoken) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
+	data, totalpage, err := delivery.PatientService.GetByUserId(pagination, limit, userId) //memanggil fungsi service yang ada di folder service//jika return nya 2 maka variable harus ada 2
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
 	}
-	var ResponData = ListpatientCoreTopatientRespon(result)
-	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("berhasil menampilkan patient yang di daftarkan oleh user", ResponData))
+	var ResponData = ListpatientCoreTopatientRespon(data)
+	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("berhasil menampilkan patient yang di daftarkan oleh user", ResponData, totalpage))
 }
 
 func (delivery *PatientDeliv) GetAllPatient(c echo.Context) error {

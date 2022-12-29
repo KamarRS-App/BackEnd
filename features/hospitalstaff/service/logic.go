@@ -63,3 +63,13 @@ func (service *staffService) Update(id int, input hospitalstaff.HospitalStaffCor
 
 	return nil
 }
+
+// GetAllStaff implements hospitalstaff.ServiceInterface
+func (service *staffService) GetAllStaff(limit int, page int) (data []hospitalstaff.HospitalStaffCore, totalPage int, err error) {
+	offset := (page - 1) * limit
+	data, totalPage, err = service.staffRepository.GetAllStaff(limit, offset)
+	if err != nil {
+		return nil, 0, errors.New("failed get bed by hospital id, error logic")
+	}
+	return data, totalPage, nil
+}

@@ -46,8 +46,9 @@ func (service *patientService) GetByPatientId(id int) (data patient.CorePatient,
 }
 
 // GetByUserId implements patient.ServiceInterface
-func (service *patientService) GetByUserId(userid int) (data []patient.CorePatient, err error) {
-	data, err = service.patientRepository.GetByUserId(userid) // memanggil struct entities repository yang ada di entities yang berisi coding logic
+func (service *patientService) GetByUserId(pagination, limit, id int) (data []patient.CorePatient, totalpage int, err error) {
+	offset := (pagination - 1) * limit
+	data, totalpage, err = service.patientRepository.GetByUserId(limit, offset, id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
 	return
 }
 
