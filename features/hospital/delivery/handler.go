@@ -29,6 +29,10 @@ func New(service hospital.ServiceInterface, e *echo.Echo) {
 func (delivery *HospitalDelivery) Create(c echo.Context) error {
 	hospitalInput := HospitalRequest{}
 	errBind := c.Bind(&hospitalInput) // menangkap data yg dikirim dari req body dan disimpan ke variabel
+	fotoHospital, _ := helper.UploadFotoHospital(c, "foto")
+
+	hospitalInput.Foto = fotoHospital
+
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
 	}
