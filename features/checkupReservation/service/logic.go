@@ -25,14 +25,8 @@ func (service *CheckUpService) Create(input checkupreservation.CheckupReservatio
 		return validateERR
 	}
 
-	users, patients, practice, errCreate := service.checkupRepository.Create(input, userId)
+	errCreate := service.checkupRepository.Create(input, userId)
 
-	if practice.KuotaHarian == 0 {
-		return errors.New("kuota habis")
-	}
-	if users.Nokk != patients.NoKk {
-		return errors.New("no kk salah")
-	}
 	if errCreate != nil {
 		return errors.New(" reservasi checkup gagal")
 	}

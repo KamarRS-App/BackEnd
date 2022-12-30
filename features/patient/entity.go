@@ -33,7 +33,7 @@ type CorePatient struct {
 type ServiceInterface interface { //sebagai contract yang dibuat di layer service
 
 	Create(input CorePatient) (err error) // menambahkah data user berdasarkan data usercore
-	Update(id int, input CorePatient) error
+	Update(id, userId int, input CorePatient) error
 	GetByPatientId(id int) (data CorePatient, err error)
 	GetByUserId(pagination, limit, id int) (data []CorePatient, totalpage int, err error)
 	GetAllPatient() (data []CorePatient, err error)
@@ -43,7 +43,7 @@ type ServiceInterface interface { //sebagai contract yang dibuat di layer servic
 type RepositoryInterface interface { // berkaitan database
 
 	Create(input CorePatient) (err error)
-	Update(id int, input CorePatient) error
+	Update(id, userId int, input CorePatient) error
 	GetByPatientId(id int) (data CorePatient, err error)
 	GetByUserId(limit, offset, id int) (data []CorePatient, totalpage int, err error)
 	GetAllPatient() (data []CorePatient, err error)

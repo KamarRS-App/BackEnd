@@ -147,7 +147,7 @@ type Doctor struct {
 type HospitalStaff struct {
 	gorm.Model
 	Nama       string
-	Email      string
+	Email      string `gorm:"unique"`
 	KataSandi  string
 	Peran      string
 	HospitalID uint

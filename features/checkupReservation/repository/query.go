@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"fmt"
 
 	checkupreservation "github.com/KamarRS-App/KamarRS-App/features/checkupReservation"
 	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
@@ -22,24 +23,37 @@ func New(db *gorm.DB) checkupreservation.RepositoryInterface { // user.repositor
 }
 
 // Create implements checkupreservation.RepositoryInterface
-func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservationCore, userId int) (users userRep.User, patients repository.Patient, practice dailypractice.Practice, err error) {
-	patients = repository.Patient{}
+func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservationCore, userId int) (err error) {
+	patients := repository.Patient{}
 
 	tx1 := repo.db.First(&patients, input.PatientID)
 	if tx1.Error != nil {
-		return userRep.User{}, repository.Patient{}, dailypractice.Practice{}, tx1.Error
+		return tx1.Error
 	}
-	users = userRep.User{}
+	users := userRep.User{}
 	tx2 := repo.db.First(&users, userId)
 	if tx2.Error != nil {
-		return userRep.User{}, repository.Patient{}, dailypractice.Practice{}, tx2.Error
+		return tx2.Error
 	}
 
-	practice = dailypractice.Practice{}
+	practice := dailypractice.Practice{}
 
 	tx3 := repo.db.First(&practice, input.PracticeID)
 	if tx3.Error != nil {
-		return userRep.User{}, repository.Patient{}, dailypractice.Practice{}, tx3.Error
+		return tx3.Error
+	}
+
+	if practice.KuotaHarian == -1 {
+		practice.Status = "Not Available"
+		tx6 := repo.db.Model(&practice).Where("id = ?", input.PatientID).Updates(&practice)
+		if tx6.Error != nil {
+			return tx6.Error
+		}
+		return errors.New("kuota habis")
+
+	}
+	if users.Nokk != patients.NoKk {
+		return errors.New("no kk salah")
 	}
 
 	CheckUp := FromCoreToModel(input)
@@ -47,17 +61,22 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 	tx := repo.db.Create(&CheckUp) // proses insert data
 
 	if tx.Error != nil {
-		return userRep.User{}, repository.Patient{}, dailypractice.Practice{}, tx.Error
+		return tx.Error
 	}
 	if tx.RowsAffected == 0 {
-		return userRep.User{}, repository.Patient{}, dailypractice.Practice{}, errors.New("insert failed")
+		return errors.New("insert failed")
 	}
 
 	practices := dailypractice.Practice{}
+	fmt.Println(practice.KuotaHarian)
 	practices.KuotaHarian = practice.KuotaHarian - 1
+	if practices.KuotaHarian == 0 {
+		practices.KuotaHarian = -1
+	}
+	fmt.Println(practices.KuotaHarian)
 	tx4 := repo.db.Model(&practices).Where("id = ?", input.PatientID).Updates(&practices)
 	if tx4.Error != nil {
-		return userRep.User{}, repository.Patient{}, dailypractice.Practice{}, tx4.Error
+		return tx4.Error
 	}
-	return users, patients, practice, nil
+	return nil
 }
