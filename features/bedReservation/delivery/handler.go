@@ -19,6 +19,7 @@ func New(service bedreservation.ServiceInterface, e *echo.Echo) {
 	}
 
 	e.POST("/registrations", handler.CreateRegistration)
+	e.GET("/payments/:kodeDaftar", handler.GetPayment)
 }
 
 func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
@@ -34,5 +35,15 @@ func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
 	}
 	res := fromCore(data)
 
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success create registrations", res))
+}
+
+func (d *BedReservationDelivery) GetPayment(c echo.Context) error {
+	kodeDaftar := c.Param("kodeDaftar")
+	data, err := d.BedReservationService.GetPayment(kodeDaftar)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed insert data"+err.Error()))
+	}
+	res := fromCore(data)
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success create registrations", res))
 }

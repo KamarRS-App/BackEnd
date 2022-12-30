@@ -38,3 +38,14 @@ func (r *bedReservationRepository) Create(input bedreservation.BedReservationCor
 	}
 	return input, nil
 }
+
+// GetPayment implements bedreservation.RepositoryInterface
+func (r *bedReservationRepository) GetPayment(kodeDaftar string) (data bedreservation.BedReservationCore, err error) {
+	var registration BedReservation
+	tx := r.db.Where("kode_daftar = ?", kodeDaftar).First(&registration)
+	if tx.Error != nil {
+		return bedreservation.BedReservationCore{}, tx.Error
+	}
+	data = registration.toCore()
+	return data, nil
+}

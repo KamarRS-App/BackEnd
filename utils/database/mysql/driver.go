@@ -74,6 +74,7 @@ type BedReservation struct {
 	KodeDaftar       string
 	PaymentMethod    string
 	LinkPembayaran   string
+	QrString         string
 	StatusPembayaran string
 	PatientID        uint
 	BedID            uint
