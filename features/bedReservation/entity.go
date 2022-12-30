@@ -12,7 +12,6 @@ type BedReservationCore struct {
 	HospitalID       uint
 	PatientID        uint
 	// Patient          PatientCore
-	BedID uint
 }
 
 type PatientCore struct {
