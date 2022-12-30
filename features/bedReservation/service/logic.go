@@ -13,8 +13,8 @@ func New(repo bedreservation.RepositoryInterface) bedreservation.ServiceInterfac
 }
 
 // Create implements bedreservation.ServiceInterface
-func (s *bedReservationService) Create(input bedreservation.BedReservationCore) (data bedreservation.BedReservationCore, err error) {
-	data, err = s.bedReservationRepository.Create(input)
+func (s *bedReservationService) Create(input bedreservation.BedReservationCore, userId uint) (data bedreservation.BedReservationCore, err error) {
+	data, err = s.bedReservationRepository.Create(input, userId)
 	if err != nil {
 		return bedreservation.BedReservationCore{}, err
 	}

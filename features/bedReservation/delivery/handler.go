@@ -26,13 +26,20 @@ func New(service bedreservation.ServiceInterface, e *echo.Echo) {
 }
 
 func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses user"))
+
+	}
+	userId := middlewares.ExtractTokenTeamId(c)
+
 	input := BedReservationRequest{}
 	errBind := c.Bind(&input)
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
 	}
 	dataCore := input.reqToCore()
-	data, err := d.BedReservationService.Create(dataCore)
+	data, err := d.BedReservationService.Create(dataCore, uint(userId))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed insert data"+err.Error()))
 	}

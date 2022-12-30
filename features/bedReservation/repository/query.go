@@ -5,6 +5,7 @@ import (
 	"time"
 
 	bedreservation "github.com/KamarRS-App/KamarRS-App/features/bedReservation"
+	user "github.com/KamarRS-App/KamarRS-App/features/user/repository"
 	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"gorm.io/gorm"
 )
@@ -20,20 +21,32 @@ func New(db *gorm.DB) bedreservation.RepositoryInterface {
 }
 
 // Create implements bedreservation.RepositoryInterface
-func (r *bedReservationRepository) Create(input bedreservation.BedReservationCore) (data bedreservation.BedReservationCore, err error) {
+func (r *bedReservationRepository) Create(input bedreservation.BedReservationCore, userId uint) (data bedreservation.BedReservationCore, err error) {
+	var user user.User
+	tx0 := r.db.Where("id = ?", userId).First(&user)
+	if tx0.Error != nil {
+		return bedreservation.BedReservationCore{}, tx0.Error
+	}
+
 	var patient Patient
 	tx1 := r.db.Where("id = ?", input.PatientID).First(&patient)
 	if tx1.Error != nil {
 		return bedreservation.BedReservationCore{}, tx1.Error
 	}
+
+	if user.Nokk != patient.NoKk {
+		return bedreservation.BedReservationCore{}, errors.New("pasien hanya dapat didaftarkan oleh user dengan kk sama")
+	}
+
 	if patient.NoBpjs != "" {
 		input.BiayaRegistrasi = 0
+		input.StatusPembayaran = "lunas--gratis BPJS"
 	} else {
 		input.BiayaRegistrasi = 25000
+		input.StatusPembayaran = "belum dibayar"
 	}
 	randString := helper.FileName(5)
 	input.KodeDaftar = "order-" + randString
-	input.StatusPembayaran = "belum dibayar"
 	inputGorm := FromCoreToModel(input)
 	tx2 := r.db.Create(&inputGorm)
 	if tx2.Error != nil {
@@ -62,6 +75,11 @@ func (r *bedReservationRepository) CreatePayment(input bedreservation.BedReserva
 	if tx.Error != nil {
 		return bedreservation.BedReservationCore{}, tx.Error
 	}
+
+	if input.BiayaRegistrasi < 1 {
+		return bedreservation.BedReservationCore{}, errors.New("tidak perlu melakukan pembayaran, pembayaran anda sudah ditanggung BPJS")
+	}
+
 	input.BiayaRegistrasi = regisInfo.BiayaRegistrasi
 	input.HospitalID = regisInfo.HospitalID
 	midtransInfo := helper.CreateInvoice(input.KodeDaftar, int64(regisInfo.BiayaRegistrasi), input.PaymentMethod)

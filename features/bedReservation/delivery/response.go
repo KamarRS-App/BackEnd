@@ -18,7 +18,7 @@ type BedReservationResponse struct {
 	QrString         string `json:"qr_string"`
 	StatusPembayaran string `json:"status_pembayaran"`
 	HospitalID       uint   `json:"hospital_id"`
-	// BedID            uint   `json:"bed_id"`
+	BedID            uint   `json:"bed_id"`
 	// Patient          PatientResponse `json:"patient"`
 }
 
@@ -63,7 +63,7 @@ func fromCore(dataCore bedreservation.BedReservationCore) BedReservationResponse
 		QrString:         dataCore.QrString,
 		StatusPembayaran: dataCore.StatusPembayaran,
 		HospitalID:       dataCore.HospitalID,
-		// BedID:            dataCore.BedID,
+		BedID:            dataCore.BedID,
 		// Patient: PatientResponse{
 		// 	ID:                    dataCore.Patient.ID,
 		// 	NoKk:                  dataCore.Patient.NoKk,
