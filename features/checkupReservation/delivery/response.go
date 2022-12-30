@@ -24,7 +24,6 @@ type PatientResponse struct {
 type PracticeResponse struct {
 	ID             uint   `json:"id"`
 	TanggalPraktik string `json:"tanggal_praktik"`
-	Status         string `json:"status"`
 	PoliclinicID   uint   `json:"policlinic_id"`
 }
 
@@ -43,7 +42,6 @@ func fromCore(dataCore checkupreservation.CheckupReservationCore) CheckupReserva
 		Practice: PracticeResponse{
 			ID:             dataCore.Practice.ID,
 			TanggalPraktik: dataCore.Practice.TanggalPraktik,
-			Status:         dataCore.Practice.Status,
 			PoliclinicID:   dataCore.Practice.PoliclinicID,
 		},
 	}
@@ -94,7 +92,6 @@ type PatientResponse1 struct {
 type PracticeResponse1 struct {
 	ID             uint   `json:"id"`
 	TanggalPraktik string `json:"tanggal_praktik"`
-	Status         string `json:"status"`
 	PoliclinicID   uint   `json:"policlinic_id"`
 }
 
@@ -129,7 +126,6 @@ func fromCore1(dataCore checkupreservation.CheckupReservationCore) CheckupReserv
 		Practice: PracticeResponse1{
 			ID:             dataCore.Practice.ID,
 			TanggalPraktik: dataCore.Practice.TanggalPraktik,
-			Status:         dataCore.Practice.Status,
 			PoliclinicID:   dataCore.Practice.PoliclinicID,
 		},
 	}

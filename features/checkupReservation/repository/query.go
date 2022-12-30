@@ -80,3 +80,48 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 	}
 	return nil
 }
+
+// GetByPracticesId implements checkupreservation.RepositoryInterface
+func (repo *CheckUpRepository) GetByPracticesId(limit int, offset int, id int) (data []checkupreservation.CheckupReservationCore, totalpage int, err error) {
+	var check []CheckupReservation
+	var count int64
+	rx := repo.db.Model(&check).Where("practice_id", id).Count(&count)
+	if rx.Error != nil {
+		return nil, 0, rx.Error
+	}
+	fmt.Println("count", count)
+	if rx.RowsAffected == 0 {
+		return nil, 0, errors.New("error query count")
+	}
+	// var totalpage int
+	if int(count)%limit == 0 {
+		totalpage = int(count) / limit
+	} else {
+		totalpage = (int(count) / limit) + 1
+	}
+	var checks []CheckupReservation
+
+	tx := repo.db.Where("practice_id=?", id).Preload("Patient").Preload("Practice").Limit(limit).Offset(offset).Find(&checks)
+
+	if tx.Error != nil {
+
+		return nil, 0, tx.Error
+	}
+	gorms := toCoreList(checks)
+	return gorms, totalpage, nil
+}
+
+// GetByreservationId implements checkupreservation.RepositoryInterface
+func (repo *CheckUpRepository) GetByreservationId(id int) (data checkupreservation.CheckupReservationCore, err error) {
+	var check CheckupReservation
+
+	tx := repo.db.Preload("Patient").Preload("Practice").First(&check, id)
+
+	if tx.Error != nil {
+
+		return checkupreservation.CheckupReservationCore{}, tx.Error
+	}
+
+	gorms := check.toCore()
+	return gorms, nil
+}
