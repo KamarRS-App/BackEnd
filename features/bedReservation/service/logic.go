@@ -1,6 +1,8 @@
 package service
 
-import bedreservation "github.com/KamarRS-App/KamarRS-App/features/bedReservation"
+import (
+	bedreservation "github.com/KamarRS-App/KamarRS-App/features/bedReservation"
+)
 
 type bedReservationService struct {
 	bedReservationRepository bedreservation.RepositoryInterface
@@ -10,6 +12,16 @@ func New(repo bedreservation.RepositoryInterface) bedreservation.ServiceInterfac
 	return &bedReservationService{
 		bedReservationRepository: repo,
 	}
+}
+
+// GetRegistrations implements bedreservation.ServiceInterface
+func (s *bedReservationService) GetRegistrations(page int, limit int, hospitalId int) (data []bedreservation.BedReservationCore, totalpage int, err error) {
+	offset := (page - 1) * limit
+	data, totalpage, err = s.bedReservationRepository.GetRegistrations(limit, offset, hospitalId)
+	if err != nil {
+		return nil, 0, err
+	}
+	return
 }
 
 // Create implements bedreservation.ServiceInterface
