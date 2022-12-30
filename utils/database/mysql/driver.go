@@ -41,7 +41,7 @@ type Bed struct {
 	Kelas           string
 	Status          string
 	HospitalID      uint
-	BedReservation  BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	// BedReservation  BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Hospital struct {
@@ -71,13 +71,13 @@ type BedReservation struct {
 	HospitalId       uint
 	StatusPasien     string
 	BiayaRegistrasi  int
-	OrderId          string
+	KodeDaftar       string
 	PaymentMethod    string
 	LinkPembayaran   string
 	StatusPembayaran string
 	PatientID        uint
 	BedID            uint
-	Patient          Patient `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	// Patient          Patient `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Patient struct {
@@ -103,7 +103,7 @@ type Patient struct {
 	FotoBpjs              string
 	UserID                uint
 	// BedReservationID        uint
-	// BedReservation     BedReservation
+	BedReservation BedReservation
 	// CheckupReservation CheckupReservation
 }
 

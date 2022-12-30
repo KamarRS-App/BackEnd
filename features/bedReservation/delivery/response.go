@@ -5,16 +5,16 @@ import (
 )
 
 type BedReservationResponse struct {
-	ID               uint            `json:"id"`
-	StatusPasien     string          `json:"statuspasien"`
-	BiayaRegistrasi  int             `json:"biayaregistrasi"`
-	OrderID          string          `json:"orderid"`
-	PaymentMethod    string          `json:"paymentmethod"`
-	LinkPembayaran   string          `json:"linkpembayaran"`
-	StatusPembayaran string          `json:"statuspembayaran"`
-	HospitalID       uint            `json:"hospitalid"`
-	BedID            uint            `json:"bedid"`
-	Patient          PatientResponse `json:"patient"`
+	ID               uint   `json:"id"`
+	StatusPasien     string `json:"status_pasien"`
+	BiayaRegistrasi  int    `json:"biaya_registrasi"`
+	KodeDaftar       string `json:"Kode_daftar"`
+	PaymentMethod    string `json:"payment_method"`
+	LinkPembayaran   string `json:"link_pembayaran"`
+	StatusPembayaran string `json:"status_pembayaran"`
+	HospitalID       uint   `json:"hospital_id"`
+	BedID            uint   `json:"bed_id"`
+	// Patient          PatientResponse `json:"patient"`
 }
 
 type PatientResponse struct {
@@ -48,35 +48,35 @@ func fromCore(dataCore bedreservation.BedReservationCore) BedReservationResponse
 		ID:               dataCore.ID,
 		StatusPasien:     dataCore.StatusPasien,
 		BiayaRegistrasi:  dataCore.BiayaRegistrasi,
-		OrderID:          dataCore.OrderID,
+		KodeDaftar:       dataCore.KodeDaftar,
 		PaymentMethod:    dataCore.PaymentMethod,
 		LinkPembayaran:   dataCore.LinkPembayaran,
 		StatusPembayaran: dataCore.StatusPembayaran,
 		HospitalID:       dataCore.HospitalID,
 		BedID:            dataCore.BedID,
-		Patient: PatientResponse{
-			ID:                    dataCore.Patient.ID,
-			NoKk:                  dataCore.Patient.NoKk,
-			Nik:                   dataCore.Patient.Nik,
-			NamaPasien:            dataCore.Patient.NamaPasien,
-			JenisKelamin:          dataCore.Patient.JenisKelamin,
-			TanggalLahir:          dataCore.Patient.TanggalLahir,
-			Usia:                  dataCore.Patient.Usia,
-			NamaWali:              dataCore.Patient.NamaWali,
-			EmailWali:             dataCore.Patient.EmailWali,
-			NoTelponWali:          dataCore.Patient.NoTelponWali,
-			AlamatKtp:             dataCore.Patient.AlamatKtp,
-			ProvinsiKtp:           dataCore.Patient.ProvinsiKtp,
-			KabupatenKotaKtp:      dataCore.Patient.KabupatenKotaKtp,
-			AlamatDomisili:        dataCore.Patient.AlamatDomisili,
-			ProvinsiDomisili:      dataCore.Patient.ProvinsiDomisili,
-			KabupatenKotaDomisili: dataCore.Patient.KabupatenKotaDomisili,
-			NoBpjs:                dataCore.Patient.NoBpjs,
-			KelasBpjs:             dataCore.Patient.KelasBpjs,
-			FotoKtp:               dataCore.Patient.FotoKtp,
-			FotoBpjs:              dataCore.Patient.FotoBpjs,
-			// UserID:                dataCore.Patient.UserID,
-		},
+		// Patient: PatientResponse{
+		// 	ID:                    dataCore.Patient.ID,
+		// 	NoKk:                  dataCore.Patient.NoKk,
+		// 	Nik:                   dataCore.Patient.Nik,
+		// 	NamaPasien:            dataCore.Patient.NamaPasien,
+		// 	JenisKelamin:          dataCore.Patient.JenisKelamin,
+		// 	TanggalLahir:          dataCore.Patient.TanggalLahir,
+		// 	Usia:                  dataCore.Patient.Usia,
+		// 	NamaWali:              dataCore.Patient.NamaWali,
+		// 	EmailWali:             dataCore.Patient.EmailWali,
+		// 	NoTelponWali:          dataCore.Patient.NoTelponWali,
+		// 	AlamatKtp:             dataCore.Patient.AlamatKtp,
+		// 	ProvinsiKtp:           dataCore.Patient.ProvinsiKtp,
+		// 	KabupatenKotaKtp:      dataCore.Patient.KabupatenKotaKtp,
+		// 	AlamatDomisili:        dataCore.Patient.AlamatDomisili,
+		// 	ProvinsiDomisili:      dataCore.Patient.ProvinsiDomisili,
+		// 	KabupatenKotaDomisili: dataCore.Patient.KabupatenKotaDomisili,
+		// 	NoBpjs:                dataCore.Patient.NoBpjs,
+		// 	KelasBpjs:             dataCore.Patient.KelasBpjs,
+		// 	FotoKtp:               dataCore.Patient.FotoKtp,
+		// 	FotoBpjs:              dataCore.Patient.FotoBpjs,
+		// 	// UserID:                dataCore.Patient.UserID,
+		// },
 	}
 }
 

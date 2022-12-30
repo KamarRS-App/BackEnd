@@ -4,14 +4,14 @@ type BedReservationCore struct {
 	ID               uint
 	StatusPasien     string
 	BiayaRegistrasi  int
-	OrderID          string
+	KodeDaftar       string
 	PaymentMethod    string
 	LinkPembayaran   string
 	StatusPembayaran string
 	HospitalID       uint
 	PatientID        uint
-	Patient          PatientCore
-	BedID            uint
+	// Patient          PatientCore
+	BedID uint
 }
 
 type PatientCore struct {
@@ -35,4 +35,12 @@ type PatientCore struct {
 	KelasBpjs             string
 	FotoKtp               string
 	FotoBpjs              string
+}
+
+type ServiceInterface interface {
+	Create(input BedReservationCore) (data BedReservationCore, err error)
+}
+
+type RepositoryInterface interface {
+	Create(input BedReservationCore) (data BedReservationCore, err error)
 }

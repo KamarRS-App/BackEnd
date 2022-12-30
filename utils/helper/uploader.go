@@ -31,7 +31,7 @@ func nameGenerator(length int, charset string) string {
 	return string(b)
 }
 
-func fileName(length int) string {
+func FileName(length int) string {
 	return nameGenerator(length, charset)
 }
 
@@ -45,7 +45,7 @@ func UploadFotoKTP(c echo.Context, r string) (string, error) {
 		return "", err
 	}
 
-	str := fileName(20)
+	str := FileName(20)
 
 	godotenv.Load(".env")
 
@@ -77,7 +77,7 @@ func UploadFotoBPJS(c echo.Context, r string) (string, error) {
 		return "", err
 	}
 
-	str := fileName(20)
+	str := FileName(20)
 
 	godotenv.Load(".env")
 

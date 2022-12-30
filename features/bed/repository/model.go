@@ -13,7 +13,7 @@ type Bed struct {
 	Kelas           string
 	Status          string
 	HospitalID      uint
-	BedReservation  BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	// BedReservation  BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Hospital struct {
