@@ -44,10 +44,12 @@ func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
 	}
 
 	if user.Nokk == "" {
+		fmt.Println("anda harus melengkapai data diri anda terlebih dahulu untuk mendaftarkan pasien")
 		return errors.New("anda harus melengkapai data diri anda terlebih dahulu untuk mendaftarkan pasien")
 	}
 
 	if input.NoKk != user.Nokk {
+		fmt.Println("hanya bisa mendaftarkan keluarga")
 		return errors.New("hanya bisa mendaftarkan keluarga")
 	}
 
@@ -127,7 +129,7 @@ func (repo *patientRepository) GetByUserId(limit, offset, id int) (data []patien
 }
 
 // Update implements patient.RepositoryInterface
-func (repo *patientRepository) Update(id int, input patient.CorePatient) error {
+func (repo *patientRepository) Update(id, userId int, input patient.CorePatient) error {
 	var patient []Patient
 
 	tx3 := repo.db.Find(&patient)
@@ -135,12 +137,12 @@ func (repo *patientRepository) Update(id int, input patient.CorePatient) error {
 		return tx3.Error
 	}
 
-	for _, v := range patient {
-		if input.Nik == v.Nik || input.NoBpjs == v.NoBpjs {
-			return errors.New("eror input data")
-		}
+	// for _, v := range patient {
+	// 	if input.Nik == v.Nik || input.NoBpjs == v.NoBpjs {
+	// 		return errors.New("eror input data")
+	// 	}
 
-	}
+	// }
 	var pasien Patient
 
 	tx1 := repo.db.First(&pasien, id)
@@ -157,9 +159,13 @@ func (repo *patientRepository) Update(id int, input patient.CorePatient) error {
 
 		return tx2.Error
 	}
-
+	if userId != int(users.ID) {
+		fmt.Println("Buka pasien yang di daftarkan")
+		return errors.New("Buka pasien yang di daftarkan")
+	}
 	if input.NoKk != "" {
 		if input.NoKk != users.Nokk {
+			fmt.Println("no kk pasien harus sama dengan no kk user")
 			return errors.New("no kk pasien harus sama dengan no kk user")
 		}
 

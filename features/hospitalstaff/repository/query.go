@@ -31,6 +31,7 @@ func (repo *staffRepository) Create(input hospitalstaff.HospitalStaffCore) (err 
 
 	for _, v := range staffs {
 		if input.Email == v.Email {
+			fmt.Println("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
 			return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
 		}
 
@@ -44,6 +45,7 @@ func (repo *staffRepository) Create(input hospitalstaff.HospitalStaffCore) (err 
 		return tx.Error
 	}
 	if tx.RowsAffected == 0 {
+		fmt.Println("insert failed")
 		return errors.New("insert failed")
 	}
 	return nil

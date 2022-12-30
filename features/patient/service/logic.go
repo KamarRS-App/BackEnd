@@ -53,8 +53,8 @@ func (service *patientService) GetByUserId(pagination, limit, id int) (data []pa
 }
 
 // Update implements patient.ServiceInterface
-func (service *patientService) Update(id int, input patient.CorePatient) error {
-	errUpdate := service.patientRepository.Update(id, input)
+func (service *patientService) Update(id, userId int, input patient.CorePatient) error {
+	errUpdate := service.patientRepository.Update(id, userId, input)
 
 	if errUpdate != nil {
 		return errors.New("gagal mengupdate data , querry error")

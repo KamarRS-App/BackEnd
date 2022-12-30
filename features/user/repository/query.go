@@ -23,19 +23,19 @@ func New(db *gorm.DB) user.RepositoryInterface { // user.repository mengimplemen
 
 // Create implements user.RepositoryInterface
 func (repo *userRepository) Create(input user.CoreUser) (err error) {
-	var users []User
+	// var users []User
 
-	tx1 := repo.db.Find(&users)
-	if tx1.Error != nil {
-		return tx1.Error
-	}
+	// tx1 := repo.db.Find(&users)
+	// if tx1.Error != nil {
+	// 	return tx1.Error
+	// }
 
-	for _, v := range users {
-		if input.Email == v.Email {
-			return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
-		}
+	// // for _, v := range users {
+	// // 	if input.Email == v.Email {
+	// // 		return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
+	// // 	}
 
-	}
+	// // }
 
 	userGorm := FromUserCoreToModel(input)
 
@@ -52,19 +52,19 @@ func (repo *userRepository) Create(input user.CoreUser) (err error) {
 
 // Update implements user.RepositoryInterface
 func (repo *userRepository) Update(id int, input user.CoreUser) error {
-	var user []User
+	// var user []User
 
-	tx := repo.db.Find(&user)
-	if tx.Error != nil {
-		return tx.Error
-	}
+	// tx := repo.db.Find(&user)
+	// if tx.Error != nil {
+	// 	return tx.Error
+	// }
 
-	for _, v := range user {
-		if input.Email == v.Email {
-			return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
-		}
+	// for _, v := range user {
+	// 	if input.Email == v.Email {
+	// 		return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
+	// 	}
 
-	}
+	// }
 	var users User
 
 	tx1 := repo.db.First(&users, id)

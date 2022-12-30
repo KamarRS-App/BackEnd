@@ -111,6 +111,8 @@ func (delivery *PatientDeliv) GetAllPatient(c echo.Context) error {
 
 func (delivery *PatientDeliv) Update(c echo.Context) error {
 
+	userId := middlewares.ExtractTokenTeamId(c)
+
 	id, errConv := strconv.Atoi(c.Param("id"))
 	if errConv != nil {
 		return errConv
@@ -136,7 +138,7 @@ func (delivery *PatientDeliv) Update(c echo.Context) error {
 
 	dataCore := patientInput.reqToCore()
 
-	err := delivery.PatientService.Update(id, dataCore)
+	err := delivery.PatientService.Update(id, userId, dataCore)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("Gagal merubah data user"+err.Error()))
 	}

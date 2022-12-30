@@ -2,10 +2,6 @@ package checkupreservation
 
 import (
 	"time"
-
-	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
-	"github.com/KamarRS-App/KamarRS-App/features/patient/repository"
-	userRep "github.com/KamarRS-App/KamarRS-App/features/user/repository"
 )
 
 type CheckupReservationCore struct {
@@ -58,7 +54,7 @@ type ServiceInterface interface { //sebagai contract yang dibuat di layer servic
 
 type RepositoryInterface interface { // berkaitan database
 
-	Create(input CheckupReservationCore, userId int) (users userRep.User, patients repository.Patient, practice dailypractice.Practice, err error)
+	Create(input CheckupReservationCore, userId int) (err error)
 	// Update(id int, input CoreUser) error
 	// GetById(id int) (data CoreUser, err error)
 	// DeleteById(id int) error
