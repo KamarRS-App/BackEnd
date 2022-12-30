@@ -29,3 +29,12 @@ func (s *bedReservationService) GetPayment(kodeDaftar string) (data bedreservati
 	}
 	return data, nil
 }
+
+// CreatePayment implements bedreservation.ServiceInterface
+func (s *bedReservationService) CreatePayment(input bedreservation.BedReservationCore) (data bedreservation.BedReservationCore, err error) {
+	data, err = s.bedReservationRepository.CreatePayment(input)
+	if err != nil {
+		return bedreservation.BedReservationCore{}, nil
+	}
+	return data, nil
+}

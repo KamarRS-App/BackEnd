@@ -7,6 +7,10 @@ type BedReservationCore struct {
 	KodeDaftar       string
 	PaymentMethod    string
 	LinkPembayaran   string
+	TransactionId    string
+	VirtualAccount   string
+	BankPenerima     string
+	WaktuKedaluarsa  string
 	QrString         string
 	StatusPembayaran string
 	HospitalID       uint
@@ -40,9 +44,11 @@ type PatientCore struct {
 type ServiceInterface interface {
 	Create(input BedReservationCore) (data BedReservationCore, err error)
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
+	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
 }
 
 type RepositoryInterface interface {
 	Create(input BedReservationCore) (data BedReservationCore, err error)
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
+	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
 }

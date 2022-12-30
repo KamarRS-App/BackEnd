@@ -11,6 +11,10 @@ type BedReservationResponse struct {
 	KodeDaftar       string `json:"Kode_daftar"`
 	PaymentMethod    string `json:"payment_method"`
 	LinkPembayaran   string `json:"link_pembayaran"`
+	TransactionId    string `json:"transaction_id" form:"transaction_id"`
+	VirtualAccount   string `json:"virtual_account" form:"virtual_account"`
+	BankPenerima     string `json:"bank_penerima" form:"bank_penerima"`
+	WaktuKedaluarsa  string `json:"waktu_kedaluarsa" form:"waktu_kedaluarsa"`
 	QrString         string `json:"qr_string"`
 	StatusPembayaran string `json:"status_pembayaran"`
 	HospitalID       uint   `json:"hospital_id"`
@@ -52,6 +56,10 @@ func fromCore(dataCore bedreservation.BedReservationCore) BedReservationResponse
 		KodeDaftar:       dataCore.KodeDaftar,
 		PaymentMethod:    dataCore.PaymentMethod,
 		LinkPembayaran:   dataCore.LinkPembayaran,
+		VirtualAccount:   dataCore.VirtualAccount,
+		TransactionId:    dataCore.TransactionId,
+		BankPenerima:     dataCore.BankPenerima,
+		WaktuKedaluarsa:  dataCore.WaktuKedaluarsa,
 		QrString:         dataCore.QrString,
 		StatusPembayaran: dataCore.StatusPembayaran,
 		HospitalID:       dataCore.HospitalID,

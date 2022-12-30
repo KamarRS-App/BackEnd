@@ -2,7 +2,7 @@ package helper
 
 import (
 	"os"
-	"time"
+	// "time"
 
 	"github.com/midtrans/midtrans-go"
 	"github.com/midtrans/midtrans-go/coreapi"
@@ -10,12 +10,15 @@ import (
 
 func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran string) *coreapi.ChargeResponse {
 	midtrans.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
+	midtrans.ClientKey = os.Getenv("MIDTRANS_CLIENT_KEY")
 	midtrans.Environment = midtrans.Sandbox
+	c := coreapi.Client{}
+	c.New(os.Getenv("MIDTRANS_SERVER_KEY"), midtrans.Sandbox)
 
 	switch {
-	case metodePembayaran == "transer_va_bca":
+	case metodePembayaran == "transfer_va_bca":
 		chargeReq := &coreapi.ChargeReq{
-			PaymentType: "bank_transer",
+			PaymentType: "bank_transfer",
 			TransactionDetails: midtrans.TransactionDetails{
 				OrderID:  kodeDaftar,
 				GrossAmt: biayaRegistrasi,
@@ -24,16 +27,16 @@ func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran st
 				Bank: midtrans.BankBca,
 			},
 			CustomExpiry: &coreapi.CustomExpiry{
-				OrderTime:      time.Now().Format(time.RFC822),
+				// OrderTime:      time.Now().Format("2016-12-07 11:54:12 +0700"),
 				ExpiryDuration: 12,
 				Unit:           "hour",
 			},
 		}
 		coreApiRes, _ := coreapi.ChargeTransaction(chargeReq)
 		return coreApiRes
-	case metodePembayaran == "transer_va_permata":
+	case metodePembayaran == "transfer_va_permata":
 		chargeReq := &coreapi.ChargeReq{
-			PaymentType: "bank_transer",
+			PaymentType: "bank_transfer",
 			TransactionDetails: midtrans.TransactionDetails{
 				OrderID:  kodeDaftar,
 				GrossAmt: biayaRegistrasi,
@@ -42,16 +45,16 @@ func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran st
 				Bank: midtrans.BankPermata,
 			},
 			CustomExpiry: &coreapi.CustomExpiry{
-				OrderTime:      time.Now().Format(time.RFC822),
+				// OrderTime:      time.Now().Format("2016-12-07 11:54:12 +0700"),
 				ExpiryDuration: 12,
 				Unit:           "hour",
 			},
 		}
 		coreApiRes, _ := coreapi.ChargeTransaction(chargeReq)
 		return coreApiRes
-	case metodePembayaran == "transer_va_bni":
+	case metodePembayaran == "transfer_va_bni":
 		chargeReq := &coreapi.ChargeReq{
-			PaymentType: "bank_transer",
+			PaymentType: "bank_transfer",
 			TransactionDetails: midtrans.TransactionDetails{
 				OrderID:  kodeDaftar,
 				GrossAmt: biayaRegistrasi,
@@ -60,16 +63,16 @@ func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran st
 				Bank: midtrans.BankBni,
 			},
 			CustomExpiry: &coreapi.CustomExpiry{
-				OrderTime:      time.Now().Format(time.RFC822),
+				// OrderTime:      time.Now().Format("2016-12-07 11:54:12 +0700"),
 				ExpiryDuration: 12,
 				Unit:           "hour",
 			},
 		}
 		coreApiRes, _ := coreapi.ChargeTransaction(chargeReq)
 		return coreApiRes
-	case metodePembayaran == "transer_va_bri":
+	case metodePembayaran == "transfer_va_bri":
 		chargeReq := &coreapi.ChargeReq{
-			PaymentType: "bank_transer",
+			PaymentType: "bank_transfer",
 			TransactionDetails: midtrans.TransactionDetails{
 				OrderID:  kodeDaftar,
 				GrossAmt: biayaRegistrasi,
@@ -78,7 +81,7 @@ func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran st
 				Bank: midtrans.BankBri,
 			},
 			CustomExpiry: &coreapi.CustomExpiry{
-				OrderTime:      time.Now().Format(time.RFC822),
+				// OrderTime:      time.Now().Format("2016-12-07 11:54:12 +0700"),
 				ExpiryDuration: 12,
 				Unit:           "hour",
 			},
@@ -93,7 +96,7 @@ func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran st
 				GrossAmt: biayaRegistrasi,
 			},
 			CustomExpiry: &coreapi.CustomExpiry{
-				OrderTime:      time.Now().Format(time.RFC822),
+				// OrderTime:      time.Now().Format("2016-12-07 11:54:12 +0700"),
 				ExpiryDuration: 12,
 				Unit:           "hour",
 			},
@@ -106,8 +109,11 @@ func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran st
 
 func UpdateMidtransPayment(kodeDaftar string) *coreapi.TransactionStatusResponse {
 	midtrans.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
+	midtrans.ClientKey = os.Getenv("MIDTRANS_CLIENT_KEY")
 	midtrans.Environment = midtrans.Sandbox
+	c := coreapi.Client{}
+	c.New(os.Getenv("MIDTRANS_SERVER_KEY"), midtrans.Sandbox)
 
-	res, _ := coreapi.CheckTransaction(kodeDaftar)
+	res, _ := c.CheckTransaction(kodeDaftar)
 	return res
 }
