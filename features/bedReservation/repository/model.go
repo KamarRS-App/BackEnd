@@ -14,6 +14,7 @@ type BedReservation struct {
 	KodeDaftar       string
 	PaymentMethod    string
 	LinkPembayaran   string
+	QrString         string
 	StatusPembayaran string
 	PatientID        uint
 	BedID            uint
@@ -63,6 +64,7 @@ func FromCoreToModel(dataCore bedreservation.BedReservationCore) BedReservation 
 		KodeDaftar:       dataCore.KodeDaftar,
 		PaymentMethod:    dataCore.PaymentMethod,
 		LinkPembayaran:   dataCore.LinkPembayaran,
+		QrString:         dataCore.QrString,
 		StatusPembayaran: dataCore.StatusPembayaran,
 		HospitalId:       dataCore.HospitalID,
 		PatientID:        dataCore.PatientID,
@@ -82,6 +84,7 @@ func (dataModel *BedReservation) toCore() bedreservation.BedReservationCore {
 		KodeDaftar:       dataModel.KodeDaftar,
 		PaymentMethod:    dataModel.PaymentMethod,
 		LinkPembayaran:   dataModel.LinkPembayaran,
+		QrString:         dataModel.QrString,
 		StatusPembayaran: dataModel.StatusPembayaran,
 		HospitalID:       dataModel.HospitalId,
 		BedID:            dataModel.BedID,
