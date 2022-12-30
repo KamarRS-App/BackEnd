@@ -2,6 +2,7 @@ package delivery
 
 import (
 	"net/http"
+	"strconv"
 
 	bedreservation "github.com/KamarRS-App/KamarRS-App/features/bedReservation"
 	"github.com/KamarRS-App/KamarRS-App/middlewares"
@@ -23,6 +24,7 @@ func New(service bedreservation.ServiceInterface, e *echo.Echo) {
 	e.GET("/payments/:kodeDaftar", handler.GetPayment, middlewares.JWTMiddleware())
 	e.PUT("/payments/:kodeDaftar", handler.CreatePayment, middlewares.JWTMiddleware())
 	e.POST("/midtrans", handler.UpdateMidtrans)
+	e.GET("/hospitals/:hospitalId/registrations", handler.GetAll, middlewares.JWTMiddleware())
 }
 
 func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
@@ -88,4 +90,27 @@ func (d *BedReservationDelivery) UpdateMidtrans(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed insert data"+err.Error()))
 	}
 	return c.JSON(http.StatusOK, helper.SuccessResponse("success update payment from midtrans"))
+}
+
+func (d *BedReservationDelivery) GetAll(c echo.Context) error {
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses admin"))
+	}
+	pageQuery := c.QueryParam("page")
+	page, _ := strconv.Atoi(pageQuery)
+	limit := 10
+	hospialId, errBind := strconv.Atoi(c.Param("hospitalId"))
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data"+errBind.Error()))
+	}
+
+	res, totalpage, err := d.BedReservationService.GetRegistrations(page, limit, hospialId)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
+	}
+
+	data := fromCoreList(res)
+
+	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("success read all bed reservations", data, totalpage))
 }

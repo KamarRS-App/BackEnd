@@ -20,6 +20,36 @@ func New(db *gorm.DB) bedreservation.RepositoryInterface {
 	}
 }
 
+// GetRegistrations implements bedreservation.RepositoryInterface
+func (r *bedReservationRepository) GetRegistrations(limit, offset, hospitalId int) (data []bedreservation.BedReservationCore, totalpage int, err error) {
+	var reservations []BedReservation
+	var count int64
+	tx0 := r.db.Model(&reservations).Where("hospital_id = ?", hospitalId).Count(&count)
+	if tx0.Error != nil {
+		return nil, 0, tx0.Error
+	}
+	if tx0.RowsAffected == 0 {
+		return nil, 0, errors.New("error query count")
+	}
+
+	if int(count)%limit == 0 {
+		totalpage = int(count) / limit
+	} else {
+		totalpage = (int(count) / limit) + 1
+	}
+
+	tx := r.db.Where("hospital_id = ?", hospitalId).Limit(limit).Offset(offset).Find(&reservations)
+	if tx.Error != nil {
+		return nil, 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return nil, 0, errors.New("get all data failed, error query data")
+	}
+	data = toCoreList(reservations)
+	return data, totalpage, nil
+
+}
+
 // Create implements bedreservation.RepositoryInterface
 func (r *bedReservationRepository) Create(input bedreservation.BedReservationCore, userId uint) (data bedreservation.BedReservationCore, err error) {
 	var user user.User

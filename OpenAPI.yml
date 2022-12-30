@@ -86,7 +86,7 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
-  /oauth/login/user:
+  /oauth/login/users:
     get:
       tags:
         - Auth
@@ -112,7 +112,7 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
-  /login/staff:
+  /login/staffs:
     post:
       tags:
         - Auth
@@ -1979,6 +1979,7 @@ paths:
                 example:
                   status: "failed"
                   message: "failed create registrations"
+  /hospitals/{hospitalId}/registrations:
     get:
       tags:
         - Beds Registrations
@@ -1987,13 +1988,20 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: hospital_id
+        - name: hospital id
           description: "filter beds registrations by hospital_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+        - name: page
+          description: "shows result per page"
           required: false
           in: query
           schema: 
-            type: string
-            example: "hospital_id"
+            type: integer
+            example: 1
       responses: 
         '201':
           description: List of beds registrations by hospital id

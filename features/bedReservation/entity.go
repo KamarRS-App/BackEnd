@@ -47,6 +47,7 @@ type ServiceInterface interface {
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
 	PaymentNotif(callback BedReservationCore) (err error)
+	GetRegistrations(page, limit, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 }
 
 type RepositoryInterface interface {
@@ -54,4 +55,5 @@ type RepositoryInterface interface {
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
 	PaymentNotif(callback BedReservationCore) (err error)
+	GetRegistrations(limit, offset, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 }
