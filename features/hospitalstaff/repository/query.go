@@ -84,19 +84,20 @@ func (repo *staffRepository) GetStaff(id int) (data hospitalstaff.HospitalStaffC
 
 // Update implements hospitalstaff.RepositoryInterface
 func (repo *staffRepository) Update(id int, input hospitalstaff.HospitalStaffCore) error {
-	var staffs []HospitalStaff
+	// var staffs []HospitalStaff
 
-	tx := repo.db.Find(&staffs)
-	if tx.Error != nil {
-		return tx.Error
-	}
+	// tx := repo.db.Find(&staffs)
+	// if tx.Error != nil {
+	// 	return tx.Error
+	// }
 
-	for _, v := range staffs {
-		if input.Email == v.Email {
-			return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
-		}
+	// // for _, v := range staffs {
+	// // 	if input.Email == v.Email {
+	// // 		fmt.Println("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
+	// // 		return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
+	// // 	}
 
-	}
+	// // }
 	var staff HospitalStaff
 
 	tx1 := repo.db.First(&staff, id)
