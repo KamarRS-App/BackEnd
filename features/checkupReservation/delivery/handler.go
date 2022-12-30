@@ -69,7 +69,7 @@ func (delivery *CheckupDelivery) GetByPracticesId(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
 	}
 	var ResponData = fromCoreList(data)
-	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("berhasil menampilkan patient yang di daftarkan oleh user", ResponData, totalpage))
+	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("berhasil menampilkan reservasi berdasarkan id praktek", ResponData, totalpage))
 }
 
 func (delivery *CheckupDelivery) GetByreservationId(c echo.Context) error {
@@ -85,5 +85,5 @@ func (delivery *CheckupDelivery) GetByreservationId(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
 	}
 	var ResponData = fromCore1(result)
-	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("berhasil membaca data pasien", ResponData))
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("berhasil membaca detail reservasi", ResponData))
 }
