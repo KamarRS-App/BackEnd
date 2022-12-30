@@ -109,7 +109,7 @@ func UploadFotoHospital(c echo.Context, r string) (string, error) {
 		return "", err
 	}
 
-	str := fileName(20)
+	str := FileName(20)
 
 	godotenv.Load(".env")
 
@@ -141,7 +141,7 @@ func UploadFotoDoctor(c echo.Context, r string) (string, error) {
 		return "", err
 	}
 
-	str := fileName(20)
+	str := FileName(20)
 
 	godotenv.Load(".env")
 
