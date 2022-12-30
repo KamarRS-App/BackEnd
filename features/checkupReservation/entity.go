@@ -48,14 +48,16 @@ type ServiceInterface interface { //sebagai contract yang dibuat di layer servic
 
 	Create(input CheckupReservationCore, userId int) (err error) // menambahkah data user berdasarkan data usercore
 	// Update(id int, input CoreUser) error
-	// GetById(id int) (data CoreUser, err error)
+	GetByPracticesId(pagination, limit, id int) (data []CheckupReservationCore, totalpage int, err error)
 	// DeleteById(id int) error
+	GetByreservationId(id int) (data CheckupReservationCore, err error)
 }
 
 type RepositoryInterface interface { // berkaitan database
 
 	Create(input CheckupReservationCore, userId int) (err error)
-	// Update(id int, input CoreUser) error
+	GetByPracticesId(offset, limit, id int) (data []CheckupReservationCore, totalpage int, err error)
 	// GetById(id int) (data CoreUser, err error)
 	// DeleteById(id int) error
+	GetByreservationId(id int) (data CheckupReservationCore, err error)
 }
