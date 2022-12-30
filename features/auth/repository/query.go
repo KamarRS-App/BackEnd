@@ -84,3 +84,41 @@ func (repo *authRepository) LoginStaff(email string, pass string) (string, staff
 	return token, staffs, nil
 
 }
+
+// LoginOauth implements auth.RepositoryInterface
+func (repo *authRepository) LoginOauth(email string) (string, repository.User, error) {
+	var userData repository.User
+
+	tx := repo.db.Where("email = ?", email).First(&userData)
+	user := repository.User{}
+	user.Email = email
+
+	if tx.Error != nil {
+
+		tx1 := repo.db.Create(&user) // proses insert data
+
+		if tx1.Error != nil {
+			return "", repository.User{}, tx1.Error
+		}
+		if tx1.RowsAffected == 0 {
+			return "", repository.User{}, errors.New("insert failed")
+		}
+
+	}
+
+	tx3 := repo.db.Where("email = ?", email).First(&userData)
+	if tx3.Error != nil {
+		return "", repository.User{}, tx3.Error
+	}
+
+	// if tx.RowsAffected == 0 {
+	// 	return "", repository.User{}, errors.New("login failed")
+	// }
+
+	token, errToken := middlewares.CreateTokenTeam(int(userData.ID), "", "")
+	if errToken != nil {
+		return "", repository.User{}, errToken
+	}
+
+	return token, userData, nil
+}
