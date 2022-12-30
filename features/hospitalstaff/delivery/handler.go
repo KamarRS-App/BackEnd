@@ -20,7 +20,7 @@ func New(Service hospitalstaff.ServiceInterface, e *echo.Echo) {
 		StaffService: Service,
 	}
 
-	e.POST("/staffs", handler.Create)
+	e.POST("/staffs", handler.Create, middlewares.JWTMiddleware())
 	e.GET("/staffs/:id", handler.GetStaff, middlewares.JWTMiddleware()) //untuk sementara pake param karena login belum bisa
 	e.GET("/staffs", handler.GetAllStaff, middlewares.JWTMiddleware())  //untuk sementara pake param karena login belum bisa
 	e.PUT("/staffs/:id", handler.Update, middlewares.JWTMiddleware())
@@ -29,11 +29,11 @@ func New(Service hospitalstaff.ServiceInterface, e *echo.Echo) {
 }
 func (delivery *StaffDeliv) Create(c echo.Context) error {
 
-	// role := middlewares.ExtractTokenTeamRole(c)
-	// if role != "super admin" {
-	// 	return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses Owner"))
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "super admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses super admin"))
 
-	// }
+	}
 
 	Inputstaff := HospitalStaffRequest{} //penangkapan data user reques dari entities user
 	errbind := c.Bind(&Inputstaff)

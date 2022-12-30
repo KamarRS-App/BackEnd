@@ -50,6 +50,10 @@ import (
 	kamarRsTeamRepo "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/repository"
 	kamarRsTeamService "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service"
 
+	checkupReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/delivery"
+	checkupReservationRepo "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/repository"
+	checkupReservationService "github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service"
+
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
@@ -64,9 +68,9 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	// bedReservationServiceFactory := bedReservationService.New(bedReservationRepoFactory)
 	// bedReservationDelivery.New(bedReservationServiceFactory, e)
 
-	// checkupReservationRepoFactory := checkupReservationRepo.New(db)
-	// checkupReservationServiceFactory := checkupReservationService.New(checkupReservationRepoFactory)
-	// checkupReservationDelivery.New(checkupReservationServiceFactory, e)
+	checkupReservationRepoFactory := checkupReservationRepo.New(db)
+	checkupReservationServiceFactory := checkupReservationService.New(checkupReservationRepoFactory)
+	checkupReservationDelivery.New(checkupReservationServiceFactory, e)
 
 	dailyPracticeRepoFactory := dailyPracticeRepo.New(db)
 	dailyPracticeServiceFactory := dailyPracticeService.New(dailyPracticeRepoFactory)
