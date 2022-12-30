@@ -75,12 +75,16 @@ func (delivery *DoctorDelivery) GetById(c echo.Context) error {
 // Update
 func (delivery *DoctorDelivery) UpdateData(c echo.Context) error {
 	id, errConv := strconv.Atoi(c.Param("id"))
+
 	if errConv != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error conv data "+errConv.Error()))
 	}
 
 	doctorInput := DoctorRequest{}
+
 	errBind := c.Bind(&doctorInput)
+	fotoDoctor, _ := helper.UploadFotoDoctor(c, "foto")
+	doctorInput.Foto = fotoDoctor
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
 	}
