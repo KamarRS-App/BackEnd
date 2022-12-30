@@ -61,14 +61,14 @@ type Hospital struct {
 	JumlahTempatTidur int
 	StatusPenggunaan  string
 	BiayaPendaftaran  int
-	HospitalStaffs    []HospitalStaff `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Beds              []Bed           `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Policlinics       []Policlinic    `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	BedReservations   []BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	HospitalStaffs    []HospitalStaff  `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Beds              []Bed            `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Policlinics       []Policlinic     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type BedReservation struct {
 	gorm.Model
-	HospitalId       uint
 	StatusPasien     string
 	BiayaRegistrasi  int
 	KodeDaftar       string
@@ -77,8 +77,8 @@ type BedReservation struct {
 	QrString         string
 	StatusPembayaran string
 	PatientID        uint
-	BedID            uint
-	// Patient          Patient `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	HospitalID       uint
+	Hospital         Hospital `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Patient struct {
@@ -104,7 +104,7 @@ type Patient struct {
 	FotoBpjs              string
 	UserID                uint
 	// BedReservationID        uint
-	BedReservation BedReservation
+	BedReservation BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	// CheckupReservation CheckupReservation
 }
 

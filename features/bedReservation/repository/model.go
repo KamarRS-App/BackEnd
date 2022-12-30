@@ -8,7 +8,6 @@ import (
 
 type BedReservation struct {
 	gorm.Model
-	HospitalId       uint
 	StatusPasien     string
 	BiayaRegistrasi  int
 	KodeDaftar       string
@@ -17,8 +16,8 @@ type BedReservation struct {
 	QrString         string
 	StatusPembayaran string
 	PatientID        uint
-	BedID            uint
-	// Patient          Patient `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	HospitalID       uint
+	Hospital         Hospital `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Patient struct {
@@ -44,7 +43,7 @@ type Patient struct {
 	FotoBpjs              string
 	UserID                uint
 	// BedReservationID        uint
-	BedReservations BedReservation
+	BedReservations BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Bed struct {
@@ -57,6 +56,27 @@ type Bed struct {
 	// BedReservation  BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
+type Hospital struct {
+	gorm.Model
+	KodeRs            string
+	Nama              string
+	Foto              string
+	Alamat            string
+	Provinsi          string
+	KabupatenKota     string
+	Kecamatan         string
+	KodePos           string
+	NoTelpon          string
+	Email             string
+	KelasRs           string
+	Pengelola         string
+	JumlahTempatTidur int
+	StatusPenggunaan  string
+	BiayaPendaftaran  int
+	BedReservations   []BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Beds              []Bed            `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+}
+
 func FromCoreToModel(dataCore bedreservation.BedReservationCore) BedReservation {
 	bedresGorm := BedReservation{
 		StatusPasien:     dataCore.StatusPasien,
@@ -66,10 +86,8 @@ func FromCoreToModel(dataCore bedreservation.BedReservationCore) BedReservation 
 		LinkPembayaran:   dataCore.LinkPembayaran,
 		QrString:         dataCore.QrString,
 		StatusPembayaran: dataCore.StatusPembayaran,
-		HospitalId:       dataCore.HospitalID,
+		HospitalID:       dataCore.HospitalID,
 		PatientID:        dataCore.PatientID,
-
-		BedID: dataCore.BedID,
 	}
 	return bedresGorm //insert bedreserve from core
 }
@@ -86,8 +104,7 @@ func (dataModel *BedReservation) toCore() bedreservation.BedReservationCore {
 		LinkPembayaran:   dataModel.LinkPembayaran,
 		QrString:         dataModel.QrString,
 		StatusPembayaran: dataModel.StatusPembayaran,
-		HospitalID:       dataModel.HospitalId,
-		BedID:            dataModel.BedID,
+		HospitalID:       dataModel.HospitalID,
 		// Patient: bedreservation.PatientCore{
 		// 	ID:                    dataModel.Patient.ID,
 		// 	NoKk:                  dataModel.Patient.NoKk,
