@@ -2135,14 +2135,24 @@ paths:
                 metode_pembayaran: "transfer_va_bca"
       responses:
         '200':
-          description: "success update payment for bed reservation"
+          description: "success create payment for bed reservation"
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseWithoutData"
               example:
                 status: "success"
-                message: "success update policlinic"
+                message: "success create payment"
+                data: 
+                  hospital_id: 3
+                  patient_id: 255
+                  biaya_registrasi: 25000
+                  kode_daftar: "order-912"
+                  status_pembayaran: "belum dibayar"
+                  metode_pembayaran: "transfer_va_bca"
+                  qr_string : ""
+                  link_pembayaran: "https://midtrans.bayar"
+
         '400':
           $ref: "#/components/responses/400"
         "401" :
