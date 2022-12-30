@@ -2,13 +2,13 @@ package factory
 
 import (
 
-	// 	bedDelivery "github.com/KamarRS-App/KamarRS-App/features/bed/delivery"
-	// 	bedRepo "github.com/KamarRS-App/KamarRS-App/features/bed/repository"
-	// 	bedService "github.com/KamarRS-App/KamarRS-App/features/bed/service"
+	bedDelivery "github.com/KamarRS-App/KamarRS-App/features/bed/delivery"
+	bedRepo "github.com/KamarRS-App/KamarRS-App/features/bed/repository"
+	bedService "github.com/KamarRS-App/KamarRS-App/features/bed/service"
 
-	// 	bedReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/bedreservation/delivery"
-	// 	bedReservationRepo "github.com/KamarRS-App/KamarRS-App/features/bedreservation/repository"
-	// 	bedReservationService "github.com/KamarRS-App/KamarRS-App/features/bedreservation/service"
+	bedReservationDelivery "github.com/KamarRS-App/KamarRS-App/features/bedReservation/delivery"
+	bedReservationRepo "github.com/KamarRS-App/KamarRS-App/features/bedReservation/repository"
+	bedReservationService "github.com/KamarRS-App/KamarRS-App/features/bedReservation/service"
 
 	dailyPracticeDelivery "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/delivery"
 	dailyPracticeRepo "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
@@ -56,13 +56,13 @@ import (
 
 func InitFactory(e *echo.Echo, db *gorm.DB) {
 
-	// bedRepoFactory := bedRepo.New(db)
-	// bedServiceFactory := bedService.New(bedRepoFactory)
-	// bedDelivery.New(bedServiceFactory, e)
+	bedRepoFactory := bedRepo.New(db)
+	bedServiceFactory := bedService.New(bedRepoFactory)
+	bedDelivery.New(bedServiceFactory, e)
 
-	// bedReservationRepoFactory := bedReservationRepo.New(db)
-	// bedReservationServiceFactory := bedReservationService.New(bedReservationRepoFactory)
-	// bedReservationDelivery.New(bedReservationServiceFactory, e)
+	bedReservationRepoFactory := bedReservationRepo.New(db)
+	bedReservationServiceFactory := bedReservationService.New(bedReservationRepoFactory)
+	bedReservationDelivery.New(bedReservationServiceFactory, e)
 
 	// checkupReservationRepoFactory := checkupReservationRepo.New(db)
 	// checkupReservationServiceFactory := checkupReservationService.New(checkupReservationRepoFactory)

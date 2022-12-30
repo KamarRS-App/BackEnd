@@ -11,13 +11,13 @@ type BedReservation struct {
 	HospitalId       uint
 	StatusPasien     string
 	BiayaRegistrasi  int
-	OrderId          string
+	KodeDaftar       string
 	PaymentMethod    string
 	LinkPembayaran   string
 	StatusPembayaran string
 	PatientID        uint
 	BedID            uint
-	Patient          Patient `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	// Patient          Patient `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Patient struct {
@@ -43,7 +43,7 @@ type Patient struct {
 	FotoBpjs              string
 	UserID                uint
 	// BedReservationID        uint
-	// BedReservations BedReservation
+	BedReservations BedReservation
 }
 
 type Bed struct {
@@ -53,18 +53,19 @@ type Bed struct {
 	Kelas           string
 	Status          string
 	HospitalID      uint
-	BedReservation  BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	// BedReservation  BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 func FromCoreToModel(dataCore bedreservation.BedReservationCore) BedReservation {
 	bedresGorm := BedReservation{
 		StatusPasien:     dataCore.StatusPasien,
 		BiayaRegistrasi:  dataCore.BiayaRegistrasi,
-		OrderId:          dataCore.OrderID,
+		KodeDaftar:       dataCore.KodeDaftar,
 		PaymentMethod:    dataCore.PaymentMethod,
 		LinkPembayaran:   dataCore.LinkPembayaran,
 		StatusPembayaran: dataCore.StatusPembayaran,
 		HospitalId:       dataCore.HospitalID,
+		PatientID:        dataCore.PatientID,
 
 		BedID: dataCore.BedID,
 	}
@@ -78,35 +79,35 @@ func (dataModel *BedReservation) toCore() bedreservation.BedReservationCore {
 		ID:               dataModel.ID,
 		StatusPasien:     dataModel.StatusPasien,
 		BiayaRegistrasi:  dataModel.BiayaRegistrasi,
-		OrderID:          dataModel.OrderId,
+		KodeDaftar:       dataModel.KodeDaftar,
 		PaymentMethod:    dataModel.PaymentMethod,
 		LinkPembayaran:   dataModel.LinkPembayaran,
 		StatusPembayaran: dataModel.StatusPembayaran,
 		HospitalID:       dataModel.HospitalId,
 		BedID:            dataModel.BedID,
-		Patient: bedreservation.PatientCore{
-			ID:                    dataModel.Patient.ID,
-			NoKk:                  dataModel.Patient.NoKk,
-			Nik:                   dataModel.Patient.Nik,
-			NamaPasien:            dataModel.Patient.NamaPasien,
-			JenisKelamin:          dataModel.Patient.JenisKelamin,
-			TanggalLahir:          dataModel.Patient.TanggalLahir,
-			Usia:                  dataModel.Patient.Usia,
-			NamaWali:              dataModel.Patient.NamaWali,
-			EmailWali:             dataModel.Patient.EmailWali,
-			NoTelponWali:          dataModel.Patient.NoTelponWali,
-			AlamatKtp:             dataModel.Patient.AlamatKtp,
-			ProvinsiKtp:           dataModel.Patient.ProvinsiKtp,
-			KabupatenKotaKtp:      dataModel.Patient.KabupatenKotaKtp,
-			AlamatDomisili:        dataModel.Patient.AlamatDomisili,
-			ProvinsiDomisili:      dataModel.Patient.ProvinsiDomisili,
-			KabupatenKotaDomisili: dataModel.Patient.KabupatenKotaDomisili,
-			NoBpjs:                dataModel.Patient.NoBpjs,
-			KelasBpjs:             dataModel.Patient.KelasBpjs,
-			FotoKtp:               dataModel.Patient.FotoKtp,
-			FotoBpjs:              dataModel.Patient.FotoBpjs,
-			// UserID:                dataModel.Patient.UserID,
-		},
+		// Patient: bedreservation.PatientCore{
+		// 	ID:                    dataModel.Patient.ID,
+		// 	NoKk:                  dataModel.Patient.NoKk,
+		// 	Nik:                   dataModel.Patient.Nik,
+		// 	NamaPasien:            dataModel.Patient.NamaPasien,
+		// 	JenisKelamin:          dataModel.Patient.JenisKelamin,
+		// 	TanggalLahir:          dataModel.Patient.TanggalLahir,
+		// 	Usia:                  dataModel.Patient.Usia,
+		// 	NamaWali:              dataModel.Patient.NamaWali,
+		// 	EmailWali:             dataModel.Patient.EmailWali,
+		// 	NoTelponWali:          dataModel.Patient.NoTelponWali,
+		// 	AlamatKtp:             dataModel.Patient.AlamatKtp,
+		// 	ProvinsiKtp:           dataModel.Patient.ProvinsiKtp,
+		// 	KabupatenKotaKtp:      dataModel.Patient.KabupatenKotaKtp,
+		// 	AlamatDomisili:        dataModel.Patient.AlamatDomisili,
+		// 	ProvinsiDomisili:      dataModel.Patient.ProvinsiDomisili,
+		// 	KabupatenKotaDomisili: dataModel.Patient.KabupatenKotaDomisili,
+		// 	NoBpjs:                dataModel.Patient.NoBpjs,
+		// 	KelasBpjs:             dataModel.Patient.KelasBpjs,
+		// 	FotoKtp:               dataModel.Patient.FotoKtp,
+		// 	FotoBpjs:              dataModel.Patient.FotoBpjs,
+		// UserID:                dataModel.Patient.UserID,
+		// },
 	}
 }
 

@@ -8,17 +8,17 @@ import (
 	"github.com/midtrans/midtrans-go/coreapi"
 )
 
-func CreateInvoice(kode_daftar string, biaya_registrasi int64, metode_pembayaran string) *coreapi.ChargeResponse {
+func CreateInvoice(kodeDaftar string, biayaRegistrasi int64, metodePembayaran string) *coreapi.ChargeResponse {
 	midtrans.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
 	midtrans.Environment = midtrans.Sandbox
 
 	switch {
-	case metode_pembayaran == "transer_va_bca":
+	case metodePembayaran == "transer_va_bca":
 		chargeReq := &coreapi.ChargeReq{
 			PaymentType: "bank_transer",
 			TransactionDetails: midtrans.TransactionDetails{
-				OrderID:  kode_daftar,
-				GrossAmt: biaya_registrasi,
+				OrderID:  kodeDaftar,
+				GrossAmt: biayaRegistrasi,
 			},
 			BankTransfer: &coreapi.BankTransferDetails{
 				Bank: midtrans.BankBca,
@@ -31,12 +31,12 @@ func CreateInvoice(kode_daftar string, biaya_registrasi int64, metode_pembayaran
 		}
 		coreApiRes, _ := coreapi.ChargeTransaction(chargeReq)
 		return coreApiRes
-	case metode_pembayaran == "transer_va_permata":
+	case metodePembayaran == "transer_va_permata":
 		chargeReq := &coreapi.ChargeReq{
 			PaymentType: "bank_transer",
 			TransactionDetails: midtrans.TransactionDetails{
-				OrderID:  kode_daftar,
-				GrossAmt: biaya_registrasi,
+				OrderID:  kodeDaftar,
+				GrossAmt: biayaRegistrasi,
 			},
 			BankTransfer: &coreapi.BankTransferDetails{
 				Bank: midtrans.BankPermata,
@@ -49,12 +49,12 @@ func CreateInvoice(kode_daftar string, biaya_registrasi int64, metode_pembayaran
 		}
 		coreApiRes, _ := coreapi.ChargeTransaction(chargeReq)
 		return coreApiRes
-	case metode_pembayaran == "transer_va_bni":
+	case metodePembayaran == "transer_va_bni":
 		chargeReq := &coreapi.ChargeReq{
 			PaymentType: "bank_transer",
 			TransactionDetails: midtrans.TransactionDetails{
-				OrderID:  kode_daftar,
-				GrossAmt: biaya_registrasi,
+				OrderID:  kodeDaftar,
+				GrossAmt: biayaRegistrasi,
 			},
 			BankTransfer: &coreapi.BankTransferDetails{
 				Bank: midtrans.BankBni,
@@ -67,12 +67,12 @@ func CreateInvoice(kode_daftar string, biaya_registrasi int64, metode_pembayaran
 		}
 		coreApiRes, _ := coreapi.ChargeTransaction(chargeReq)
 		return coreApiRes
-	case metode_pembayaran == "transer_va_bri":
+	case metodePembayaran == "transer_va_bri":
 		chargeReq := &coreapi.ChargeReq{
 			PaymentType: "bank_transer",
 			TransactionDetails: midtrans.TransactionDetails{
-				OrderID:  kode_daftar,
-				GrossAmt: biaya_registrasi,
+				OrderID:  kodeDaftar,
+				GrossAmt: biayaRegistrasi,
 			},
 			BankTransfer: &coreapi.BankTransferDetails{
 				Bank: midtrans.BankBri,
@@ -85,12 +85,12 @@ func CreateInvoice(kode_daftar string, biaya_registrasi int64, metode_pembayaran
 		}
 		coreApiRes, _ := coreapi.ChargeTransaction(chargeReq)
 		return coreApiRes
-	case metode_pembayaran == "qris":
+	case metodePembayaran == "qris":
 		chargeReq := &coreapi.ChargeReq{
 			PaymentType: "qris",
 			TransactionDetails: midtrans.TransactionDetails{
-				OrderID:  kode_daftar,
-				GrossAmt: biaya_registrasi,
+				OrderID:  kodeDaftar,
+				GrossAmt: biayaRegistrasi,
 			},
 			CustomExpiry: &coreapi.CustomExpiry{
 				OrderTime:      time.Now().Format(time.RFC822),
@@ -104,10 +104,10 @@ func CreateInvoice(kode_daftar string, biaya_registrasi int64, metode_pembayaran
 	return &coreapi.ChargeResponse{}
 }
 
-func UpdateMidtransPayment(kode_daftar string) *coreapi.TransactionStatusResponse {
+func UpdateMidtransPayment(kodeDaftar string) *coreapi.TransactionStatusResponse {
 	midtrans.ServerKey = os.Getenv("MIDTRANS_SERVER_KEY")
 	midtrans.Environment = midtrans.Sandbox
 
-	res, _ := coreapi.CheckTransaction(kode_daftar)
+	res, _ := coreapi.CheckTransaction(kodeDaftar)
 	return res
 }
