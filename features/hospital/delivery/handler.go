@@ -75,6 +75,8 @@ func (delivery *HospitalDelivery) GetById(c echo.Context) error {
 // Update
 func (delivery *HospitalDelivery) UpdateData(c echo.Context) error {
 	id, errConv := strconv.Atoi(c.Param("id"))
+	fotoHospital, _ := helper.UploadFotoHospital(c, "foto")
+
 	if errConv != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error conv data "+errConv.Error()))
 	}
@@ -84,7 +86,7 @@ func (delivery *HospitalDelivery) UpdateData(c echo.Context) error {
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
 	}
-
+	hospitalInput.Foto = fotoHospital
 	dataCore := hospitalInput.ToCore()
 	errUpt := delivery.hospitalService.Update(dataCore, id)
 	if errUpt != nil {
