@@ -74,6 +74,10 @@ type BedReservation struct {
 	KodeDaftar       string
 	PaymentMethod    string
 	LinkPembayaran   string
+	TransactionId    string
+	VirtualAccount   string
+	BankPenerima     string
+	WaktuKedaluarsa  string
 	QrString         string
 	StatusPembayaran string
 	PatientID        uint
