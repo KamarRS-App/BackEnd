@@ -2154,7 +2154,20 @@ paths:
                 $ref: "#/components/schemas/ResponseWithoutData"
               example:
                 status: "success"
-                message: "success update policlinic"
+                message: "success create payment"
+                data: 
+                  status_pasien: "waiting list"
+                  biaya_registrasi: 25000
+                  Kode_daftar: "order-Hssy4"
+                  payment_method: "transfer_va_bca"
+                  link_pembayaran: "https://simulator.sandbox.midtrans.com/bca/va/index"
+                  transaction_id: "6ffa1be9-28ae-4f44-ba88-e71f75d5899d"
+                  virtual_account: "52185383264"
+                  bank_penerima: "bank bca"
+                  waktu_kedaluarsa: "2022-12-31 17:15:49 +0000 UTC"
+                  qr_string: "lkfjaogfnbalksfio9wa"
+                  status_pembayaran: "pending"
+                  hospital_id: 1
         '400':
           $ref: "#/components/responses/400"
         "401" :
