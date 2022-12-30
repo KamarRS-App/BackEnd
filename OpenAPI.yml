@@ -1988,7 +1988,7 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: hospital id
+        - name: hospitalId
           description: "filter beds registrations by hospital_id"
           required: true
           in: path
