@@ -124,3 +124,19 @@ func (r *bedReservationRepository) CreatePayment(input bedreservation.BedReserva
 	}
 	return bedreservation.BedReservationCore{}, errors.New("create payment failed, error query")
 }
+
+// PaymentNotif implements bedreservation.RepositoryInterface
+func (r *bedReservationRepository) PaymentNotif(callback bedreservation.BedReservationCore) (err error) {
+	updatePayment := helper.UpdateMidtransPayment(callback.KodeDaftar)
+	callback.StatusPembayaran = updatePayment.TransactionStatus
+
+	updateGorm := FromCoreToModel(callback)
+	tx := r.db.Where("kode_daftar = ?", callback.KodeDaftar).Updates(updateGorm)
+	if tx.Error != nil {
+		return tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return errors.New("update payment failed, error query")
+	}
+	return nil
+}
