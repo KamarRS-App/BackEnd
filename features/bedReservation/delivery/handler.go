@@ -22,6 +22,7 @@ func New(service bedreservation.ServiceInterface, e *echo.Echo) {
 	e.POST("/registrations", handler.CreateRegistration, middlewares.JWTMiddleware())
 	e.GET("/payments/:kodeDaftar", handler.GetPayment, middlewares.JWTMiddleware())
 	e.PUT("/payments/:kodeDaftar", handler.CreatePayment, middlewares.JWTMiddleware())
+	e.POST("/midtrans", handler.UpdateMidtrans)
 }
 
 func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
@@ -66,4 +67,18 @@ func (d *BedReservationDelivery) CreatePayment(c echo.Context) error {
 	res := fromCore(data)
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success create payment", res))
+}
+
+func (d *BedReservationDelivery) UpdateMidtrans(c echo.Context) error {
+	var callback UpdateMidtrans
+	errBind := c.Bind(&callback)
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
+	}
+	callbackCore := callback.reqToCore()
+	err := d.BedReservationService.PaymentNotif(callbackCore)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed insert data"+err.Error()))
+	}
+	return c.JSON(http.StatusOK, helper.SuccessResponse("success update payment from midtrans"))
 }

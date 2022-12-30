@@ -38,3 +38,12 @@ func (s *bedReservationService) CreatePayment(input bedreservation.BedReservatio
 	}
 	return data, nil
 }
+
+// PaymentNotif implements bedreservation.ServiceInterface
+func (s *bedReservationService) PaymentNotif(callback bedreservation.BedReservationCore) (err error) {
+	err = s.bedReservationRepository.PaymentNotif(callback)
+	if err != nil {
+		return err
+	}
+	return nil
+}

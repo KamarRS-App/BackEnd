@@ -45,10 +45,12 @@ type ServiceInterface interface {
 	Create(input BedReservationCore) (data BedReservationCore, err error)
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
+	PaymentNotif(callback BedReservationCore) (err error)
 }
 
 type RepositoryInterface interface {
 	Create(input BedReservationCore) (data BedReservationCore, err error)
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
+	PaymentNotif(callback BedReservationCore) (err error)
 }
