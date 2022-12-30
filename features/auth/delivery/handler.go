@@ -1,11 +1,15 @@
 package delivery
 
 import (
+	"encoding/json"
+	"errors"
+	"log"
 	"net/http"
 
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/KamarRS-App/KamarRS-App/features/auth"
+	"github.com/KamarRS-App/KamarRS-App/features/auth/repository"
 	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"github.com/labstack/echo/v4"
 )
@@ -22,6 +26,8 @@ func New(service auth.ServiceInterface, e *echo.Echo) {
 	e.POST("/login/users", handler.login)
 	e.POST("/login/kamarrsteams", handler.loginTeam)
 	e.POST("/login/staffs", handler.loginStaff)
+	e.GET("/auth/google/login", oauthGoogleLogin)
+	e.GET("/auth/google/callback", handler.oauthGoogleCallback)
 
 }
 
@@ -105,4 +111,59 @@ func (delivery *AuthDelivery) loginStaff(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success login", data))
 
+}
+
+func oauthGoogleLogin(c echo.Context) error {
+	// var w http.ResponseWriter
+	// var r *http.Request
+	// Create oauthState cookie
+	oauthState := helper.GenerateStateOauthCookie(c)
+
+	/*
+		AuthCodeURL receive state that is a token to protect the user from CSRF attacks. You must always provide a non-empty string and
+		validate that it matches the the state query parameter on your redirect callback.
+	*/
+	u := helper.AuthConfig().AuthCodeURL(oauthState)
+	c.Redirect(http.StatusTemporaryRedirect, u)
+	return c.JSON(http.StatusOK, "succes")
+}
+
+func (delivery *AuthDelivery) oauthGoogleCallback(c echo.Context) error {
+	// Read oauthState from Cookie
+	oauthState, _ := c.Cookie("oauthstate")
+
+	if c.FormValue("state") != oauthState.Value {
+		log.Println("invalid oauth google state")
+		c.Redirect(http.StatusTemporaryRedirect, "/")
+		return errors.New("eorror callback")
+	}
+
+	data, err := helper.GetUserDataFromGoogle(c.FormValue("code"))
+	if err != nil {
+		log.Println(err.Error())
+		c.Redirect(http.StatusTemporaryRedirect, "/")
+		return err
+	}
+
+	// GetOrCreate User in your db.
+	// Redirect or response with a token.
+	// More code .....
+	// fmt.Fprintf(c, "UserInfo: %s\n", data)
+	var orang1 repository.Oauth
+	errUnmarshal := json.Unmarshal(data, &orang1)
+	if errUnmarshal != nil {
+		log.Fatal("error unmarshal")
+	}
+
+	token, dataUser, err := delivery.authServices.LoginOauth(orang1.Email)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed login"))
+	}
+
+	data1 := map[string]interface{}{
+		"user_id": dataUser.ID,
+		"token":   token,
+		"name":    dataUser.Nama,
+	}
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success login", data1))
 }
