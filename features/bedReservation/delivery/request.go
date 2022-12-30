@@ -18,6 +18,7 @@ type BedReservationRequest struct {
 	StatusPembayaran string `json:"status_pembayaran" form:"status_pembayaran"`
 	HospitalID       uint   `json:"hospital_id" form:"hospital_id"`
 	PatientID        uint   `json:"patient_id" form:"patient_id"`
+	BedID            uint   `json:"bed_id" form:"bed_id"`
 }
 
 type UpdateMidtrans struct {
@@ -40,6 +41,7 @@ func (req *BedReservationRequest) reqToCore() bedreservation.BedReservationCore 
 		StatusPembayaran: req.StatusPembayaran,
 		HospitalID:       req.HospitalID,
 		PatientID:        req.PatientID,
+		BedID:            req.BedID,
 	}
 }
 
