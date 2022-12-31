@@ -8,6 +8,7 @@ type DoctorRequest struct {
 	Email     string `json:"email" form:"email"`
 	NoTelpon  string `json:"no_telpon" form:"no_telpon"`
 	Foto      string `json:"foto" form:"foto"`
+    PoliclinicID string `json:"policlinic_id" form:"policlinic_id"`
 }
 
 func (req *DoctorRequest) ToCore() doctor.DoctorCore {
@@ -17,5 +18,6 @@ func (req *DoctorRequest) ToCore() doctor.DoctorCore {
 		Email:     req.Email,
 		NoTelpon:  req.NoTelpon,
 		Foto:      req.Foto,
+        PoliclinicID: req.PoliclinicID,
 	}
 }
