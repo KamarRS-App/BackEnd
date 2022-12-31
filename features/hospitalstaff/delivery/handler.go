@@ -24,7 +24,7 @@ func New(Service hospitalstaff.ServiceInterface, e *echo.Echo) {
 	e.GET("/staffs/:id", handler.GetStaff, middlewares.JWTMiddleware()) //untuk sementara pake param karena login belum bisa
 	e.GET("/staffs", handler.GetAllStaff, middlewares.JWTMiddleware())  //untuk sementara pake param karena login belum bisa
 	e.PUT("/staffs/:id", handler.Update, middlewares.JWTMiddleware())
-	e.DELETE("/staffs", handler.DeleteById, middlewares.JWTMiddleware())
+	e.DELETE("/staffs/:id", handler.DeleteById, middlewares.JWTMiddleware())
 
 }
 func (delivery *StaffDeliv) Create(c echo.Context) error {
@@ -106,7 +106,7 @@ func (delivery *StaffDeliv) DeleteById(c echo.Context) error {
 	}
 	role := middlewares.ExtractTokenTeamRole(c)
 	if role != "super admin" {
-		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses staff"))
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses super admin"))
 
 	}
 

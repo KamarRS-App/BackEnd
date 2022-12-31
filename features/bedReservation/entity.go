@@ -15,6 +15,7 @@ type BedReservationCore struct {
 	StatusPembayaran string
 	HospitalID       uint
 	PatientID        uint
+	BedID            uint
 	// Patient          PatientCore
 }
 
@@ -42,13 +43,17 @@ type PatientCore struct {
 }
 
 type ServiceInterface interface {
-	Create(input BedReservationCore) (data BedReservationCore, err error)
+	Create(input BedReservationCore, userId uint) (data BedReservationCore, err error)
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
+	PaymentNotif(callback BedReservationCore) (err error)
+	GetRegistrations(page, limit, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 }
 
 type RepositoryInterface interface {
-	Create(input BedReservationCore) (data BedReservationCore, err error)
+	Create(input BedReservationCore, userId uint) (data BedReservationCore, err error)
 	GetPayment(kodeDaftar string) (data BedReservationCore, err error)
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
+	PaymentNotif(callback BedReservationCore) (err error)
+	GetRegistrations(limit, offset, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 }

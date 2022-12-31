@@ -19,7 +19,7 @@ servers:
   - description: kamarRS server
     url: http://35.198.253.37:80
   - description: kamarRS domain
-    url: not yet decided
+    url: https://rawatinap.online
 
 
 tags:
@@ -47,6 +47,8 @@ tags:
     description: "Manajemen data reservasi tempat tidur"
   - name: Invoice
     description: "Midtrans Callback"
+  - name: Kamar Rs Team
+    description: "Manajemen data tim kamar rs"
   
 
 paths:
@@ -84,7 +86,7 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
-  /oauth/login/user:
+  /oauth/login/users:
     get:
       tags:
         - Auth
@@ -110,7 +112,7 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
-  /login/staff:
+  /login/staffs:
     post:
       tags:
         - Auth
@@ -140,6 +142,41 @@ paths:
                       email: "suyo@siloam.com"
                       token:  "afkdnnifnnj&h3"
                       role: "Admin"
+        '404' :
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+  /login/kamarrsteams:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: Login akun kamar rs team
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: "suyo@gmail.com"
+                kata_sandi: "123456"
+      responses:
+        '201':
+          description: Login berhasil.
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "Login berhasil"
+                  data:
+                      id: 1
+                      email: "suyo@siloam.com"
+                      peran: "super admin"
+                      token:  "afkdnnifnnj&h3"
+                      
         '404' :
           $ref: '#/components/responses/404'
         '500':
@@ -1942,6 +1979,7 @@ paths:
                 example:
                   status: "failed"
                   message: "failed create registrations"
+  /hospitals/{hospitalId}/registrations:
     get:
       tags:
         - Beds Registrations
@@ -1950,13 +1988,20 @@ paths:
       security:
         - JWTAuth: []
       parameters:
-        - name: hospital_id
+        - name: hospitalId
           description: "filter beds registrations by hospital_id"
+          required: true
+          in: path
+          schema: 
+            type: integer
+            example: 1
+        - name: page
+          description: "shows result per page"
           required: false
           in: query
           schema: 
-            type: string
-            example: "hospital_id"
+            type: integer
+            example: 1
       responses: 
         '201':
           description: List of beds registrations by hospital id
@@ -2252,8 +2297,45 @@ paths:
           $ref: "#/components/responses/401"
         "500":
           $ref: "#/components/responses/500"
-
-
+  /kamarrsteams: 
+    post:
+      tags:
+        - Kamar Rs Team
+      summary: add kamar rs team account
+      description: Menambahkan data tim kamar rs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                kata_sandi:
+                  type: string
+              example:
+                email: "trial@gmail.com"
+                kata_sandi: "password"
+      responses:
+        '201':
+          description: penambahan data berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "success"
+                  message: "success create kamar rs team"
+        '500':
+          description: penambahan data gagal
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  status: "failed"
+                  message: "failed create kamar rs team"
 
 
 

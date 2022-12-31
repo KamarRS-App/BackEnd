@@ -53,10 +53,12 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 		if tx6.Error != nil {
 			return tx6.Error
 		}
+		fmt.Println("kuota habis")
 		return errors.New("kuota habis")
 
 	}
 	if users.Nokk != patients.NoKk {
+		fmt.Println("no kk salah")
 		return errors.New("no kk salah")
 	}
 

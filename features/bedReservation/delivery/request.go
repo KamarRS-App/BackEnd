@@ -18,6 +18,12 @@ type BedReservationRequest struct {
 	StatusPembayaran string `json:"status_pembayaran" form:"status_pembayaran"`
 	HospitalID       uint   `json:"hospital_id" form:"hospital_id"`
 	PatientID        uint   `json:"patient_id" form:"patient_id"`
+	BedID            uint   `json:"bed_id" form:"bed_id"`
+}
+
+type UpdateMidtrans struct {
+	KodeDaftar       string `json:"order_id" form:"order_id"`
+	StatusPembayaran string `json:"status_pembayaran" form:"status_pembayaran"`
 }
 
 func (req *BedReservationRequest) reqToCore() bedreservation.BedReservationCore {
@@ -35,5 +41,13 @@ func (req *BedReservationRequest) reqToCore() bedreservation.BedReservationCore 
 		StatusPembayaran: req.StatusPembayaran,
 		HospitalID:       req.HospitalID,
 		PatientID:        req.PatientID,
+		BedID:            req.BedID,
+	}
+}
+
+func (req *UpdateMidtrans) reqToCore() bedreservation.BedReservationCore {
+	return bedreservation.BedReservationCore{
+		KodeDaftar:       req.KodeDaftar,
+		StatusPembayaran: req.StatusPembayaran,
 	}
 }

@@ -82,6 +82,7 @@ type BedReservation struct {
 	StatusPembayaran string
 	PatientID        uint
 	HospitalID       uint
+	BedID            uint
 	Hospital         Hospital `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
