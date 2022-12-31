@@ -31,6 +31,7 @@ func FromCore(dataCore doctor.DoctorCore) Doctor {
 		Email:     dataCore.Email,
 		NoTelpon:  dataCore.NoTelpon,
 		Foto:      dataCore.Foto,
+		PoliclinicID: dataCore.PoliclinicID,
 	}
 	return doctorGorm //insert doctor from core
 }
