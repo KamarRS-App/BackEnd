@@ -24,7 +24,7 @@ func New(db *gorm.DB) bedreservation.RepositoryInterface {
 func (r *bedReservationRepository) GetRegistrations(limit, offset, hospitalId int) (data []bedreservation.BedReservationCore, totalpage int, err error) {
 	var reservations []BedReservation
 	var count int64
-	tx0 := r.db.Model(&reservations).Where("hospital_id = ?", hospitalId).Count(&count)
+	tx0 := r.db.Model(&reservations).Where("hospital_id = ? AND bed_id = 0", hospitalId).Count(&count)
 	if tx0.Error != nil {
 		return nil, 0, tx0.Error
 	}
@@ -38,7 +38,7 @@ func (r *bedReservationRepository) GetRegistrations(limit, offset, hospitalId in
 		totalpage = (int(count) / limit) + 1
 	}
 
-	tx := r.db.Where("hospital_id = ?", hospitalId).Limit(limit).Offset(offset).Find(&reservations)
+	tx := r.db.Where("hospital_id = ? AND bed_id = 0", hospitalId).Limit(limit).Offset(offset).Order("status_pembayaran desc").Find(&reservations)
 	if tx.Error != nil {
 		return nil, 0, tx.Error
 	}
@@ -70,7 +70,7 @@ func (r *bedReservationRepository) Create(input bedreservation.BedReservationCor
 
 	if patient.NoBpjs != "" {
 		input.BiayaRegistrasi = 0
-		input.StatusPembayaran = "lunas--gratis BPJS"
+		input.StatusPembayaran = "settlement via BPJS"
 	} else {
 		input.BiayaRegistrasi = 25000
 		input.StatusPembayaran = "belum dibayar"
