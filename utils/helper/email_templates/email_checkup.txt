@@ -1,2 +1,11 @@
-Hi {{.ReceiverName}},
-This is a sample test email sent using golang by {{.SenderName}}
+Terima Kasih Telah Mendaftar dengan Aplikasi Rawat Inap
+
+Kami dari {{.RumahSakit}}, memberikan informasi kepada saudara {{.NamaPasien}} bahwa anda telah terdaftar sebagai calon pasien
+pada Poliklinik {{.Policlinic}} yang akan dilaksanakan pada waktu {{.TanggalPraktik}}
+
+dimohon untuk kedatangannya tepat waktu pada pukul {{.JamPraktik}}, terima Kasih
+
+hormat Kami
+
+
+{{.RumahSakit}}

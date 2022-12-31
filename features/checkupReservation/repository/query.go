@@ -7,6 +7,7 @@ import (
 
 	checkupreservation "github.com/KamarRS-App/KamarRS-App/features/checkupReservation"
 	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
+	hospital "github.com/KamarRS-App/KamarRS-App/features/hospital/repository"
 	patient "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
 	policlinic "github.com/KamarRS-App/KamarRS-App/features/policlinic/repository"
 	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
@@ -78,43 +79,44 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 	if tx5.Error != nil {
 		return tx5.Error
 	}
-	fmt.Println("==========================================")
-	fmt.Println(dataPatients)
 
 	dataPractice := dailypractice.Practice{}
 	tx6 := repo.db.Where("id = ?", input.PracticeID).Preload("Policlinic").Find(&dataPractice)
 	if tx6.Error != nil {
 		return tx6.Error
 	}
-	fmt.Println("==========================================")
-	fmt.Println(dataPractice)
 
 	dataPoliclinic := policlinic.Policlinic{}
 	tx7 := repo.db.Where("id = ?", dataPractice.PoliclinicID).Preload("Hospital").Find(&dataPoliclinic)
 	if tx7.Error != nil {
 		return tx7.Error
 	}
-	fmt.Println("==========================================")
-	fmt.Println(dataPoliclinic)
 
-	dataEmail := struct {
-		Penerima   string
-		Pengirim   string
-		RumahSakit string
-		Policlinic string
-	}{
-		Penerima:   "",
-		Pengirim:   "",
-		RumahSakit: "",
-		Policlinic: "",
+	dataHospital := hospital.Hospital{}
+	tx8 := repo.db.Where("id = ?", dataPoliclinic.HospitalID).Find(&dataHospital)
+	if tx8.Error != nil {
+		return tx8.Error
 	}
 
-	// Penerima = dataPatients.NamaPasien
+	dataEmail := struct {
+		RumahSakit     string
+		Policlinic     string
+		JamPraktik     string
+		TanggalPraktik string
+		NamaPasien     string
+	}{
+		RumahSakit:     dataHospital.Nama,
+		Policlinic:     dataPoliclinic.NamaPoli,
+		JamPraktik:     dataPoliclinic.JamPraktik,
+		TanggalPraktik: dataPractice.TanggalPraktik,
+		NamaPasien:     dataPatients.NamaPasien,
+	}
 
 	emailTo := dataPatients.EmailWali
-	errMail := helper.SendEmailSMTPCheckup(emailTo, dataEmail, "email_checkup.txt") //send mail
+
+	errMail := helper.SendEmailSMTPCheckup([]string{emailTo}, dataEmail, "email_checkup.txt") //send mail
 	if errMail != nil {
-		log.Println(err, "Pengiriman Email Gagal")
+		log.Println(errMail, "Pengiriman Email Gagal")
 	}
 
 	practices := dailypractice.Practice{}

@@ -8,23 +8,15 @@ import (
 	"net/smtp"
 	"os"
 	"path/filepath"
-	// patient "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
 )
-
-type DataCheckup struct {
-	Penerima   string
-	Pengirim   string
-	RumahSakit string
-	Policlinic string
-}
 
 var emailAuth smtp.Auth
 
-func SendEmailSMTPCheckup(emailto string, data interface{}, template string) error {
-	emailHost := os.Getenv("EMAIL_HOST")
+func SendEmailSMTPCheckup(emailto []string, data interface{}, template string) error {
+	emailHost := "smtp.gmail.com"
 	emailFrom := os.Getenv("EMAIL_FROM")
 	emailPassword := os.Getenv("EMAIL_PASSWORD")
-	emailPort := os.Getenv("EMAIL_PORT")
+	emailPort := "587"
 
 	emailAuth = smtp.PlainAuth("", emailFrom, emailPassword, emailHost)
 
@@ -34,12 +26,12 @@ func SendEmailSMTPCheckup(emailto string, data interface{}, template string) err
 	}
 
 	mime := "MIME-version: 1.0;\nContent-Type: text/plain; charset=\"UTF-8\";\n\n"
-	subject := "Subject: " + "Test Email" + "!\n"
+	subject := "Subject: " + "Email Reservasi Checkup (Aplikasi Rawat Inap)" + "!\n"
 	msg := []byte(subject + mime + "\n" + emailBody)
 	addr := fmt.Sprintf("%s:%s", emailHost, emailPort)
 
-	if err := smtp.SendMail(addr, emailAuth, emailFrom, []string{emailto}, msg); err != nil {
-		return err
+	if err := smtp.SendMail(addr, emailAuth, emailFrom, emailto, msg); err != nil {
+		return errors.New("unable to send mail")
 	}
 	return nil
 }
