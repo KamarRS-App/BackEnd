@@ -11,6 +11,7 @@ type Practice struct {
 	KuotaHarian    int
 	Status         string
 	PoliclinicID   uint
+	Policlinic     Policlinic
 }
 
 type Policlinic struct {

@@ -3,11 +3,15 @@ package repository
 import (
 	"errors"
 	"fmt"
+	"log"
 
 	checkupreservation "github.com/KamarRS-App/KamarRS-App/features/checkupReservation"
 	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
-	"github.com/KamarRS-App/KamarRS-App/features/patient/repository"
+	patient "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
+	policlinic "github.com/KamarRS-App/KamarRS-App/features/policlinic/repository"
+	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
 	userRep "github.com/KamarRS-App/KamarRS-App/features/user/repository"
+	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"gorm.io/gorm"
 )
 
@@ -65,6 +69,50 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 	}
 	if tx.RowsAffected == 0 {
 		return errors.New("insert failed")
+	}
+
+	dataPatients := patient.Patient{}
+	tx5 := repo.db.First(&dataPatients, input.PatientID)
+	if tx5.Error != nil {
+		return tx5.Error
+	}
+	fmt.Println("==========================================")
+	fmt.Println(dataPatients)
+
+	dataPractice := dailypractice.Practice{}
+	tx6 := repo.db.Where("id = ?", input.PracticeID).Preload("Policlinic").Find(&dataPractice)
+	if tx6.Error != nil {
+		return tx6.Error
+	}
+	fmt.Println("==========================================")
+	fmt.Println(dataPractice)
+
+	dataPoliclinic := policlinic.Policlinic{}
+	tx7 := repo.db.Where("id = ?", dataPractice.PoliclinicID).Preload("Hospital").Find(&dataPoliclinic)
+	if tx7.Error != nil {
+		return tx7.Error
+	}
+	fmt.Println("==========================================")
+	fmt.Println(dataPoliclinic)
+
+	dataEmail := struct {
+		Penerima   string
+		Pengirim   string
+		RumahSakit string
+		Policlinic string
+	}{
+		Penerima:   "",
+		Pengirim:   "",
+		RumahSakit: "",
+		Policlinic: "",
+	}
+
+	// Penerima = dataPatients.NamaPasien
+
+	emailTo := dataPatients.EmailWali
+	errMail := helper.SendEmailSMTPCheckup(emailTo, dataEmail, "email_checkup.txt") //send mail
+	if errMail != nil {
+		log.Println(err, "Pengiriman Email Gagal")
 	}
 
 	practices := dailypractice.Practice{}

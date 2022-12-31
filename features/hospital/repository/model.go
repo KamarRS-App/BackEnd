@@ -51,6 +51,7 @@ type Policlinic struct {
 	NamaPoli   string
 	JamPraktik string
 	HospitalID uint
+	Hospital   Hospital
 }
 
 func FromCore(dataCore hospital.HospitalCore) Hospital {

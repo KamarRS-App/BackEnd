@@ -41,11 +41,13 @@ func (delivery *CheckupDelivery) Create(c echo.Context) error {
 	if errbind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr: "+errbind.Error()))
 	}
+
 	dataCore := inputCheckUp.reqToCore() //data mapping yang diminta create
 	errResultCore := delivery.checkupService.Create(dataCore, userIdtoken)
 	if errResultCore != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr:"+errResultCore.Error()))
 	}
+
 	return c.JSON(http.StatusCreated, helper.SuccessResponse("reservasi berhasil dibuat"))
 }
 
