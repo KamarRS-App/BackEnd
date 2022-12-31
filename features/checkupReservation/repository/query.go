@@ -3,11 +3,16 @@ package repository
 import (
 	"errors"
 	"fmt"
+	"log"
 
 	checkupreservation "github.com/KamarRS-App/KamarRS-App/features/checkupReservation"
 	dailypractice "github.com/KamarRS-App/KamarRS-App/features/dailyPractice/repository"
-	"github.com/KamarRS-App/KamarRS-App/features/patient/repository"
+	hospital "github.com/KamarRS-App/KamarRS-App/features/hospital/repository"
+	patient "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
+	policlinic "github.com/KamarRS-App/KamarRS-App/features/policlinic/repository"
+	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
 	userRep "github.com/KamarRS-App/KamarRS-App/features/user/repository"
+	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"gorm.io/gorm"
 )
 
@@ -67,6 +72,51 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 	}
 	if tx.RowsAffected == 0 {
 		return errors.New("insert failed")
+	}
+
+	dataPatients := patient.Patient{}
+	tx5 := repo.db.First(&dataPatients, input.PatientID)
+	if tx5.Error != nil {
+		return tx5.Error
+	}
+
+	dataPractice := dailypractice.Practice{}
+	tx6 := repo.db.Where("id = ?", input.PracticeID).Preload("Policlinic").Find(&dataPractice)
+	if tx6.Error != nil {
+		return tx6.Error
+	}
+
+	dataPoliclinic := policlinic.Policlinic{}
+	tx7 := repo.db.Where("id = ?", dataPractice.PoliclinicID).Preload("Hospital").Find(&dataPoliclinic)
+	if tx7.Error != nil {
+		return tx7.Error
+	}
+
+	dataHospital := hospital.Hospital{}
+	tx8 := repo.db.Where("id = ?", dataPoliclinic.HospitalID).Find(&dataHospital)
+	if tx8.Error != nil {
+		return tx8.Error
+	}
+
+	dataEmail := struct {
+		RumahSakit     string
+		Policlinic     string
+		JamPraktik     string
+		TanggalPraktik string
+		NamaPasien     string
+	}{
+		RumahSakit:     dataHospital.Nama,
+		Policlinic:     dataPoliclinic.NamaPoli,
+		JamPraktik:     dataPoliclinic.JamPraktik,
+		TanggalPraktik: dataPractice.TanggalPraktik,
+		NamaPasien:     dataPatients.NamaPasien,
+	}
+
+	emailTo := dataPatients.EmailWali
+
+	errMail := helper.SendEmailSMTPCheckup([]string{emailTo}, dataEmail, "email_checkup.txt") //send mail
+	if errMail != nil {
+		log.Println(errMail, "Pengiriman Email Gagal")
 	}
 
 	practices := dailypractice.Practice{}

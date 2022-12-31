@@ -127,6 +127,7 @@ type Practice struct {
 	KuotaHarian         int
 	Status              string
 	PoliclinicID        uint
+	Policlinic          Policlinic
 	CheckupReservations []CheckupReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
@@ -135,6 +136,7 @@ type Policlinic struct {
 	NamaPoli   string
 	JamPraktik string
 	HospitalID uint
+	Hospital   Hospital
 	Practices  []Practice `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Doctors    []Doctor   `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
