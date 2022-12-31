@@ -50,12 +50,11 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 
 	if practice.KuotaHarian == -1 {
 		practice.Status = "Not Available"
-		tx6 := repo.db.Model(&practice).Where("id = ?", input.PatientID).Updates(&practice)
-		if tx6.Error != nil {
-			return tx6.Error
+		tx6 := repo.db.Model(&practice).Where("id = ?", input.PracticeID).Updates(&practice)
+		if tx6.Error == nil {
+			fmt.Println("kuota habis")
+			return errors.New("kuota habis")
 		}
-		fmt.Println("kuota habis")
-		return errors.New("kuota habis")
 
 	}
 	if users.Nokk != patients.NoKk {
@@ -126,7 +125,7 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 		practices.KuotaHarian = -1
 	}
 	fmt.Println(practices.KuotaHarian)
-	tx4 := repo.db.Model(&practices).Where("id = ?", input.PatientID).Updates(&practices)
+	tx4 := repo.db.Model(&practices).Where("id = ?", input.PracticeID).Updates(&practices)
 	if tx4.Error != nil {
 		return tx4.Error
 	}
