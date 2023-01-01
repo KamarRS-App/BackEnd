@@ -27,6 +27,7 @@ func New(service bedreservation.ServiceInterface, e *echo.Echo) {
 	e.GET("/hospitals/:hospitalId/registrations", handler.GetAll, middlewares.JWTMiddleware())
 	e.GET("/registrations/:registration_id", handler.GetDetailRegistration, middlewares.JWTMiddleware())
 	e.DELETE("/registrations/:registration_id", handler.Delete, middlewares.JWTMiddleware())
+	e.PUT("/registrations/:registration_id", handler.UpdateRegisInfo, middlewares.JWTMiddleware())
 }
 
 func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
@@ -139,4 +140,27 @@ func (d *BedReservationDelivery) Delete(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error delete data"))
 	}
 	return c.JSON(http.StatusOK, helper.SuccessResponse("success delete bed registrations"))
+}
+
+func (d *BedReservationDelivery) UpdateRegisInfo(c echo.Context) error {
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("hanya bisa diakses admin"))
+	}
+	bedResId, _ := strconv.Atoi(c.Param("registration_id"))
+	input := BedReservationRequest{}
+	errBind := c.Bind(&input)
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data "+errBind.Error()))
+	}
+
+	inputData := input.reqToCore()
+	inputData.ID = uint(bedResId)
+	err := d.BedReservationService.UpdateBedReservation(inputData)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed insert data"+err.Error()))
+	}
+
+	return c.JSON(http.StatusOK, helper.SuccessResponse("success update hospital bed"))
+
 }

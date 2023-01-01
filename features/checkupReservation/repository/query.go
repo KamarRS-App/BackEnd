@@ -113,7 +113,7 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 
 	emailTo := dataPatients.EmailWali
 
-	errMail := helper.SendEmailSMTPCheckup([]string{emailTo}, dataEmail, "email_checkup.txt") //send mail
+	errMail := helper.SendEmailSMTPCheckup([]string{emailTo}, dataEmail, "emailCheckup.txt") //send mail
 	if errMail != nil {
 		log.Println(errMail, "Pengiriman Email Gagal")
 	}

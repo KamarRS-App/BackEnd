@@ -50,6 +50,7 @@ type ServiceInterface interface {
 	GetRegistrations(page, limit, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 	GetById(bedResId uint) (data BedReservationCore, err error)
 	Delete(bedResId uint) error
+	UpdateBedReservation(input BedReservationCore) error
 }
 
 type RepositoryInterface interface {
@@ -60,4 +61,5 @@ type RepositoryInterface interface {
 	GetRegistrations(limit, offset, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 	GetById(bedResId uint) (data BedReservationCore, err error)
 	Delete(bedResId uint) error
+	UpdateBedReservation(input BedReservationCore) error
 }
