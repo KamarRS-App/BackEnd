@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/KamarRS-App/KamarRS-App/features/auth"
-
 	teamrepo "github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/repository"
 
 	staff "github.com/KamarRS-App/KamarRS-App/features/hospitalstaff/repository"
@@ -86,12 +85,13 @@ func (repo *authRepository) LoginStaff(email string, pass string) (string, staff
 }
 
 // LoginOauth implements auth.RepositoryInterface
-func (repo *authRepository) LoginOauth(email string) (string, repository.User, error) {
+func (repo *authRepository) LoginOauth(auths auth.Oauth) (string, repository.User, error) {
 	var userData repository.User
 
-	tx := repo.db.Where("email = ?", email).First(&userData)
+	tx := repo.db.Where("email = ?", auths.Email).First(&userData)
 	user := repository.User{}
-	user.Email = email
+	user.Email = auths.Email
+	user.Nama = auths.Name
 
 	if tx.Error != nil {
 
@@ -106,7 +106,7 @@ func (repo *authRepository) LoginOauth(email string) (string, repository.User, e
 
 	}
 
-	tx3 := repo.db.Where("email = ?", email).First(&userData)
+	tx3 := repo.db.Where("email = ?", auths.Email).First(&userData)
 	if tx3.Error != nil {
 		return "", repository.User{}, tx3.Error
 	}

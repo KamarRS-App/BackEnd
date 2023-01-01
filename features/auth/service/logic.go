@@ -55,7 +55,7 @@ func (service *authService) LoginStaff(email string, pass string) (string, staff
 }
 
 // LoginOauth implements auth.ServiceInterface
-func (service *authService) LoginOauth(email string) (string, repository.User, error) {
-	token, data, err := service.authRepository.LoginOauth(email)
+func (service *authService) LoginOauth(auths auth.Oauth) (string, repository.User, error) {
+	token, data, err := service.authRepository.LoginOauth(auths)
 	return token, data, err
 }

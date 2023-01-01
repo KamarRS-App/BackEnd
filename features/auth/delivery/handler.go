@@ -9,7 +9,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/KamarRS-App/KamarRS-App/features/auth"
-	"github.com/KamarRS-App/KamarRS-App/features/auth/repository"
 	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"github.com/labstack/echo/v4"
 )
@@ -149,13 +148,13 @@ func (delivery *AuthDelivery) oauthGoogleCallback(c echo.Context) error {
 	// Redirect or response with a token.
 	// More code .....
 	// fmt.Fprintf(c, "UserInfo: %s\n", data)
-	var orang1 repository.Oauth
-	errUnmarshal := json.Unmarshal(data, &orang1)
+	var google auth.Oauth
+	errUnmarshal := json.Unmarshal(data, &google)
 	if errUnmarshal != nil {
 		log.Fatal("error unmarshal")
 	}
 
-	token, dataUser, err := delivery.authServices.LoginOauth(orang1.Email)
+	token, dataUser, err := delivery.authServices.LoginOauth(google)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed login"))
 	}
