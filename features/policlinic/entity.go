@@ -10,7 +10,7 @@ type CorePoliclinic struct {
 	JamPraktik string `validate:"required"`
 	HospitalID uint   `validate:"required"`
 	DoctorID   uint
-	Doctor     CoreDoctor
+	Doctor     []CoreDoctor
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	// Practices  []CorePractice
@@ -38,6 +38,7 @@ type CoreDoctor struct {
 type ServiceInterface interface {
 	Create(input CorePoliclinic) (err error)
 	GetAll() (data []CorePoliclinic, err error)
+	GetAllbyHospitalID(pagination, limit, id int) (data []CorePoliclinic, totalpage int, err error)
 	GetById(id int) (data CorePoliclinic, err error)
 	Update(input CorePoliclinic, id int) (err error)
 	Delete(id int) (err error)
@@ -46,6 +47,7 @@ type ServiceInterface interface {
 type RepositoryInterface interface {
 	Create(input CorePoliclinic) (row int, err error)
 	GetAll() (data []CorePoliclinic, err error)
+	GetAllbyHospitalID(limit, offset, id int) (data []CorePoliclinic, totalpage int, err error)
 	GetById(id int) (data CorePoliclinic, err error)
 	Update(input CorePoliclinic, id int) (err error)
 	Delete(id int) (row int, err error)

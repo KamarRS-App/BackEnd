@@ -71,22 +71,35 @@ func (dataModel *Policlinic) ToCore() policlinic.CorePoliclinic {
 		NamaPoli:   dataModel.NamaPoli,
 		JamPraktik: dataModel.JamPraktik,
 		HospitalID: dataModel.HospitalID,
-		// Doctor: policlinic.CoreDoctor{
-		// 	ID:        dataModel.ToCore().Doctor.ID,
-		// 	Nama:      dataModel.ToCore().Doctor.Nama,
-		// 	Spesialis: dataModel.ToCore().Doctor.Spesialis,
-		// 	Email:     dataModel.ToCore().Doctor.Email,
-		// 	NoTelpon:  dataModel.ToCore().Doctor.NoTelpon,
-		// 	Foto:      dataModel.ToCore().Doctor.Foto,
-		// },
-		CreatedAt: dataModel.CreatedAt,
-		UpdatedAt: dataModel.UpdatedAt,
+		Doctor:     ToCoreListD(dataModel.Doctors),
+		CreatedAt:  dataModel.CreatedAt,
+		UpdatedAt:  dataModel.UpdatedAt,
 	}
 }
 func ToCoreList(dataModel []Policlinic) []policlinic.CorePoliclinic {
 	var dataCore []policlinic.CorePoliclinic
 	for _, value := range dataModel {
 		dataCore = append(dataCore, value.ToCore())
+	}
+	return dataCore //  untuk menampilkan data ke controller
+}
+
+func (dataModel *Doctor) ToCoreD() policlinic.CoreDoctor {
+	return policlinic.CoreDoctor{
+
+		ID:        dataModel.ID,
+		Nama:      dataModel.Nama,
+		Spesialis: dataModel.Spesialis,
+		Email:     dataModel.Email,
+		NoTelpon:  dataModel.NoTelpon,
+		Foto:      dataModel.Foto,
+	}
+}
+
+func ToCoreListD(dataModel []Doctor) []policlinic.CoreDoctor {
+	var dataCore []policlinic.CoreDoctor
+	for _, value := range dataModel {
+		dataCore = append(dataCore, value.ToCoreD())
 	}
 	return dataCore //  untuk menampilkan data ke controller
 }

@@ -35,7 +35,7 @@ func (repo *policlinicRepository) GetById(id int) (data policlinic.CorePoliclini
 	var IdPoliclinic Policlinic
 	var IdPoliclinicCore = policlinic.CorePoliclinic{}
 	IdPoliclinic.ID = uint(id)
-	tx := repo.db.First(&IdPoliclinic, IdPoliclinic.ID)
+	tx := repo.db.Preload("Doctors").First(&IdPoliclinic, IdPoliclinic.ID)
 	if tx.Error != nil {
 		return IdPoliclinicCore, tx.Error
 	}
@@ -47,12 +47,42 @@ func (repo *policlinicRepository) GetById(id int) (data policlinic.CorePoliclini
 func (repo *policlinicRepository) GetAll() (data []policlinic.CorePoliclinic, err error) {
 	var policlinics []Policlinic
 
-	tx := repo.db.Find(&policlinics)
+	tx := repo.db.Preload("Doctors").Find(&policlinics)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
 	var dataCore = ToCoreList(policlinics)
 	return dataCore, nil
+}
+
+// GetAll
+func (repo *policlinicRepository) GetAllbyHospitalID(limit, offset, id int) (data []policlinic.CorePoliclinic, totalpage int, err error) {
+	var policlinics []Policlinic
+	var count int64
+	rx := repo.db.Model(&policlinics).Where("hospital_id = ?", id).Count(&count)
+	if rx.Error != nil {
+		return nil, 0, rx.Error
+	}
+	if rx.RowsAffected == 0 {
+		return nil, 0, errors.New("error query count")
+	}
+
+	// var totalpage int
+	if int(count)%limit == 0 {
+		totalpage = int(count) / limit
+	} else {
+		totalpage = (int(count) / limit) + 1
+	}
+
+	tx := repo.db.Where("hospital_id = ?", id).Limit(limit).Offset(offset).Find(&policlinics)
+	if tx.Error != nil {
+		return nil, 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return nil, 0, errors.New("get all data failed, error query data")
+	}
+	data = ToCoreList(policlinics)
+	return data, totalpage, nil
 }
 
 // Update

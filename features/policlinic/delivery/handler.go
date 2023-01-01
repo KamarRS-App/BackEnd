@@ -20,6 +20,7 @@ func New(service policlinic.ServiceInterface, e *echo.Echo) {
 	}
 	e.POST("/policlinics", handler.Create, middlewares.JWTMiddleware())
 	e.GET("/policlinics", handler.GetAll, middlewares.JWTMiddleware())
+	e.GET("/hospitals/:id/policlinics", handler.GetAllbyHospitalID, middlewares.JWTMiddleware())
 	e.GET("/policlinics/:id", handler.GetById, middlewares.JWTMiddleware())
 	e.PUT("/policlinics/:id", handler.UpdateData, middlewares.JWTMiddleware())
 	e.DELETE("/policlinics/:id", handler.Delete, middlewares.JWTMiddleware())
@@ -41,7 +42,7 @@ func (delivery *PoliclinicDelivery) Create(c echo.Context) error {
 	return c.JSON(http.StatusCreated, helper.SuccessResponse("success create data"))
 }
 
-// Get All Villa (Homepage)
+// Get All
 func (delivery *PoliclinicDelivery) GetAll(c echo.Context) error {
 	results, err := delivery.policlinicService.GetAll()
 	if err != nil {
@@ -51,6 +52,27 @@ func (delivery *PoliclinicDelivery) GetAll(c echo.Context) error {
 	dataResponse := FromCoreList(results)
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success read all policlinics", dataResponse))
+}
+
+// Get All by Hospital_ID
+func (delivery *PoliclinicDelivery) GetAllbyHospitalID(c echo.Context) error {
+	page := c.QueryParam("page") // input page
+	pagination, _ := strconv.Atoi(page)
+	limit := 10 // set default limit buat pagination
+	hospitalId, errBind := strconv.Atoi(c.Param("id"))
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data"+errBind.Error()))
+	}
+
+	results, totalpage, err := delivery.policlinicService.GetAllbyHospitalID(pagination, limit, hospitalId)
+
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
+	}
+
+	dataResponse := FromCoreListP(results)
+
+	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("success read all policlinics", dataResponse, totalpage))
 }
 
 // Get by ID
