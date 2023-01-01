@@ -48,7 +48,7 @@ type Patient struct {
 	FotoBpjs              string
 	UserID                uint
 	// BedReservationID        uint
-	BedReservations BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	BedReservation BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Bed struct {
@@ -157,30 +157,51 @@ func toCoreList(dataModel []BedReservation) []bedreservation.BedReservationCore 
 
 // //----------------------Patient Aja-------------------------------
 
-// func (dataModel *Patient) toCoreP() bedreservation.PatientCore {
-// 	return bedreservation.PatientCore{
-// 		ID:                    dataModel.ID,
-// 		NoKk:                  dataModel.NoKk,
-// 		Nik:                   dataModel.Nik,
-// 		NamaPasien:            dataModel.NamaPasien,
-// 		JenisKelamin:          dataModel.JenisKelamin,
-// 		TanggalLahir:          dataModel.TanggalLahir,
-// 		Usia:                  dataModel.Usia,
-// 		NamaWali:              dataModel.NamaWali,
-// 		EmailWali:             dataModel.EmailWali,
-// 		NoTelponWali:          dataModel.NoTelponWali,
-// 		AlamatKtp:             dataModel.AlamatKtp,
-// 		ProvinsiKtp:           dataModel.ProvinsiKtp,
-// 		KabupatenKotaKtp:      dataModel.KabupatenKotaKtp,
-// 		AlamatDomisili:        dataModel.AlamatDomisili,
-// 		ProvinsiDomisili:      dataModel.ProvinsiDomisili,
-// 		KabupatenKotaDomisili: dataModel.KabupatenKotaDomisili,
-// 		NoBpjs:                dataModel.NoBpjs,
-// 		KelasBpjs:             dataModel.KelasBpjs,
-// 		FotoKtp:               dataModel.FotoKtp,
-// 		FotoBpjs:              dataModel.FotoBpjs,
-// 	}
-// }
+func (dataModel *Patient) toCoreP() bedreservation.PatientCore {
+	// var arrBedReservations []bedreservation.BedReservationCore
+	// for _, v := range dataModel.BedReservation {
+	// 	arrBedReservations = append(arrBedReservations, bedreservation.BedReservationCore{
+	// 		ID:               v.ID,
+	// 		StatusPasien:     v.StatusPasien,
+	// 		BiayaRegistrasi:  v.BiayaRegistrasi,
+	// 		KodeDaftar:       v.KodeDaftar,
+	// 		PaymentMethod:    v.PaymentMethod,
+	// 		LinkPembayaran:   v.LinkPembayaran,
+	// 		VirtualAccount:   v.VirtualAccount,
+	// 		BankPenerima:     v.BankPenerima,
+	// 		TransactionId:    v.TransactionId,
+	// 		WaktuKedaluarsa:  v.WaktuKedaluarsa,
+	// 		QrString:         v.QrString,
+	// 		StatusPembayaran: v.StatusPembayaran,
+	// 		HospitalID:       v.HospitalID,
+	// 		BedID:            v.BedID,
+	// 	})
+	// }
+
+	return bedreservation.PatientCore{
+		ID:                    dataModel.ID,
+		NoKk:                  dataModel.NoKk,
+		Nik:                   dataModel.Nik,
+		NamaPasien:            dataModel.NamaPasien,
+		JenisKelamin:          dataModel.JenisKelamin,
+		TanggalLahir:          dataModel.TanggalLahir,
+		Usia:                  dataModel.Usia,
+		NamaWali:              dataModel.NamaWali,
+		EmailWali:             dataModel.EmailWali,
+		NoTelponWali:          dataModel.NoTelponWali,
+		AlamatKtp:             dataModel.AlamatKtp,
+		ProvinsiKtp:           dataModel.ProvinsiKtp,
+		KabupatenKotaKtp:      dataModel.KabupatenKotaKtp,
+		AlamatDomisili:        dataModel.AlamatDomisili,
+		ProvinsiDomisili:      dataModel.ProvinsiDomisili,
+		KabupatenKotaDomisili: dataModel.KabupatenKotaDomisili,
+		NoBpjs:                dataModel.NoBpjs,
+		KelasBpjs:             dataModel.KelasBpjs,
+		FotoKtp:               dataModel.FotoKtp,
+		FotoBpjs:              dataModel.FotoBpjs,
+		// BedReservation:       arrBedReservations,
+	}
+}
 
 // // mengubah slice struct model gorm ke slice struct core
 // func toCoreListP(dataModel []Patient) []bedreservation.PatientCore {

@@ -20,6 +20,22 @@ func New(db *gorm.DB) bedreservation.RepositoryInterface {
 	}
 }
 
+// GetById implements bedreservation.RepositoryInterface
+func (r *bedReservationRepository) GetById(bedResId uint) (data bedreservation.BedReservationCore, err error) {
+	var regisDetail BedReservation
+
+	tx := r.db.Where("id = ?", bedResId).First(&regisDetail)
+	if tx.Error != nil {
+		return bedreservation.BedReservationCore{}, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return bedreservation.BedReservationCore{}, errors.New("get data failed, error query data")
+	}
+
+	data = regisDetail.toCore()
+	return data, nil
+}
+
 // GetRegistrations implements bedreservation.RepositoryInterface
 func (r *bedReservationRepository) GetRegistrations(limit, offset, hospitalId int) (data []bedreservation.BedReservationCore, totalpage int, err error) {
 	var reservations []BedReservation
