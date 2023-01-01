@@ -1,11 +1,17 @@
 Terima Kasih Telah Mendaftar dengan Aplikasi Rawat Inap
 
-Kami dari {{.RumahSakit}}, memberikan informasi kepada saudara {{.NamaPasien}} bahwa anda telah terdaftar sebagai calon pasien
-pada Poliklinik {{.Policlinic}} yang akan dilaksanakan pada waktu {{.TanggalPraktik}}
+Kami dari {{.RumahSakit}} 
+memberikan informasi kepada saudara {{.NamaPasien}} 
+bahwa anda telah terdaftar sebagai calon pasien di {{.Policlinic}}
+yang akan dilaksanakan pada tanggal {{.TanggalPraktik}} pukul {{.JamPraktik}}
 
-dimohon untuk kedatangannya tepat waktu pada pukul {{.JamPraktik}}, terima Kasih
+dimohon untuk kedatangannya 30 menit sebelum jam praktik untuk melakukan verifikasi pasien di tempat pendaftaran
+terima kasih
 
-hormat Kami
+
+
+hormat kami
+
 
 
 {{.RumahSakit}}
