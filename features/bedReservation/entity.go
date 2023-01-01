@@ -49,6 +49,7 @@ type ServiceInterface interface {
 	PaymentNotif(callback BedReservationCore) (err error)
 	GetRegistrations(page, limit, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 	GetById(bedResId uint) (data BedReservationCore, err error)
+	Delete(bedResId uint) error
 }
 
 type RepositoryInterface interface {
@@ -58,4 +59,5 @@ type RepositoryInterface interface {
 	PaymentNotif(callback BedReservationCore) (err error)
 	GetRegistrations(limit, offset, hospitalId int) (data []BedReservationCore, totalpage int, err error)
 	GetById(bedResId uint) (data BedReservationCore, err error)
+	Delete(bedResId uint) error
 }
