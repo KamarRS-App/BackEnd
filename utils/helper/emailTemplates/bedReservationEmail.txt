@@ -1,0 +1,6 @@
+Terima kasih telah mendaftar melalui aplikasi Rawat Inap
+
+Pendaftaran bed atas nama {{.NamaPasien}} di {{.RumahSakit}} sudah kami terima dan sedang kami proses.
+Mohon segera mendatangi bagian registrasi ICU dan melakukan verifikasi pendafataran.
+
+Terima kasih 

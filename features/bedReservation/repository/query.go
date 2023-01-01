@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"log"
 	"time"
 
 	bedreservation "github.com/KamarRS-App/KamarRS-App/features/bedReservation"
@@ -18,6 +19,57 @@ func New(db *gorm.DB) bedreservation.RepositoryInterface {
 	return &bedReservationRepository{
 		db: db,
 	}
+}
+
+// UpdateBedReservation implements bedreservation.RepositoryInterface
+func (r *bedReservationRepository) UpdateBedReservation(input bedreservation.BedReservationCore) error {
+	var regisInfo BedReservation
+	var patientInfo Patient
+	var hospitalInfo Hospital
+	var inputGorm BedReservation = FromCoreToModel(input)
+
+	tx := r.db.First(&regisInfo, input.ID)
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	tx0 := r.db.First(&patientInfo, regisInfo.PatientID)
+	if tx0.Error != nil {
+		return tx0.Error
+	}
+
+	tx1 := r.db.First(&hospitalInfo, regisInfo.HospitalID)
+	if tx1.Error != nil {
+		return tx1.Error
+	}
+
+	tx2 := r.db.Where("id = ?", input.ID).Updates(inputGorm)
+	if tx2.Error != nil {
+		return tx2.Error
+	}
+
+	if tx2.RowsAffected == 0 {
+		return errors.New("error on update")
+	}
+	if inputGorm.StatusPasien == "pemeriksaan awal" {
+
+		dataEmail := struct {
+			RumahSakit string
+			NamaPasien string
+		}{
+			RumahSakit: hospitalInfo.Nama,
+			NamaPasien: patientInfo.NamaPasien,
+		}
+
+		emailTo := patientInfo.EmailWali
+
+		errMail := helper.SendEmailSMTPBed([]string{emailTo}, dataEmail, "bedReservationEmail.txt") //send mail
+		if errMail != nil {
+			log.Println(errMail, "Pengiriman Email Gagal")
+		}
+	}
+	return nil
+
 }
 
 // Delete implements bedreservation.RepositoryInterface

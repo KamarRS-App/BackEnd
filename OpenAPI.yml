@@ -2110,14 +2110,7 @@ paths:
             schema:
               type: object
               example:
-                hospital_id: 3
-                patient_id: 255
-                bed_id: 15
                 status_pasien: "pemeriksaan awal"
-                biaya_registrasi: 25000
-                kode_daftar: "Postman-1578568851"
-                link-pembayaran: "masih tidak tahu linknya bagaimana"
-                status-pembayaran: "success"
       responses:
         '201':
           description: update hospital bed
