@@ -1,0 +1,13 @@
+Terima kasih telah mendaftar melalui aplikasi Rawat Inap
+
+Pendaftaran bed atas nama {{.NamaPasien}} di {{.RumahSakit}} sudah kami terima, silakan melakukan pembayaran sebelum {{.WaktuKedaluarsa}}
+
+Order id: {{.KodeDaftar}}
+Bank tujuan: {{.BankPenerima}}
+Nomor virtual account: {{.VirtualAccount}}
+Biaya: {{.BiayaRegistrasi}}
+Link pembayaran: {{.LinkPembayaran}}
+
+Penerimaan pasien akan kami proses setelah pembayaran kami terima.
+
+Terima kasih 
