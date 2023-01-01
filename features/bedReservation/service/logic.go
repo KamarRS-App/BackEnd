@@ -14,6 +14,15 @@ func New(repo bedreservation.RepositoryInterface) bedreservation.ServiceInterfac
 	}
 }
 
+// Delete implements bedreservation.ServiceInterface
+func (s *bedReservationService) Delete(bedResId uint) error {
+	err := s.bedReservationRepository.Delete(bedResId)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // GetById implements bedreservation.ServiceInterface
 func (s *bedReservationService) GetById(bedResId uint) (data bedreservation.BedReservationCore, err error) {
 	data, err = s.bedReservationRepository.GetById(bedResId)

@@ -20,6 +20,22 @@ func New(db *gorm.DB) bedreservation.RepositoryInterface {
 	}
 }
 
+// Delete implements bedreservation.RepositoryInterface
+func (r *bedReservationRepository) Delete(bedResId uint) error {
+	var bedReservation BedReservation
+	tx := r.db.Delete(&bedReservation, bedResId)
+	if tx.Error != nil {
+		return tx.Error
+	}
+
+	if tx.RowsAffected == 0 {
+		return errors.New("id not found")
+
+	}
+
+	return nil
+}
+
 // GetById implements bedreservation.RepositoryInterface
 func (r *bedReservationRepository) GetById(bedResId uint) (data bedreservation.BedReservationCore, err error) {
 	var regisDetail BedReservation

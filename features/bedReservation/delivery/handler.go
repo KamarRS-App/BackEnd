@@ -25,7 +25,8 @@ func New(service bedreservation.ServiceInterface, e *echo.Echo) {
 	e.PUT("/payments/:kodeDaftar", handler.CreatePayment, middlewares.JWTMiddleware())
 	e.POST("/midtrans", handler.UpdateMidtrans)
 	e.GET("/hospitals/:hospitalId/registrations", handler.GetAll, middlewares.JWTMiddleware())
-	e.GET("registrations/:registration_id", handler.GetDetailRegistration, middlewares.JWTMiddleware())
+	e.GET("/registrations/:registration_id", handler.GetDetailRegistration, middlewares.JWTMiddleware())
+	e.DELETE("/registrations/:registration_id", handler.Delete, middlewares.JWTMiddleware())
 }
 
 func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
@@ -129,4 +130,13 @@ func (d *BedReservationDelivery) GetDetailRegistration(c echo.Context) error {
 	data := fromCore(res)
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success read beds registrations by ID", data))
+}
+
+func (d *BedReservationDelivery) Delete(c echo.Context) error {
+	bedResId, _ := strconv.Atoi(c.Param("registration_id"))
+	err := d.BedReservationService.Delete(uint(bedResId))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error delete data"))
+	}
+	return c.JSON(http.StatusOK, helper.SuccessResponse("success delete bed registrations"))
 }
