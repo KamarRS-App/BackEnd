@@ -25,6 +25,7 @@ func New(service bedreservation.ServiceInterface, e *echo.Echo) {
 	e.PUT("/payments/:kodeDaftar", handler.CreatePayment, middlewares.JWTMiddleware())
 	e.POST("/midtrans", handler.UpdateMidtrans)
 	e.GET("/hospitals/:hospitalId/registrations", handler.GetAll, middlewares.JWTMiddleware())
+	e.GET("registrations/:registration_id", handler.GetDetailRegistration, middlewares.JWTMiddleware())
 }
 
 func (d *BedReservationDelivery) CreateRegistration(c echo.Context) error {
@@ -113,4 +114,19 @@ func (d *BedReservationDelivery) GetAll(c echo.Context) error {
 	data := fromCoreList(res)
 
 	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("success read all bed reservations", data, totalpage))
+}
+
+func (d *BedReservationDelivery) GetDetailRegistration(c echo.Context) error {
+	role := middlewares.ExtractTokenTeamRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Hanya bisa diakses admin"))
+	}
+	bedResId, _ := strconv.Atoi(c.Param("registration_id"))
+	res, err := d.BedReservationService.GetById(uint(bedResId))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
+	}
+	data := fromCore(res)
+
+	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success read beds registrations by ID", data))
 }

@@ -14,6 +14,15 @@ func New(repo bedreservation.RepositoryInterface) bedreservation.ServiceInterfac
 	}
 }
 
+// GetById implements bedreservation.ServiceInterface
+func (s *bedReservationService) GetById(bedResId uint) (data bedreservation.BedReservationCore, err error) {
+	data, err = s.bedReservationRepository.GetById(bedResId)
+	if err != nil {
+		return bedreservation.BedReservationCore{}, err
+	}
+	return data, nil
+}
+
 // GetRegistrations implements bedreservation.ServiceInterface
 func (s *bedReservationService) GetRegistrations(page int, limit int, hospitalId int) (data []bedreservation.BedReservationCore, totalpage int, err error) {
 	offset := (page - 1) * limit

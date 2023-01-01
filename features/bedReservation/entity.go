@@ -16,7 +16,6 @@ type BedReservationCore struct {
 	HospitalID       uint
 	PatientID        uint
 	BedID            uint
-	// Patient          PatientCore
 }
 
 type PatientCore struct {
@@ -40,6 +39,7 @@ type PatientCore struct {
 	KelasBpjs             string
 	FotoKtp               string
 	FotoBpjs              string
+	BedReservation        BedReservationCore
 }
 
 type ServiceInterface interface {
@@ -48,6 +48,7 @@ type ServiceInterface interface {
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
 	PaymentNotif(callback BedReservationCore) (err error)
 	GetRegistrations(page, limit, hospitalId int) (data []BedReservationCore, totalpage int, err error)
+	GetById(bedResId uint) (data BedReservationCore, err error)
 }
 
 type RepositoryInterface interface {
@@ -56,4 +57,5 @@ type RepositoryInterface interface {
 	CreatePayment(input BedReservationCore) (data BedReservationCore, err error)
 	PaymentNotif(callback BedReservationCore) (err error)
 	GetRegistrations(limit, offset, hospitalId int) (data []BedReservationCore, totalpage int, err error)
+	GetById(bedResId uint) (data BedReservationCore, err error)
 }

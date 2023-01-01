@@ -2060,7 +2060,7 @@ paths:
             type: integer
             example: 1
       responses:
-        '201':
+        '200':
           description: list beds registrations data by registrations_id success
           content:
             application/json:
@@ -2069,16 +2069,22 @@ paths:
                 example: 
                   status: "Success"
                   message: "success read beds registrations by ID"
-                  data:
-                    id: 20
-                    hospital_id: 3
-                    patient_id: 255
-                    bed_id: 16
-                    status_pasien: "rawat inap"
-                    biaya_registrasi: 25000
-                    kode_daftar: "Postman-1578568851"
-                    link-pembayaran: "masih tidak tahu linknya bagaimana"
-                    status-pembayaran: "success"
+                  data: 
+                  id: 27,
+                  status_pasien: "waiting list"
+                  biaya_registrasi: 25000
+                  Kode_daftar: "order-ZaFHi"
+                  payment_method: "transfer_va_bca"
+                  link_pembayaran: "https://simulator.sandbox.midtrans.com/bca/va/index"
+                  transaction_id: "93bab3a1-fd84-4752-9aa2-85794a703299"
+                  virtual_account: "52185209770"
+                  bank_penerima: "bank bca"
+                  waktu_kedaluarsa: "2022-12-31 17:58:57 +0000 UTC"
+                  qr_string: ""
+                  status_pembayaran: "pending"
+                  hospital_id: 1
+                  bed_id: 0
+              
         '500':
           $ref: '#/components/responses/500' 
 

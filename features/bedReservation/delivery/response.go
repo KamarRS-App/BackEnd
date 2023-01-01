@@ -24,26 +24,26 @@ type BedReservationResponse struct {
 
 type PatientResponse struct {
 	ID                    uint   `json:"id"`
-	NoKk                  string `json:"nokk"`
+	NoKk                  string `json:"no_kk"`
 	Nik                   string `json:"nik"`
-	NamaPasien            string `json:"namapasien"`
-	JenisKelamin          string `json:"jeniskelamin"`
-	TanggalLahir          string `json:"tanggallahir"`
+	NamaPasien            string `json:"nama_pasien"`
+	JenisKelamin          string `json:"jenis_kelamin"`
+	TanggalLahir          string `json:"tanggal_lahir"`
 	Usia                  int    `json:"usia" form:"usia"`
-	NamaWali              string `json:"namawali"`
-	EmailWali             string `json:"emailwali"`
-	NoTelponWali          string `json:"notelponwali"`
-	AlamatKtp             string `json:"alamatktp"`
-	ProvinsiKtp           string `json:"provinsiktp"`
-	KabupatenKotaKtp      string `json:"kabupatenkotaktp"`
-	AlamatDomisili        string `json:"alamatdomisili"`
-	ProvinsiDomisili      string `json:"provinsidomisili"`
-	KabupatenKotaDomisili string `json:"kabupatenkotadomisili"`
-	NoBpjs                string `json:"nobpjs"`
-	KelasBpjs             string `json:"kelasbpjs"`
-	FotoKtp               string `json:"fotoktp"`
-	FotoBpjs              string `json:"fotobpjs"`
-	// BedReservation          BedReservation
+	NamaWali              string `json:"nama_wali"`
+	EmailWali             string `json:"email_wali"`
+	NoTelponWali          string `json:"no_telpon_wali"`
+	AlamatKtp             string `json:"alamat_ktp"`
+	ProvinsiKtp           string `json:"provinsi_ktp"`
+	KabupatenKotaKtp      string `json:"kabupaten_kota_ktp"`
+	AlamatDomisili        string `json:"alamat_domisili"`
+	ProvinsiDomisili      string `json:"provinsi_domisili"`
+	KabupatenKotaDomisili string `json:"kabupaten_kota_domisili"`
+	NoBpjs                string `json:"no_bpjs"`
+	KelasBpjs             string `json:"kelas_bpjs"`
+	FotoKtp               string `json:"foto_ktp"`
+	FotoBpjs              string `json:"foto_bpjs"`
+	BedReservations       []BedReservationResponse
 	// CheckupReservation      CheckupReservation
 }
 
@@ -102,6 +102,26 @@ func fromCoreList(dataCore []bedreservation.BedReservationCore) []BedReservation
 //-----------------------Patient from Core---------------------------------------
 
 func PatientCoreToPatientRespon(dataCore bedreservation.PatientCore) PatientResponse { // data user core yang ada di controller yang memanggil user repositoCorePatient
+	// var arrBedReservations []BedReservationResponse
+	// for _, v := range dataCore.BedReservations {
+	// 	arrBedReservations = append(arrBedReservations, BedReservationResponse{
+	// 		ID:               v.ID,
+	// 		StatusPasien:     v.StatusPasien,
+	// 		BiayaRegistrasi:  v.BiayaRegistrasi,
+	// 		KodeDaftar:       v.KodeDaftar,
+	// 		PaymentMethod:    v.PaymentMethod,
+	// 		LinkPembayaran:   v.LinkPembayaran,
+	// 		VirtualAccount:   v.VirtualAccount,
+	// 		TransactionId:    v.TransactionId,
+	// 		BankPenerima:     v.BankPenerima,
+	// 		WaktuKedaluarsa:  v.WaktuKedaluarsa,
+	// 		QrString:         v.QrString,
+	// 		StatusPembayaran: v.StatusPembayaran,
+	// 		HospitalID:       v.HospitalID,
+	// 		BedID:            v.BedID,
+	// 	})
+	// }
+
 	return PatientResponse{
 		ID:                    dataCore.ID,
 		NoKk:                  dataCore.NoKk,
@@ -123,6 +143,7 @@ func PatientCoreToPatientRespon(dataCore bedreservation.PatientCore) PatientResp
 		KelasBpjs:             dataCore.KelasBpjs,
 		FotoKtp:               dataCore.FotoKtp,
 		FotoBpjs:              dataCore.FotoBpjs,
+		// BedReservations:       arrBedReservations,
 	}
 }
 func ListpatientCoreTopatientRespon(dataCore []bedreservation.PatientCore) []PatientResponse { //data user.core data yang diambil dari entities ke respon struct
