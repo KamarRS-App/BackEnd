@@ -41,6 +41,17 @@ func (service *policlinicService) GetById(id int) (data policlinic.CorePoliclini
 }
 
 // GetAll
+func (service *policlinicService) GetAllbyHospitalID(pagination, limit, id int) (data []policlinic.CorePoliclinic, totalpage int, err error) {
+	offset := (pagination - 1) * limit
+	data, totalpage, err = service.policlinicRepository.GetAllbyHospitalID(limit, offset, id)
+	if err != nil {
+		return nil, 0, errors.New("failed get policlinic by hospital id, error logic")
+	}
+	return
+
+}
+
+// GetAll
 func (service *policlinicService) GetAll() (data []policlinic.CorePoliclinic, err error) {
 	data, err = service.policlinicRepository.GetAll()
 	return
