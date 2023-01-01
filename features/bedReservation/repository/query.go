@@ -182,15 +182,26 @@ func (r *bedReservationRepository) GetPayment(kodeDaftar string) (data bedreserv
 
 // CreatePayment implements bedreservation.RepositoryInterface
 func (r *bedReservationRepository) CreatePayment(input bedreservation.BedReservationCore) (data bedreservation.BedReservationCore, err error) {
-	// var bedReservation BedReservation
 	var regisInfo BedReservation
+	var patientInfo Patient
+	var hospitalInfo Hospital
 
 	tx := r.db.Where("kode_daftar = ?", input.KodeDaftar).First(&regisInfo)
 	if tx.Error != nil {
 		return bedreservation.BedReservationCore{}, tx.Error
 	}
 
-	if input.BiayaRegistrasi < 1 {
+	tx0 := r.db.First(&patientInfo, regisInfo.PatientID)
+	if tx0.Error != nil {
+		return bedreservation.BedReservationCore{}, tx0.Error
+	}
+
+	tx1 := r.db.First(&hospitalInfo, regisInfo.HospitalID)
+	if tx1.Error != nil {
+		return bedreservation.BedReservationCore{}, tx1.Error
+	}
+
+	if regisInfo.BiayaRegistrasi < 1 {
 		return bedreservation.BedReservationCore{}, errors.New("tidak perlu melakukan pembayaran, pembayaran anda sudah ditanggung BPJS")
 	}
 
@@ -243,13 +254,69 @@ func (r *bedReservationRepository) CreatePayment(input bedreservation.BedReserva
 		}
 
 		inputGorm := FromCoreToModel(input)
-		tx1 := r.db.Where("kode_daftar = ?", input.KodeDaftar).Updates(inputGorm)
-		if tx1.Error != nil {
-			return bedreservation.BedReservationCore{}, tx1.Error
+		tx2 := r.db.Where("kode_daftar = ?", input.KodeDaftar).Updates(inputGorm)
+		if tx2.Error != nil {
+			return bedreservation.BedReservationCore{}, tx2.Error
 		}
-		if tx1.RowsAffected == 0 {
+		if tx2.RowsAffected == 0 {
 			return bedreservation.BedReservationCore{}, errors.New("create payment failed, error query")
 		}
+
+		switch {
+		case inputGorm.PaymentMethod == "qris":
+			tenggatWaktu := inputGorm.WaktuKedaluarsa[:20] + "WIB"
+			dataEmail := struct {
+				RumahSakit      string
+				NamaPasien      string
+				KodeDaftar      string
+				QrString        string
+				BiayaRegistrasi int
+				WaktuKedaluarsa string
+				LinkPembayaran  string
+			}{
+				RumahSakit:      hospitalInfo.Nama,
+				NamaPasien:      patientInfo.NamaPasien,
+				KodeDaftar:      inputGorm.KodeDaftar,
+				QrString:        inputGorm.QrString,
+				BiayaRegistrasi: inputGorm.BiayaRegistrasi,
+				WaktuKedaluarsa: tenggatWaktu,
+				LinkPembayaran:  inputGorm.LinkPembayaran,
+			}
+
+			emailTo := patientInfo.EmailWali
+			errMail := helper.SendEmailInvoice([]string{emailTo}, dataEmail, "invoiceBRQris.txt") //send mail
+			if errMail != nil {
+				log.Println(errMail, "Pengiriman Email Gagal")
+			}
+		default:
+			tenggatWaktu := inputGorm.WaktuKedaluarsa[:20] + "WIB"
+			dataEmail := struct {
+				RumahSakit      string
+				NamaPasien      string
+				KodeDaftar      string
+				BankPenerima    string
+				VirtualAccount  string
+				BiayaRegistrasi int
+				WaktuKedaluarsa string
+				LinkPembayaran  string
+			}{
+				RumahSakit:      hospitalInfo.Nama,
+				NamaPasien:      patientInfo.NamaPasien,
+				KodeDaftar:      inputGorm.KodeDaftar,
+				BankPenerima:    inputGorm.BankPenerima,
+				VirtualAccount:  inputGorm.VirtualAccount,
+				BiayaRegistrasi: inputGorm.BiayaRegistrasi,
+				WaktuKedaluarsa: tenggatWaktu,
+				LinkPembayaran:  inputGorm.LinkPembayaran,
+			}
+
+			emailTo := patientInfo.EmailWali
+			errMail := helper.SendEmailInvoice([]string{emailTo}, dataEmail, "invoiceBRBank.txt") //send mail
+			if errMail != nil {
+				log.Println(errMail, "Pengiriman Email Gagal")
+			}
+		}
+
 		return input, nil
 	case midtransInfo.TransactionID == "":
 		return bedreservation.BedReservationCore{}, errors.New("terjadi kesalahan pembayaran, pilih metode pembayaran lain")
