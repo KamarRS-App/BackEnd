@@ -8,7 +8,7 @@ import (
 
 type ServiceInterface interface {
 	Login(email string, pass string) (string, user.User, error)
-	LoginOauth(email string) (string, user.User, error)
+	LoginOauth(auth Oauth) (string, user.User, error)
 	LoginTeam(email string, password string) (string, teamrepo.KamarRsTeam, error)
 	LoginStaff(email string, pass string) (string, staff.HospitalStaff, error)
 
@@ -18,10 +18,15 @@ type ServiceInterface interface {
 
 type RepositoryInterface interface {
 	Login(email string, pass string) (string, user.User, error)
-	LoginOauth(email string) (string, user.User, error)
+	LoginOauth(auth Oauth) (string, user.User, error)
 	LoginTeam(email string, password string) (string, teamrepo.KamarRsTeam, error)
 	LoginStaff(email string, pass string) (string, staff.HospitalStaff, error)
 
 	// LoginOauth(email string) (string, repository.User, error)
 	// Create(input user.CoreUser) (err error)
+}
+
+type Oauth struct {
+	Email string `json:"email"`
+	Name  string `json:"name"`
 }
