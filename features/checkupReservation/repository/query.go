@@ -10,7 +10,7 @@ import (
 	hospital "github.com/KamarRS-App/KamarRS-App/features/hospital/repository"
 	patient "github.com/KamarRS-App/KamarRS-App/features/patient/repository"
 	policlinic "github.com/KamarRS-App/KamarRS-App/features/policlinic/repository"
-	"github.com/KamarRS-App/KamarRS-App/features/user/repository"
+
 	userRep "github.com/KamarRS-App/KamarRS-App/features/user/repository"
 	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"gorm.io/gorm"
@@ -29,7 +29,7 @@ func New(db *gorm.DB) checkupreservation.RepositoryInterface { // user.repositor
 
 // Create implements checkupreservation.RepositoryInterface
 func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservationCore, userId int) (err error) {
-	patients := repository.Patient{}
+	patients := userRep.Patient{}
 
 	tx1 := repo.db.First(&patients, input.PatientID)
 	if tx1.Error != nil {
@@ -73,6 +73,12 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 		return errors.New("insert failed")
 	}
 
+	dataCheckup := CheckupReservation{}
+	tx9 := repo.db.Last(&dataCheckup)
+	if tx9.Error != nil {
+		return tx9.Error
+	}
+
 	dataPatients := patient.Patient{}
 	tx5 := repo.db.First(&dataPatients, input.PatientID)
 	if tx5.Error != nil {
@@ -110,12 +116,14 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 		JamPraktik     string
 		TanggalPraktik string
 		NamaPasien     string
+		NamaDokter     string
 	}{
 		RumahSakit:     dataHospital.Nama,
 		Policlinic:     dataPoliclinic.NamaPoli,
 		JamPraktik:     dataPoliclinic.JamPraktik,
 		TanggalPraktik: dataPractice.TanggalPraktik,
 		NamaPasien:     dataPatients.NamaPasien,
+		NamaDokter:     dataCheckup.NamaDokter,
 	}
 
 	emailTo := dataPatients.EmailWali
