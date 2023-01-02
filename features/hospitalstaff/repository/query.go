@@ -55,7 +55,7 @@ func (repo *staffRepository) Create(input hospitalstaff.HospitalStaffCore) (err 
 func (repo *staffRepository) DeleteById(id int) error {
 	var staff HospitalStaff
 
-	tx1 := repo.db.Delete(&staff, id)
+	tx1 := repo.db.Unscoped().Delete(&staff, id)
 	if tx1.Error != nil {
 		return tx1.Error
 	}
