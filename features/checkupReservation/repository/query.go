@@ -97,6 +97,13 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 		return tx8.Error
 	}
 
+	Appointment, errAp := helper.Calendar(dataPatients.EmailWali, dataPractice.TanggalPraktik, dataHospital.Alamat)
+	if errAp != nil {
+		fmt.Println("gagal menambahkan ke kalender")
+		return errors.New("gagal menambahkan ke kalender")
+	}
+	fmt.Println("link", Appointment)
+
 	dataEmail := struct {
 		RumahSakit     string
 		Policlinic     string
