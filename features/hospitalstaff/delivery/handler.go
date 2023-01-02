@@ -123,8 +123,8 @@ func (delivery *StaffDeliv) GetAllStaff(c echo.Context) error {
 	limit := 10
 	page := c.QueryParam("page")
 	pagination, _ := strconv.Atoi(page)
-
-	result, totalPage, err := delivery.StaffService.GetAllStaff(limit, pagination)
+	hospital_name := c.QueryParam("hospital_name")
+	result, totalPage, err := delivery.StaffService.GetAllStaff(hospital_name, limit, pagination)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("erorr read data"))
