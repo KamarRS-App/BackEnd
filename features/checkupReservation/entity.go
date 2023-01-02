@@ -9,6 +9,7 @@ type CheckupReservationCore struct {
 	CreatedAt  time.Time
 	PatientID  uint `validate:"required"`
 	PracticeID uint `validate:"required"`
+	NamaDokter string
 	Patient    PatientCore
 	Practice   PracticeCore
 }

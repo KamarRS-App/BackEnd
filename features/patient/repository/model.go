@@ -58,6 +58,7 @@ type CheckupReservation struct {
 	gorm.Model
 	PatientID  uint
 	PracticeID uint
+	NamaDokter string
 }
 
 func FromPatientCore(dataCore patient.CorePatient) Patient { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)

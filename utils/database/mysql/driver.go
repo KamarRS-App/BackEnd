@@ -117,6 +117,7 @@ type CheckupReservation struct {
 	gorm.Model
 	PatientID  uint
 	PracticeID uint
+	NamaDokter string
 	Patient    Patient  `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Practice   Practice `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
