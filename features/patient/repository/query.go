@@ -70,7 +70,7 @@ func (repo *patientRepository) Create(input patient.CorePatient) (err error) {
 func (repo *patientRepository) DeleteById(id int) error {
 	patiens := Patient{}
 
-	tx1 := repo.db.Delete(&patiens, id)
+	tx1 := repo.db.Unscoped().Delete(&patiens, id)
 	if tx1.Error != nil {
 		return tx1.Error
 	}
@@ -161,7 +161,7 @@ func (repo *patientRepository) Update(id, userId int, input patient.CorePatient)
 	}
 	if userId != int(users.ID) {
 		fmt.Println("Buka pasien yang di daftarkan")
-		return errors.New("Buka pasien yang di daftarkan")
+		return errors.New("buka pasien yang di daftarkan")
 	}
 	if input.NoKk != "" {
 		if input.NoKk != users.Nokk {

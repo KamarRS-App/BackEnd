@@ -110,7 +110,7 @@ func (repo *userRepository) GetById(id int) (data user.CoreUser, err error) {
 func (repo *userRepository) DeleteById(id int) error {
 	users := User{}
 
-	tx1 := repo.db.Delete(&users, id)
+	tx1 := repo.db.Unscoped().Delete(&users, id)
 	if tx1.Error != nil {
 		return tx1.Error
 	}

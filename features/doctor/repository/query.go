@@ -72,7 +72,7 @@ func (repo *doctorRepository) Update(datacore doctor.DoctorCore, id int) (err er
 func (repo *doctorRepository) Delete(id int) (row int, err error) {
 	IdDoctor := Doctor{}
 
-	tx := repo.db.Delete(&IdDoctor, id)
+	tx := repo.db.Unscoped().Delete(&IdDoctor, id)
 	if tx.Error != nil {
 		return -1, tx.Error
 	}
