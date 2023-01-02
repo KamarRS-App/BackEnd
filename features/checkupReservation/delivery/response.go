@@ -7,11 +7,12 @@ import (
 )
 
 type CheckupReservationResponse struct {
-	ID        uint             `json:"id"`
-	PatientID uint             `json:"patient_id"`
-	CreatedAt time.Time        `json:"created_at"`
-	Practice  PracticeResponse `json:"practice"`
-	Patient   PatientResponse  `json:"patient"`
+	ID         uint             `json:"id"`
+	PatientID  uint             `json:"patient_id"`
+	NamaDokter string           `json:"nama_dokter"`
+	CreatedAt  time.Time        `json:"created_at"`
+	Practice   PracticeResponse `json:"practice"`
+	Patient    PatientResponse  `json:"patient"`
 }
 
 type PatientResponse struct {
@@ -30,9 +31,10 @@ type PracticeResponse struct {
 // -----------------Checkup Reserve--------------------
 func fromCore(dataCore checkupreservation.CheckupReservationCore) CheckupReservationResponse {
 	return CheckupReservationResponse{
-		ID:        dataCore.ID,
-		PatientID: dataCore.PatientID,
-		CreatedAt: dataCore.CreatedAt,
+		ID:         dataCore.ID,
+		PatientID:  dataCore.PatientID,
+		CreatedAt:  dataCore.CreatedAt,
+		NamaDokter: dataCore.NamaDokter,
 		Patient: PatientResponse{
 			ID:         dataCore.Patient.ID,
 			NoKk:       dataCore.Patient.NoKk,
@@ -59,11 +61,12 @@ func fromCoreList(dataCore []checkupreservation.CheckupReservationCore) []Checku
 //-----------------------------------------------------
 
 type CheckupReservationResponse1 struct {
-	ID        uint              `json:"id"`
-	PatientID uint              `json:"patient_id"`
-	CreatedAt time.Time         `json:"created_at"`
-	Practice  PracticeResponse1 `json:"practice"`
-	Patient   PatientResponse1  `json:"patient"`
+	ID         uint              `json:"id"`
+	PatientID  uint              `json:"patient_id"`
+	NamaDokter string            `json:"nama_dokter"`
+	CreatedAt  time.Time         `json:"created_at"`
+	Practice   PracticeResponse1 `json:"practice"`
+	Patient    PatientResponse1  `json:"patient"`
 }
 
 type PatientResponse1 struct {
@@ -98,9 +101,10 @@ type PracticeResponse1 struct {
 // -----------------Checkup Reserve--------------------
 func fromCore1(dataCore checkupreservation.CheckupReservationCore) CheckupReservationResponse1 {
 	return CheckupReservationResponse1{
-		ID:        dataCore.ID,
-		PatientID: dataCore.PatientID,
-		CreatedAt: dataCore.CreatedAt,
+		ID:         dataCore.ID,
+		PatientID:  dataCore.PatientID,
+		NamaDokter: dataCore.NamaDokter,
+		CreatedAt:  dataCore.CreatedAt,
 		Patient: PatientResponse1{
 			ID:                    dataCore.Patient.ID,
 			NoKk:                  dataCore.Patient.NoKk,
