@@ -44,15 +44,30 @@ func (repo *practiceRepository) GetById(id int) (data dailypractice.PracticeCore
 }
 
 // GetAll
-func (repo *practiceRepository) GetAll() (data []dailypractice.PracticeCore, err error) {
+func (repo *practiceRepository) GetAll(limit, offset, id int) (data []dailypractice.PracticeCore, totalpage int, err error) {
 	var practices []Practice
+	var count int64
+	rx := repo.db.Model(&practices).Where("policlinic_id = ?", id).Count(&count)
+	if rx.Error != nil {
+		return nil, 0, rx.Error
+	}
+	if rx.RowsAffected == 0 {
+		return nil, 0, errors.New("error query count")
+	}
+
+	// var totalpage int
+	if int(count)%limit == 0 {
+		totalpage = int(count) / limit
+	} else {
+		totalpage = (int(count) / limit) + 1
+	}
 
 	tx := repo.db.Find(&practices)
 	if tx.Error != nil {
-		return nil, tx.Error
+		return nil, 0, tx.Error
 	}
 	var dataCore = ToCoreList(practices)
-	return dataCore, nil
+	return dataCore, totalpage, nil
 }
 
 // Update

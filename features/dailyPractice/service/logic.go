@@ -41,8 +41,12 @@ func (service *practiceService) GetById(id int) (data dailypractice.PracticeCore
 }
 
 // GetAll
-func (service *practiceService) GetAll() (data []dailypractice.PracticeCore, err error) {
-	data, err = service.practiceRepository.GetAll()
+func (service *practiceService) GetAll(pagination, limit, id int) (data []dailypractice.PracticeCore, totalpage int, err error) {
+	offset := (pagination - 1) * limit
+	data, totalpage, err = service.practiceRepository.GetAll(limit, offset, id)
+	if err != nil {
+		return nil, 0, errors.New("failed get practice by policlinic id, error logic")
+	}
 	return
 
 }
