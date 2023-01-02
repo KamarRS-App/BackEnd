@@ -890,6 +890,35 @@ paths:
         - Hospitals
       summary: Get All hospitals
       description: Menampilkan Daftar Rumah sakit
+      parameters:
+        - name: provinsi
+          description: "filter hospitals by provinsi"
+          required: false
+          in: query
+          schema: 
+            type: string
+            example: "jawa timur"
+        - name: kabupaten_kota
+          description: "filter hospitals by kabupaten/kota"
+          required: false
+          in: query
+          schema: 
+            type: string
+            example: "kota malang"
+        - name: nama
+          description: "filter hospitals by name"
+          required: false
+          in: query
+          schema: 
+            type: string
+            example: "rs byouin"
+        - name: page
+          description: "shows result per page"
+          required: false
+          in: query
+          schema: 
+            type: integer
+            example: 1
       responses:
         '200':
           description: A list of hospitals

@@ -110,7 +110,7 @@ func (d *BedReservationDelivery) GetAll(c echo.Context) error {
 
 	res, totalpage, err := d.BedReservationService.GetRegistrations(page, limit, hospialId)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"+err.Error()))
 	}
 
 	data := fromCoreList(res)
