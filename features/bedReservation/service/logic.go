@@ -1,6 +1,8 @@
 package service
 
 import (
+	"errors"
+
 	bedreservation "github.com/KamarRS-App/KamarRS-App/features/bedReservation"
 )
 
@@ -47,6 +49,9 @@ func (s *bedReservationService) GetRegistrations(page int, limit int, hospitalId
 	data, totalpage, err = s.bedReservationRepository.GetRegistrations(limit, offset, hospitalId)
 	if err != nil {
 		return nil, 0, err
+	}
+	if len(data) == 0 {
+		return nil, 0, errors.New("cannot find data")
 	}
 	return
 }

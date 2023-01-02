@@ -44,15 +44,32 @@ func (repo *hospitalRepository) GetById(id int) (data hospital.HospitalCore, err
 }
 
 // GetAll
-func (repo *hospitalRepository) GetAll() (data []hospital.HospitalCore, err error) {
+func (repo *hospitalRepository) GetAll(provinsi, kabKota, nama string, limit, offset int) (data []hospital.HospitalCore, totalPage int, err error) {
 	var hospitals []Hospital
 
-	tx := repo.db.Find(&hospitals)
+	var count int64
+	tx0 := repo.db.Model(&hospitals).Where("provinsi LIKE ? AND kabupaten_kota LIKE ? AND nama LIKE ?", "%"+provinsi+"%", "%"+kabKota+"%", "%"+nama+"%").Count(&count)
+	if tx0.Error != nil {
+		return nil, 0, tx0.Error
+	}
+	if tx0.RowsAffected == 0 {
+		return nil, 0, errors.New("error query count")
+	}
+
+	if count < 10 {
+		totalPage = 1
+	} else if int(count)%limit == 0 {
+		totalPage = int(count) / limit
+	} else {
+		totalPage = (int(count) / limit) + 1
+	}
+
+	tx := repo.db.Where("provinsi LIKE ? AND kabupaten_kota LIKE ? AND nama LIKE ?", "%"+provinsi+"%", "%"+kabKota+"%", "%"+nama+"%").Find(&hospitals)
 	if tx.Error != nil {
-		return nil, tx.Error
+		return nil, 0, tx.Error
 	}
 	var dataCore = ToCoreList(hospitals)
-	return dataCore, nil
+	return dataCore, totalPage, nil
 }
 
 // Update

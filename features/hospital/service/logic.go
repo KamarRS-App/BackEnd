@@ -41,9 +41,15 @@ func (service *hospitalService) GetById(id int) (data hospital.HospitalCore, err
 }
 
 // GetAll
-func (service *hospitalService) GetAll() (data []hospital.HospitalCore, err error) {
-	data, err = service.hospitalRepository.GetAll()
-	return
+func (service *hospitalService) GetAll(provinsi, kabKota, nama string, page, limit int) (data []hospital.HospitalCore, totalPage int, err error) {
+	data, totalPage, err = service.hospitalRepository.GetAll(provinsi, kabKota, nama, page, limit)
+	if err != nil {
+		return nil, 0, err
+	}
+	if len(data) == 0 {
+		return nil, 0, errors.New("cannot find data")
+	}
+	return data, totalPage, nil
 
 }
 

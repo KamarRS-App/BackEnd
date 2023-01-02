@@ -68,7 +68,9 @@ func (repo *policlinicRepository) GetAllbyHospitalID(limit, offset, id int) (dat
 	}
 
 	// var totalpage int
-	if int(count)%limit == 0 {
+	if count < 10 {
+		totalpage = 1
+	} else if int(count)%limit == 0 {
 		totalpage = int(count) / limit
 	} else {
 		totalpage = (int(count) / limit) + 1

@@ -130,7 +130,9 @@ func (repo *staffRepository) GetAllStaff(limit int, offset int) (data []hospital
 	var staffs []HospitalStaff
 	tx := repo.db.Find(&staffs)
 
-	if int(tx.RowsAffected)%limit == 0 {
+	if int(tx.RowsAffected) < 10 {
+		totalPage = 1
+	} else if int(tx.RowsAffected)%limit == 0 {
 		totalPage = int(tx.RowsAffected) / limit
 
 	} else {

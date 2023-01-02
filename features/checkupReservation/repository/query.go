@@ -152,7 +152,9 @@ func (repo *CheckUpRepository) GetByPracticesId(limit int, offset int, id int) (
 		return nil, 0, errors.New("error query count")
 	}
 	// var totalpage int
-	if int(count)%limit == 0 {
+	if count < 10 {
+		totalpage = 1
+	} else if int(count)%limit == 0 {
 		totalpage = int(count) / limit
 	} else {
 		totalpage = (int(count) / limit) + 1

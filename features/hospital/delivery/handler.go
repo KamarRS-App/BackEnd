@@ -1,6 +1,7 @@
 package delivery
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -19,7 +20,7 @@ func New(service hospital.ServiceInterface, e *echo.Echo) {
 		hospitalService: service,
 	}
 	e.POST("/hospitals", handler.Create, middlewares.JWTMiddleware())
-	e.GET("/hospitals", handler.GetAll, middlewares.JWTMiddleware())
+	e.GET("/hospitals", handler.GetAll)
 	e.GET("/hospitals/:id", handler.GetById, middlewares.JWTMiddleware())
 	e.PUT("/hospitals/:id", handler.UpdateData, middlewares.JWTMiddleware())
 	e.DELETE("/hospitals/:id", handler.Delete, middlewares.JWTMiddleware())
@@ -47,14 +48,24 @@ func (delivery *HospitalDelivery) Create(c echo.Context) error {
 
 // Get All Villa (Homepage)
 func (delivery *HospitalDelivery) GetAll(c echo.Context) error {
-	results, err := delivery.hospitalService.GetAll()
+	provinsi := c.QueryParam("provinsi")
+	kabKota := c.QueryParam("kabupaten_kota")
+	nama := c.QueryParam("nama")
+	page, _ := strconv.Atoi(c.QueryParam("page"))
+	limit := 10
+
+	log.Println("provinsi:", provinsi)
+	log.Println("kabkota:", kabKota)
+	log.Println("nama:", nama)
+
+	results, totalPage, err := delivery.hospitalService.GetAll(provinsi, kabKota, nama, page, limit)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
+		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"+err.Error()))
 	}
 
 	dataResponse := FromCoreList(results)
 
-	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success read all hospitals", dataResponse))
+	return c.JSON(http.StatusOK, helper.SuccessWithDataPaginationResponse("success read all hospitals", dataResponse, totalPage))
 }
 
 // Get by ID
