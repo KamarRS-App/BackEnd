@@ -154,11 +154,12 @@ type Doctor struct {
 
 type HospitalStaff struct {
 	gorm.Model
-	Nama       string
-	Email      string `gorm:"unique"`
-	KataSandi  string
-	Peran      string
-	HospitalID uint
+	Nama         string
+	Email        string `gorm:"unique"`
+	KataSandi    string
+	Peran        string
+	HospitalID   uint
+	HospitalName string
 }
 
 type User struct {

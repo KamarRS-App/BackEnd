@@ -22,20 +22,20 @@ func New(db *gorm.DB) hospitalstaff.RepositoryInterface { // user.repository men
 
 // Create implements hospitalstaff.RepositoryInterface
 func (repo *staffRepository) Create(input hospitalstaff.HospitalStaffCore) (err error) {
-	var staffs []HospitalStaff
+	var hospitals Hospital
 
-	tx1 := repo.db.Find(&staffs)
+	tx1 := repo.db.First(&hospitals, input.HospitalID)
 	if tx1.Error != nil {
 		return tx1.Error
 	}
+	input.HospitalName = hospitals.Nama
+	// for _, v := range staffs {
+	// 	if input.Email == v.Email {
+	// 		fmt.Println("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
+	// 		return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
+	// 	}
 
-	for _, v := range staffs {
-		if input.Email == v.Email {
-			fmt.Println("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
-			return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
-		}
-
-	}
+	// }
 
 	staffGorm := FromStaffCore(input)
 
@@ -126,22 +126,17 @@ func (repo *staffRepository) Update(id int, input hospitalstaff.HospitalStaffCor
 }
 
 // GetAllStaff implements hospitalstaff.RepositoryInterface
-func (repo *staffRepository) GetAllStaff(limit int, offset int) (data []hospitalstaff.HospitalStaffCore, totalPage int, err error) {
-	var staffs []HospitalStaff
-	tx := repo.db.Find(&staffs)
-
-	if int(tx.RowsAffected) < 10 {
+func (repo *staffRepository) GetAllStaff(namaRs string, limit int, offset int) (data []hospitalstaff.HospitalStaffCore, totalPage int, err error) {
+	var staff []HospitalStaff
+	tx1 := repo.db.Where("hospital_name LIKE ?", "%"+namaRs+"%").Limit(limit).Offset(offset).Find(&staff)
+	if int(tx1.RowsAffected) < 10 {
 		totalPage = 1
-	} else if int(tx.RowsAffected)%limit == 0 {
-		totalPage = int(tx.RowsAffected) / limit
+	} else if int(tx1.RowsAffected)%limit == 0 {
+		totalPage = int(tx1.RowsAffected) / limit
 
 	} else {
-		totalPage = (int(tx.RowsAffected) / limit) + 1
+		totalPage = (int(tx1.RowsAffected) / limit) + 1
 	}
-	fmt.Println("rowsaffec", tx.RowsAffected)
-	fmt.Println("total", totalPage)
-	var staff []HospitalStaff
-	tx1 := repo.db.Limit(limit).Offset(offset).Find(&staff)
 
 	if tx1.RowsAffected == 0 {
 		return nil, 0, errors.New("data not found")

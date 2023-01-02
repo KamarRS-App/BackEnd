@@ -8,12 +8,13 @@ import (
 
 type HospitalStaff struct {
 	gorm.Model
-	Nama       string
-	Email      string
-	KataSandi  string
-	Peran      string
-	HospitalID uint
-	Hospital   Hospital
+	Nama         string
+	Email        string
+	KataSandi    string
+	Peran        string
+	HospitalID   uint
+	Hospital     Hospital
+	HospitalName string
 }
 
 type Hospital struct {
@@ -38,22 +39,24 @@ type Hospital struct {
 
 func FromStaffCore(dataCore hospitalstaff.HospitalStaffCore) HospitalStaff { //fungsi yang mengambil data dari entities usercore dan merubah data ke user gorm(model.go)
 	staffGorm := HospitalStaff{
-		Nama:       dataCore.Nama,
-		Email:      dataCore.Email,
-		KataSandi:  dataCore.KataSandi,
-		Peran:      dataCore.Peran,
-		HospitalID: dataCore.HospitalID,
+		Nama:         dataCore.Nama,
+		Email:        dataCore.Email,
+		KataSandi:    dataCore.KataSandi,
+		Peran:        dataCore.Peran,
+		HospitalID:   dataCore.HospitalID,
+		HospitalName: dataCore.HospitalName,
 	}
 	return staffGorm //insert user
 }
 func (dataModel *HospitalStaff) ModelsToCore() hospitalstaff.HospitalStaffCore { //fungsi yang mengambil data dari  user gorm(model.go)  dan merubah data ke entities usercore
 	return hospitalstaff.HospitalStaffCore{
-		ID:         dataModel.ID,
-		Nama:       dataModel.Nama,
-		Email:      dataModel.Email,
-		KataSandi:  dataModel.KataSandi,
-		Peran:      dataModel.Peran,
-		HospitalID: dataModel.HospitalID,
+		ID:           dataModel.ID,
+		Nama:         dataModel.Nama,
+		Email:        dataModel.Email,
+		KataSandi:    dataModel.KataSandi,
+		Peran:        dataModel.Peran,
+		HospitalID:   dataModel.HospitalID,
+		HospitalName: dataModel.HospitalName,
 		// Hospital: hospitalstaff.HospitalCore{
 		// 	Nama: dataModel.Hospital.Nama,
 		// },

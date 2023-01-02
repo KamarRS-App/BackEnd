@@ -5,11 +5,12 @@ import (
 )
 
 type HospitalStaffResponse struct {
-	ID         uint   `json:"id"`
-	Nama       string `json:"nama"`
-	Email      string `json:"email"`
-	Peran      string `json:"peran"`
-	HospitalID uint   `json:"hospital_id"`
+	ID           uint   `json:"id"`
+	Nama         string `json:"nama"`
+	Email        string `json:"email"`
+	Peran        string `json:"peran"`
+	HospitalID   uint   `json:"hospital_id"`
+	HospitalName string `json:"hospital_name"`
 }
 type HospitalStaffResponsePreload struct {
 	ID         uint             `json:"id"`
@@ -22,11 +23,12 @@ type HospitalStaffResponsePreload struct {
 
 func StaffCoreToStaffRespon(dataCore hospitalstaff.HospitalStaffCore) HospitalStaffResponse { // data user core yang ada di controller yang memanggil user repositoCorePatient
 	return HospitalStaffResponse{
-		ID:         dataCore.ID,
-		Nama:       dataCore.Nama,
-		Email:      dataCore.Email,
-		Peran:      dataCore.Peran,
-		HospitalID: dataCore.HospitalID,
+		ID:           dataCore.ID,
+		Nama:         dataCore.Nama,
+		Email:        dataCore.Email,
+		Peran:        dataCore.Peran,
+		HospitalID:   dataCore.HospitalID,
+		HospitalName: dataCore.HospitalName,
 		// Hospital: HospitalResponse{
 		// 	Nama: dataCore.Hospital.Nama,
 		// },
