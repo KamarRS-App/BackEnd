@@ -65,10 +65,11 @@ func (repo *hospitalRepository) GetAll(provinsi, kabKota, nama string, limit, of
 	}
 
 	tx := repo.db.Where("provinsi LIKE ? AND kabupaten_kota LIKE ? AND nama LIKE ?", "%"+provinsi+"%", "%"+kabKota+"%", "%"+nama+"%").Limit(limit).Offset(offset).Find(&hospitals)
+
 	if tx.Error != nil {
 		return nil, 0, tx.Error
 	}
-	var dataCore = ToCoreList(hospitals)
+	var dataCore = ToCoreList(hospitals1)
 	return dataCore, totalPage, nil
 }
 

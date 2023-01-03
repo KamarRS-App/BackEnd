@@ -3,6 +3,7 @@ package delivery
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -159,10 +160,12 @@ func (delivery *AuthDelivery) oauthGoogleCallback(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, helper.FailedResponse("failed login"))
 	}
 
-	data1 := map[string]interface{}{
-		"user_id": dataUser.ID,
-		"token":   token,
-		"name":    dataUser.Nama,
-	}
-	return c.JSON(http.StatusOK, helper.SuccessWithDataResponse("success login", data1))
+	// data1 := map[string]interface{}{
+	// 	"user_id": dataUser.ID,
+	// 	"token":   token,
+	// 	"name":    dataUser.Nama,
+	// }
+	// fmt.Sprintf("token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID)
+	return c.Redirect(http.StatusTemporaryRedirect, fmt.Sprintf("http://127.0.0.1:5173/?token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID))
+
 }

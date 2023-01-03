@@ -128,7 +128,10 @@ func (repo *staffRepository) Update(id int, input hospitalstaff.HospitalStaffCor
 // GetAllStaff implements hospitalstaff.RepositoryInterface
 func (repo *staffRepository) GetAllStaff(namaRs string, limit int, offset int) (data []hospitalstaff.HospitalStaffCore, totalPage int, err error) {
 	var staff []HospitalStaff
-	tx1 := repo.db.Where("hospital_name LIKE ?", "%"+namaRs+"%").Limit(limit).Offset(offset).Find(&staff)
+	tx1 := repo.db.Where("hospital_name LIKE ?", "%"+namaRs+"%").Find(&staff)
+	if tx1.RowsAffected == 0 {
+		return nil, 0, errors.New("data not found")
+	}
 	if int(tx1.RowsAffected) < 10 {
 		totalPage = 1
 	} else if int(tx1.RowsAffected)%limit == 0 {
@@ -138,7 +141,9 @@ func (repo *staffRepository) GetAllStaff(namaRs string, limit int, offset int) (
 		totalPage = (int(tx1.RowsAffected) / limit) + 1
 	}
 
-	if tx1.RowsAffected == 0 {
+	tx2 := repo.db.Where("hospital_name LIKE ?", "%"+namaRs+"%").Limit(limit).Offset(offset).Find(&staff)
+
+	if tx2.RowsAffected == 0 {
 		return nil, 0, errors.New("data not found")
 	}
 	data = ListModelTOCore(staff)
