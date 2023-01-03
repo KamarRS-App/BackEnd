@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/KamarRS-App/KamarRS-App/features/hospitalstaff"
-	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -26,8 +25,8 @@ func (service *staffService) Create(input hospitalstaff.HospitalStaffCore) (err 
 	lower := strings.ToLower(input.Email)
 	input.Email = lower
 	input.Peran = "admin"
-	generatePass := helper.Bcript(input.KataSandi)
-	input.KataSandi = generatePass
+	// generatePass := helper.Bcript(input.KataSandi)
+	// input.KataSandi = generatePass
 
 	if validateERR := service.validate.Struct(input); validateERR != nil {
 		return validateERR
@@ -69,7 +68,7 @@ func (service *staffService) GetAllStaff(namaRs string, limit int, page int) (da
 	offset := (page - 1) * limit
 	data, totalPage, err = service.staffRepository.GetAllStaff(namaRs, limit, offset)
 	if err != nil {
-		return nil, 0, errors.New("failed get bed by hospital id, error logic")
+		return nil, 0, errors.New("failed get staff by hospital id, error logic")
 	}
 	return data, totalPage, nil
 }
