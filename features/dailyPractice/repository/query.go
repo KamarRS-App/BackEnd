@@ -64,7 +64,7 @@ func (repo *practiceRepository) GetAll(limit, offset, id int) (data []dailypract
 		totalpage = (int(count) / limit) + 1
 	}
 
-	tx := repo.db.Find(&practices)
+	tx := repo.db.Where("policlinic_id = ?", id).Limit(limit).Offset(offset).Find(&practices)
 	if tx.Error != nil {
 		return nil, 0, tx.Error
 	}
