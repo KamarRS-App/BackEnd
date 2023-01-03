@@ -124,7 +124,7 @@ type CheckupReservation struct {
 
 type Practice struct {
 	gorm.Model
-	TanggalPraktik      string
+	TanggalPraktik      string `gorm:"unique"`
 	KuotaHarian         int
 	Status              string
 	PoliclinicID        uint
