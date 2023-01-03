@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/KamarRS-App/KamarRS-App/features/user"
-	"github.com/KamarRS-App/KamarRS-App/utils/helper"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -28,9 +27,9 @@ func (service *UserService) Create(input user.CoreUser) (err error) {
 
 	input.Email = lower
 
-	generatePass := helper.Bcript(input.KataSandi)
+	// generatePass := helper.Bcript(input.KataSandi)
 
-	input.KataSandi = generatePass
+	// input.KataSandi = generatePass
 
 	if validateERR := service.validate.Struct(input); validateERR != nil {
 		return validateERR
@@ -58,6 +57,9 @@ func (service *UserService) Update(id int, input user.CoreUser) error {
 // GetById implements user.ServiceInterface
 func (service *UserService) GetById(id int) (data user.CoreUser, err error) {
 	data, err = service.userRepository.GetById(id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
+	if err != nil {
+		return user.CoreUser{}, errors.New("gagal mengupdate data , querry error")
+	}
 	return
 }
 
