@@ -16,6 +16,7 @@ import (
 )
 
 // Scopes: OAuth 2.0 scopes provide a way to limit the amount of access that is granted to an access token.
+// "https://rawatinap.online/auth/google/callback",
 
 func AuthConfig() *oauth2.Config {
 	var googleOauthConfig = &oauth2.Config{
