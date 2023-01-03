@@ -31,10 +31,10 @@ func (repo *bedRepository) Create(input bed.BedCore) (row int, err error) {
 }
 
 // GetAll
-func (repo *bedRepository) GetAll(limit, offset, id int) (data []bed.BedCore, totalpage int, err error) {
+func (repo *bedRepository) GetAll(kelasreq, statusreq string, limit, offset, id int) (data []bed.BedCore, totalpage int, err error) {
 	var beds []Bed
 	var count int64
-	rx := repo.db.Model(&beds).Where("hospital_id = ?", id).Count(&count)
+	rx := repo.db.Model(&beds).Where("hospital_id LIKE ? AND kelas LIKE ? AND status LIKE ?", id, "%"+kelasreq+"%", "%"+statusreq+"%").Count(&count)
 	if rx.Error != nil {
 		return nil, 0, rx.Error
 	}
@@ -43,13 +43,15 @@ func (repo *bedRepository) GetAll(limit, offset, id int) (data []bed.BedCore, to
 	}
 
 	// var totalpage int
-	if int(count)%limit == 0 {
+	if count < 10 {
+		totalpage = 1
+	} else if int(count)%limit == 0 {
 		totalpage = int(count) / limit
 	} else {
 		totalpage = (int(count) / limit) + 1
 	}
 
-	tx := repo.db.Where("hospital_id = ?", id).Limit(limit).Offset(offset).Find(&beds)
+	tx := repo.db.Where("hospital_id LIKE ? AND kelas LIKE ? AND status LIKE ?", id, "%"+kelasreq+"%", "%"+statusreq+"%").Limit(limit).Offset(offset).Find(&beds)
 	if tx.Error != nil {
 		return nil, 0, tx.Error
 	}
