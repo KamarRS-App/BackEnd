@@ -17,7 +17,7 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/Anti-Gen/CAPSTONE-PORJECT-kamarRS/1.0.0
   - description: kamarRS server
-    url: http://35.198.253.37:80
+    url: http://34.135.58.227
   - description: kamarRS domain
     url: https://rawatinap.online
 
