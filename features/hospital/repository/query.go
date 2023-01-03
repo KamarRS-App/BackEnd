@@ -69,7 +69,7 @@ func (repo *hospitalRepository) GetAll(provinsi, kabKota, nama string, limit, of
 	if tx.Error != nil {
 		return nil, 0, tx.Error
 	}
-	var dataCore = ToCoreList(hospitals1)
+	var dataCore = ToCoreList(hospitals)
 	return dataCore, totalPage, nil
 }
 
