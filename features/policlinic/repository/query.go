@@ -69,14 +69,15 @@ func (repo *policlinicRepository) GetAllbyHospitalID(limit, offset, id int) (dat
 	}
 	fmt.Println("+++++++++RX KING+++++++++", rx)
 	fmt.Println("======COOUUUNNTTTTT=====", count)
+	fmt.Println("#######ROWS AFFECTED#######", rx.RowsAffected)
 
 	// var totalpage int
 	if rx.RowsAffected < 10 {
 		totalpage = 1
-	} else if int(count)%limit == 0 {
-		totalpage = int(count) / limit
+	} else if int(rx.RowsAffected)%limit == 0 {
+		totalpage = int(rx.RowsAffected) / limit
 	} else {
-		totalpage = (int(count) / limit) + 1
+		totalpage = (int(rx.RowsAffected) / limit) + 1
 	}
 
 	tx := repo.db.Where("hospital_id = ?", id).Limit(limit).Offset(offset).Find(&policlinics)
