@@ -2,7 +2,6 @@ package repository
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/KamarRS-App/KamarRS-App/features/policlinic"
 	"gorm.io/gorm"
@@ -67,17 +66,14 @@ func (repo *policlinicRepository) GetAllbyHospitalID(limit, offset, id int) (dat
 	if rx.RowsAffected == 0 {
 		return nil, 0, errors.New("error query count")
 	}
-	fmt.Println("+++++++++RX KING+++++++++", rx)
-	fmt.Println("======COOUUUNNTTTTT=====", count)
-	fmt.Println("#######ROWS AFFECTED#######", rx.RowsAffected)
 
 	// var totalpage int
-	if rx.RowsAffected < 10 {
+	if count < 10 {
 		totalpage = 1
-	} else if int(rx.RowsAffected)%limit == 0 {
-		totalpage = int(rx.RowsAffected) / limit
+	} else if int(count)%limit == 0 {
+		totalpage = int(count) / limit
 	} else {
-		totalpage = (int(rx.RowsAffected) / limit) + 1
+		totalpage = (int(count) / limit) + 1
 	}
 
 	tx := repo.db.Where("hospital_id = ?", id).Limit(limit).Offset(offset).Find(&policlinics)
