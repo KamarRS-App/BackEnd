@@ -3,7 +3,7 @@ package hospitalstaff
 type HospitalStaffCore struct {
 	ID           uint
 	Nama         string
-	Email        string
+	Email        string `validate:"required,email"`
 	KataSandi    string
 	Peran        string
 	HospitalID   uint

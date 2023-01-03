@@ -35,8 +35,8 @@ func (repo *staffRepository) Create(input hospitalstaff.HospitalStaffCore) (err 
 	// 		return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
 	// 	}
 
-	// }
-
+	generatePass := helper.Bcript(input.KataSandi)
+	input.KataSandi = generatePass
 	staffGorm := FromStaffCore(input)
 
 	tx := repo.db.Create(&staffGorm) // proses insert data
