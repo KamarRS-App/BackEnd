@@ -33,9 +33,9 @@ func (repo *userRepository) Create(input user.CoreUser) (err error) {
 	// // for _, v := range users {
 	// // 	if input.Email == v.Email {
 	// // 		return errors.New("email sudah pernah terdaftar silahkan mendaftar dengan email yang lain")
-	// // 	}
+	generatePass := helper.Bcript(input.KataSandi)
 
-	// // }
+	input.KataSandi = generatePass
 
 	userGorm := FromUserCoreToModel(input)
 
