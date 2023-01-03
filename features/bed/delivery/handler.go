@@ -45,13 +45,15 @@ func (delivery *BedDelivery) Create(c echo.Context) error {
 func (delivery *BedDelivery) GetAll(c echo.Context) error {
 	page := c.QueryParam("page") // input page
 	pagination, _ := strconv.Atoi(page)
+	kelasreq := c.QueryParam("kelas")
+	statusreq := c.QueryParam("status")
 	limit := 10 // set default limit buat pagination
 	hospitalId, errBind := strconv.Atoi(c.Param("id"))
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("Error binding data"+errBind.Error()))
 	}
 
-	results, totalpage, err := delivery.bedService.GetAll(pagination, limit, hospitalId)
+	results, totalpage, err := delivery.bedService.GetAll(kelasreq, statusreq, pagination, limit, hospitalId)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, helper.FailedResponse("error read data"))
 	}
