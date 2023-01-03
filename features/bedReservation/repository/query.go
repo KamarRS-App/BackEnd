@@ -150,6 +150,12 @@ func (r *bedReservationRepository) Create(input bedreservation.BedReservationCor
 		return bedreservation.BedReservationCore{}, tx1.Error
 	}
 
+	var hospital Hospital
+	tx2 := r.db.First(&hospital, input.HospitalID)
+	if tx2.Error != nil {
+		return bedreservation.BedReservationCore{}, tx2.Error
+	}
+
 	if user.Nokk != patient.NoKk {
 		return bedreservation.BedReservationCore{}, errors.New("pasien hanya dapat didaftarkan oleh user dengan kk sama")
 	}
@@ -158,15 +164,15 @@ func (r *bedReservationRepository) Create(input bedreservation.BedReservationCor
 		input.BiayaRegistrasi = 0
 		input.StatusPembayaran = "settlement via BPJS"
 	} else {
-		input.BiayaRegistrasi = 25000
+		input.BiayaRegistrasi = hospital.BiayaPendaftaran
 		input.StatusPembayaran = "belum dibayar"
 	}
 	randString := helper.FileName(5)
 	input.KodeDaftar = "order-" + randString
 	inputGorm := FromCoreToModel(input)
-	tx2 := r.db.Create(&inputGorm)
-	if tx2.Error != nil {
-		return bedreservation.BedReservationCore{}, tx2.Error
+	tx3 := r.db.Create(&inputGorm)
+	if tx3.Error != nil {
+		return bedreservation.BedReservationCore{}, tx3.Error
 	}
 	return input, nil
 }
