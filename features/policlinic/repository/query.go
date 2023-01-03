@@ -69,7 +69,7 @@ func (repo *policlinicRepository) GetAllbyHospitalID(limit, offset, id int) (dat
 	}
 	fmt.Println("+++++++++RX KING+++++++++", rx)
 	fmt.Println("======COOUUUNNTTTTT=====", count)
-	fmt.Println("#######ROWS AFFECTED#####", rx.RowsAffected)
+	fmt.Println("#######ROWS AFFECTED#######", rx.RowsAffected)
 
 	// var totalpage int
 	if rx.RowsAffected < 10 {
