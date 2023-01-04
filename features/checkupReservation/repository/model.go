@@ -37,7 +37,7 @@ type Patient struct {
 	FotoKtp               string
 	FotoBpjs              string
 	UserID                uint
-	// CheckupReservation      CheckupReservation
+	CheckupReservations   []CheckupReservation
 }
 
 type Practice struct {

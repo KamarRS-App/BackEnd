@@ -48,7 +48,7 @@ type Patient struct {
 	FotoBpjs              string
 	UserID                uint
 	// BedReservationID        uint
-	BedReservation BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	BedReservations []BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type Bed struct {
