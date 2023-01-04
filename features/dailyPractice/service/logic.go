@@ -21,9 +21,9 @@ func New(repo dailypractice.RepositoryInterface) dailypractice.ServiceInterface 
 
 // Post
 func (service *practiceService) Create(input dailypractice.PracticeCore) (err error) {
-	if errValidate := service.validate.Struct(input); errValidate != nil {
-		return errValidate
-	}
+	// if errValidate := service.validate.Struct(input); errValidate != nil {
+	// 	return errValidate
+	// }
 	_, errCreate := service.practiceRepository.Create(input)
 	if errCreate != nil {
 		return errors.New("failed to insert data, error logic")

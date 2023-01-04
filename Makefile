@@ -12,4 +12,6 @@ test-bed:
 
 test-bedres:
 	go test ./features/bedReservation/service... -coverprofile=cover.out && go tool cover -html=cover.out
+test-practice:
+	go test ./features/dailyPractice/service... -coverprofile=cover.out && go tool cover -html=cover.out
 
