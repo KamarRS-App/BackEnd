@@ -2,7 +2,7 @@ package bed
 
 type BedCore struct {
 	ID              uint
-	NamaTempatTidur string
+	NamaTempatTidur string `validate:"required"`
 	Ruangan         string
 	Kelas           string
 	Status          string
