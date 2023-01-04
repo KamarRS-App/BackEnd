@@ -109,8 +109,8 @@ type Patient struct {
 	FotoBpjs              string
 	UserID                uint
 	// BedReservationID        uint
-	BedReservation BedReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	// CheckupReservation CheckupReservation
+	BedReservations     []BedReservation     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	CheckupReservations []CheckupReservation `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
 
 type CheckupReservation struct {
@@ -118,6 +118,7 @@ type CheckupReservation struct {
 	PatientID  uint
 	PracticeID uint
 	NamaDokter string
+	NoAntrian  string
 	Patient    Patient  `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Practice   Practice `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }

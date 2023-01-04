@@ -10,6 +10,7 @@ type CheckupReservationCore struct {
 	PatientID  uint `validate:"required"`
 	PracticeID uint `validate:"required"`
 	NamaDokter string
+	NoAntrian  string
 	Patient    PatientCore
 	Practice   PracticeCore
 }
