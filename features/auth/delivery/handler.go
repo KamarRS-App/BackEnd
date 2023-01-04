@@ -166,6 +166,6 @@ func (delivery *AuthDelivery) oauthGoogleCallback(c echo.Context) error {
 	// 	"name":    dataUser.Nama,
 	// }
 	// fmt.Sprintf("token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID)
-	return c.Redirect(http.StatusTemporaryRedirect, fmt.Sprintf("http://127.0.0.1:5173/?token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID))
+	return c.Redirect(http.StatusTemporaryRedirect, fmt.Sprintf("http://127.0.0.1:5173/login/auth/google?token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID))
 
 }
