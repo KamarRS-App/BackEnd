@@ -38,11 +38,17 @@ func (service *CheckUpService) Create(input checkupreservation.CheckupReservatio
 func (service *CheckUpService) GetByPracticesId(pagination int, limit int, id int) (data []checkupreservation.CheckupReservationCore, totalpage int, err error) {
 	offset := (pagination - 1) * limit
 	data, totalpage, err = service.checkupRepository.GetByPracticesId(limit, offset, id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
+	if err != nil {
+		return nil, 0, errors.New("gagal menampilkan reservasi")
+	}
 	return
 }
 
 // GetByreservationId implements checkupreservation.ServiceInterface
 func (service *CheckUpService) GetByreservationId(id int) (data checkupreservation.CheckupReservationCore, err error) {
 	data, err = service.checkupRepository.GetByreservationId(id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
+	if err != nil {
+		return checkupreservation.CheckupReservationCore{}, errors.New("gagal menampilkan reservasi")
+	}
 	return
 }
