@@ -1,7 +1,7 @@
 package service
 
 import (
-	"strings"
+	"errors"
 
 	"github.com/KamarRS-App/KamarRS-App/features/kamarrsteam"
 	"github.com/go-playground/validator/v10"
@@ -25,18 +25,18 @@ func New(repo kamarrsteam.RepositoryInterface) kamarrsteam.ServiceInterface {
 func (s *kamarrsteamService) Create(input kamarrsteam.KamarRsTeamCore) error {
 	errValidate := s.validate.Struct(input)
 	if errValidate != nil {
+		log.Error(errValidate.Error())
 		return errValidate
 	}
 
-	_, errFindEmail := s.kamarrsteamRepository.FindTeam(input.Email)
+	foundData, _ := s.kamarrsteamRepository.FindTeam(input.Email)
 
-	if errFindEmail != nil && !strings.Contains(errFindEmail.Error(), "found") {
-		return errFindEmail
+	if foundData.Email == input.Email {
+		return errors.New("use another email")
 	}
 
 	hashPass, errEncrypt := bcrypt.GenerateFromPassword([]byte(input.KataSandi), 10)
 	if errEncrypt != nil {
-		log.Error(errEncrypt.Error())
 		return errEncrypt
 	}
 

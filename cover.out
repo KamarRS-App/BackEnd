@@ -1,4 +1,16 @@
 mode: set
+
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:17.77,22.2 1 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:25.78,27.24 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:32.2,34.36 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:38.2,39.23 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:43.2,45.22 3 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:50.2,50.12 1 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:27.24,30.3 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:34.36,36.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:39.23,41.3 1 0
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:45.22,48.3 2 1
+
 github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service/logic.go:15.91,20.2 1 1
 github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service/logic.go:23.112,24.71 1 1
 github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service/logic.go:28.2,30.22 2 1
@@ -11,3 +23,4 @@ github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service/logic.go:
 github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service/logic.go:48.119,50.16 2 1
 github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service/logic.go:53.2,53.8 1 1
 github.com/KamarRS-App/KamarRS-App/features/checkupReservation/service/logic.go:50.16,52.3 1 1
+
