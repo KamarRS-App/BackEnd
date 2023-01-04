@@ -1,14 +1,11 @@
 mode: set
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:15.81,20.2 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:23.86,28.22 2 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:31.2,31.12 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:28.22,30.3 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:35.94,37.19 2 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:40.2,40.18 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:37.19,39.3 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:44.129,47.16 3 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:50.2,50.8 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:47.16,49.3 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:55.97,57.22 2 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:60.2,60.12 1 1
-github.com/KamarRS-App/KamarRS-App/features/dailyPractice/service/logic.go:57.22,59.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:17.77,22.2 1 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:25.78,27.24 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:32.2,34.36 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:38.2,39.23 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:43.2,45.22 3 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:50.2,50.12 1 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:27.24,30.3 2 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:34.36,36.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:39.23,41.3 1 0
+github.com/KamarRS-App/KamarRS-App/features/kamarrsteam/service/logic.go:45.22,48.3 2 1

@@ -15,3 +15,5 @@ test-bedres:
 test-practice:
 	go test ./features/dailyPractice/service... -coverprofile=cover.out && go tool cover -html=cover.out
 
+test-team:
+	go test ./features/kamarrsteam/service... -coverprofile=cover.out && go tool cover -html=cover.out
