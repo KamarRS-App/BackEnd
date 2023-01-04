@@ -5,5 +5,7 @@ test-staff:
 test-login:
 	go test ./features/auth/service... -coverprofile=cover.out && go tool cover -html=cover.out
 test-bed:
-		go test ./features/bed... -coverprofile=cover.out && go tool cover -html=cover.out
+	go test ./features/bed... -coverprofile=cover.out && go tool cover -html=cover.out
 
+test-reservation:
+	go test ./features/checkupReservation... -coverprofile=cover.out && go tool cover -html=cover.out
