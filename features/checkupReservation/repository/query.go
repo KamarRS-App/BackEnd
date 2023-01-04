@@ -117,6 +117,7 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 		TanggalPraktik string
 		NamaPasien     string
 		NamaDokter     string
+		NoAntri        string
 	}{
 		RumahSakit:     dataHospital.Nama,
 		Policlinic:     dataPoliclinic.NamaPoli,
@@ -124,6 +125,7 @@ func (repo *CheckUpRepository) Create(input checkupreservation.CheckupReservatio
 		TanggalPraktik: dataPractice.TanggalPraktik,
 		NamaPasien:     dataPatients.NamaPasien,
 		NamaDokter:     dataCheckup.NamaDokter,
+		NoAntri:        dataCheckup.NoAntrian,
 	}
 
 	emailTo := dataPatients.EmailWali

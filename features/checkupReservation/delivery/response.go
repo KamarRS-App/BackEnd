@@ -10,16 +10,19 @@ type CheckupReservationResponse struct {
 	ID         uint             `json:"id"`
 	PatientID  uint             `json:"patient_id"`
 	NamaDokter string           `json:"nama_dokter"`
+	NoAntrian  string           `json:"no_antrian"`
 	CreatedAt  time.Time        `json:"created_at"`
 	Practice   PracticeResponse `json:"practice"`
 	Patient    PatientResponse  `json:"patient"`
 }
 
 type PatientResponse struct {
-	ID         uint   `json:"id"`
-	NoKk       string `json:"no_kk"`
-	Nik        string `json:"nik"`
-	NamaPasien string `json:"nama_pasien"`
+	ID           uint   `json:"id"`
+	NoKk         string `json:"no_kk"`
+	JenisKelamin string `json:"jenis_kelamin"`
+	Usia         int    `json:"usia"`
+	Nik          string `json:"nik"`
+	NamaPasien   string `json:"nama_pasien"`
 }
 
 type PracticeResponse struct {
@@ -35,11 +38,14 @@ func fromCore(dataCore checkupreservation.CheckupReservationCore) CheckupReserva
 		PatientID:  dataCore.PatientID,
 		CreatedAt:  dataCore.CreatedAt,
 		NamaDokter: dataCore.NamaDokter,
+		NoAntrian:  dataCore.NoAntrian,
 		Patient: PatientResponse{
-			ID:         dataCore.Patient.ID,
-			NoKk:       dataCore.Patient.NoKk,
-			Nik:        dataCore.Patient.Nik,
-			NamaPasien: dataCore.Patient.NamaPasien,
+			ID:           dataCore.Patient.ID,
+			NoKk:         dataCore.Patient.NoKk,
+			Nik:          dataCore.Patient.Nik,
+			NamaPasien:   dataCore.Patient.NamaPasien,
+			JenisKelamin: dataCore.Patient.JenisKelamin,
+			Usia:         dataCore.Patient.Usia,
 		},
 		Practice: PracticeResponse{
 			ID:             dataCore.Practice.ID,
@@ -64,6 +70,7 @@ type CheckupReservationResponse1 struct {
 	ID         uint              `json:"id"`
 	PatientID  uint              `json:"patient_id"`
 	NamaDokter string            `json:"nama_dokter"`
+	NoAntrian  string            `json:"no_antrian"`
 	CreatedAt  time.Time         `json:"created_at"`
 	Practice   PracticeResponse1 `json:"practice"`
 	Patient    PatientResponse1  `json:"patient"`
@@ -104,6 +111,7 @@ func fromCore1(dataCore checkupreservation.CheckupReservationCore) CheckupReserv
 		ID:         dataCore.ID,
 		PatientID:  dataCore.PatientID,
 		NamaDokter: dataCore.NamaDokter,
+		NoAntrian:  dataCore.NoAntrian,
 		CreatedAt:  dataCore.CreatedAt,
 		Patient: PatientResponse1{
 			ID:                    dataCore.Patient.ID,
@@ -136,10 +144,10 @@ func fromCore1(dataCore checkupreservation.CheckupReservationCore) CheckupReserv
 }
 
 // data dari core ke response
-func fromCoreList1(dataCore []checkupreservation.CheckupReservationCore) []CheckupReservationResponse1 {
-	var dataResponse []CheckupReservationResponse1
-	for _, v := range dataCore {
-		dataResponse = append(dataResponse, fromCore1(v))
-	}
-	return dataResponse
-}
+// func fromCoreList1(dataCore []checkupreservation.CheckupReservationCore) []CheckupReservationResponse1 {
+// 	var dataResponse []CheckupReservationResponse1
+// 	for _, v := range dataCore {
+// 		dataResponse = append(dataResponse, fromCore1(v))
+// 	}
+// 	return dataResponse
+// }
