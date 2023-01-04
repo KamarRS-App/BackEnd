@@ -25,6 +25,9 @@ func New(repo auth.RepositoryInterface) auth.ServiceInterface {
 // Login implements auth.ServiceInterface
 func (service *authService) Login(email string, pass string) (string, repository.User, error) {
 	token, data, err := service.authRepository.Login(email, pass)
+	if err != nil {
+		return "", repository.User{}, errors.New("Login Failed, incorrect input")
+	}
 	return token, data, err
 }
 
@@ -50,6 +53,9 @@ func (s *authService) LoginTeam(email string, password string) (string, teamrepo
 // LoginStaff implements auth.ServiceInterface
 func (service *authService) LoginStaff(email string, pass string) (string, staff.HospitalStaff, error) {
 	token, data, err := service.authRepository.LoginStaff(email, pass)
+	if err != nil {
+		return "", staff.HospitalStaff{}, errors.New("Login Failed, incorrect input")
+	}
 	return token, data, err
 
 }
@@ -57,5 +63,8 @@ func (service *authService) LoginStaff(email string, pass string) (string, staff
 // LoginOauth implements auth.ServiceInterface
 func (service *authService) LoginOauth(auths auth.Oauth) (string, repository.User, error) {
 	token, data, err := service.authRepository.LoginOauth(auths)
+	if err != nil {
+		return "", repository.User{}, errors.New("Login Failed, incorrect input")
+	}
 	return token, data, err
 }
