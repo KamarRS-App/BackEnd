@@ -11,6 +11,7 @@ type CheckupReservation struct {
 	PatientID  uint
 	PracticeID uint
 	NamaDokter string
+	NoAntrian  string
 	Patient    Patient  `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 	Practice   Practice `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
 }
@@ -54,6 +55,7 @@ func FromCoreToModel(dataCore checkupreservation.CheckupReservationCore) Checkup
 		PatientID:  dataCore.PatientID,
 		PracticeID: dataCore.PracticeID,
 		NamaDokter: dataCore.NamaDokter,
+		NoAntrian:  dataCore.NoAntrian,
 	}
 	return checkupGorm //insert checkup from core
 }
@@ -66,6 +68,7 @@ func (dataModel *CheckupReservation) toCore() checkupreservation.CheckupReservat
 		PatientID:  dataModel.PatientID,
 		NamaDokter: dataModel.NamaDokter,
 		CreatedAt:  dataModel.CreatedAt,
+		NoAntrian:  dataModel.NoAntrian,
 		Patient: checkupreservation.PatientCore{
 			ID:                    dataModel.Patient.ID,
 			NoKk:                  dataModel.Patient.NoKk,

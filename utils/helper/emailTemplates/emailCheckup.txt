@@ -1,5 +1,7 @@
 Terima Kasih Telah Mendaftar dengan Aplikasi Rawat Inap
 
+No Antrian : {{.NoAntri}}
+
 Kami dari {{.RumahSakit}} 
 memberikan informasi kepada saudara {{.NamaPasien}} 
 bahwa anda telah terdaftar sebagai calon pasien di {{.Policlinic}} dengan dokter {{.NamaDokter}}
