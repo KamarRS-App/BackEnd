@@ -43,13 +43,19 @@ func (service *staffService) Create(input hospitalstaff.HospitalStaffCore) (err 
 // DeleteById implements hospitalstaff.ServiceInterface
 func (service *staffService) DeleteById(id int) error {
 	err := service.staffRepository.DeleteById(id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
+	if err != nil {
+		return errors.New("gagal menghapus data , querry error")
+	}
 	return err
 }
 
 // GetStaff implements hospitalstaff.ServiceInterface
 func (service *staffService) GetStaff(id int) (data hospitalstaff.HospitalStaffCore, err error) {
 	data, err = service.staffRepository.GetStaff(id) // memanggil struct entities repository yang ada di entities yang berisi coding logic
-	return
+	if err != nil {
+		return hospitalstaff.HospitalStaffCore{}, errors.New("gagal menampilkan data , querry error")
+	}
+	return data, err
 }
 
 // Update implements hospitalstaff.ServiceInterface
