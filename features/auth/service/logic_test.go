@@ -29,6 +29,17 @@ func TestLogin(t *testing.T) {
 		assert.Equal(t, token, returnToken)
 		repo.AssertExpectations(t)
 	})
+
+	t.Run("failed login", func(t *testing.T) {
+		inputEmail := "sheena@duck.com"
+		inputPass := "ringo"
+		repo.On("Login", inputEmail, inputPass).Return("", repository.User{}, errors.New("Login Failed, incorrect input")).Once()
+		srv := New(repo)
+		_, _, err := srv.Login(inputEmail, inputPass)
+		assert.NotNil(t, err)
+		assert.EqualError(t, err, "Login Failed, incorrect input")
+		repo.AssertExpectations(t)
+	})
 }
 
 func TestStaff(t *testing.T) {
@@ -46,6 +57,17 @@ func TestStaff(t *testing.T) {
 		assert.Equal(t, token, returnToken)
 		repo.AssertExpectations(t)
 	})
+
+	t.Run("failed login", func(t *testing.T) {
+		inputEmail := "sheena@duck.com"
+		inputPass := "ringo"
+		repo.On("LoginStaff", inputEmail, inputPass).Return("", staff.HospitalStaff{}, errors.New("Login Failed, incorrect input")).Once()
+		srv := New(repo)
+		_, _, err := srv.LoginStaff(inputEmail, inputPass)
+		assert.NotNil(t, err)
+		assert.EqualError(t, err, "Login Failed, incorrect input")
+		repo.AssertExpectations(t)
+	})
 }
 
 func TestLoginOauth(t *testing.T) {
@@ -60,6 +82,16 @@ func TestLoginOauth(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, returnData, response)
 		assert.Equal(t, token, returnToken)
+		repo.AssertExpectations(t)
+	})
+
+	t.Run("failed login", func(t *testing.T) {
+		inputData := auth.Oauth{Email: "sheena@gmail.com", Name: "sheena"}
+		repo.On("LoginOauth", mock.Anything).Return("", repository.User{}, errors.New("Login Failed, incorrect input")).Once()
+		srv := New(repo)
+		_, _, err := srv.LoginOauth(inputData)
+		assert.NotNil(t, err)
+		assert.EqualError(t, err, "Login Failed, incorrect input")
 		repo.AssertExpectations(t)
 	})
 }
