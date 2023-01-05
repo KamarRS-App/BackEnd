@@ -202,6 +202,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [teguh-url]: https://github.com/Anti-Gen
 [febryan-url]: https://github.com/febryanmz
 [email-shield]: https://img.shields.io/badge/gmail-DD0031?style=for-the-badge&logo=gmail&logoColor=white
-[email-1]: osv3t4la@duck.com
-[email-2]: teguhbutarbutar160798@gmail.com
-[email-3]: febryan.zainal@gmail.com
+[email-1]: https://mail.google.com/mail/u/0/?fs=1&to=osv3t4la@duck.com&tf=cm
+[email-2]: https://mail.google.com/mail/u/0/?fs=1&to=teguhbutarbutar160798@gmail.com&tf=cm
+[email-3]: https://mail.google.com/mail/u/0/?fs=1&to=febryan.zainal@gmail.com&tf=cm
