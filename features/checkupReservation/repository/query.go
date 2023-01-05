@@ -169,6 +169,7 @@ func (repo *CheckUpRepository) GetByPracticesId(limit int, offset int, id int) (
 	} else {
 		totalpage = (int(count) / limit) + 1
 	}
+	fmt.Println(totalpage)
 	var checks []CheckupReservation
 
 	tx := repo.db.Where("practice_id=?", id).Preload("Patient").Preload("Practice").Limit(limit).Offset(offset).Find(&checks)
