@@ -28,7 +28,7 @@ type ServiceInterface interface {
 }
 
 type RepositoryInterface interface {
-	Create(input HospitalCore) (row int, err error)
+	Create(input HospitalCore) (err error)
 	GetAll(provinsi, kabKota, nama string, limit, offset int) (data []HospitalCore, totalPage int, err error)
 	GetById(id int) (data HospitalCore, err error)
 	Update(input HospitalCore, id int) (err error)
