@@ -204,4 +204,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [email-shield]: https://img.shields.io/badge/gmail-DD0031?style=for-the-badge&logo=gmail&logoColor=white
 [email-1]: osv3t4la@duck.com
 [email-2]: teguhbutarbutar160798@gmail.com
-[email-2]: febryan.zainal@gmail.com
+[email-3]: febryan.zainal@gmail.com
