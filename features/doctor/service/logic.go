@@ -21,9 +21,6 @@ func New(repo doctor.RepositoryInterface) doctor.ServiceInterface {
 
 // Post
 func (service *doctorService) Create(input doctor.DoctorCore) (err error) {
-	if errValidate := service.validate.Struct(input); errValidate != nil {
-		return errValidate
-	}
 	_, errCreate := service.doctorRepository.Create(input)
 	if errCreate != nil {
 		return errors.New("failed to insert data, error logic")
@@ -43,6 +40,9 @@ func (service *doctorService) GetById(id int) (data doctor.DoctorCore, err error
 // GetAll
 func (service *doctorService) GetAll() (data []doctor.DoctorCore, err error) {
 	data, err = service.doctorRepository.GetAll()
+	if err != nil {
+		return nil, errors.New("failed get all doctors")
+	}
 	return
 
 }

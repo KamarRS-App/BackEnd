@@ -4,19 +4,19 @@ import "time"
 
 type CorePatient struct {
 	ID                    uint
-	NoKk                  string
-	Nik                   string
-	NamaPasien            string
-	JenisKelamin          string
-	TanggalLahir          string
+	NoKk                  string `validate:"required"`
+	Nik                   string `validate:"required"`
+	NamaPasien            string `validate:"required"`
+	JenisKelamin          string `validate:"required"`
+	TanggalLahir          string `validate:"required"`
 	Usia                  int
-	NamaWali              string
-	EmailWali             string
-	NoTelponWali          string
-	AlamatKtp             string
+	NamaWali              string `validate:"required"`
+	EmailWali             string `validate:"required"`
+	NoTelponWali          string `validate:"required"`
+	AlamatKtp             string `validate:"required"`
 	ProvinsiKtp           string
 	KabupatenKotaKtp      string
-	AlamatDomisili        string
+	AlamatDomisili        string `validate:"required"`
 	ProvinsiDomisili      string
 	KabupatenKotaDomisili string
 	NoBpjs                string
