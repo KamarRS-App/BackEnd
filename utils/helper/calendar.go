@@ -78,7 +78,7 @@ func Calendar(email, date, address string) (string, error) {
 
 	//date : yyyy-mm-dd
 	event := &calendar.Event{
-		Summary:     "Rawat Inap",
+		Summary:     "Check Up Reservation From rawatinap.online",
 		Location:    address,
 		Description: "Contact Admin: kamarrsproject@gmail.com",
 		Start: &calendar.EventDateTime{
