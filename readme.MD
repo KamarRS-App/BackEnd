@@ -162,8 +162,7 @@
    ```
 3. Run Project
     ```bash
-    source .env
-    go run main.go
+    source .env && go run main.go
     ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
