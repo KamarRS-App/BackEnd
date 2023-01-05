@@ -1,4 +1,5 @@
 mode: set
+<<<<<<< HEAD
 github.com/KamarRS-App/KamarRS-App/features/patient/service/logic.go:15.69,20.2 1 1
 github.com/KamarRS-App/KamarRS-App/features/patient/service/logic.go:23.78,24.71 1 1
 github.com/KamarRS-App/KamarRS-App/features/patient/service/logic.go:28.2,29.22 2 1
@@ -20,3 +21,21 @@ github.com/KamarRS-App/KamarRS-App/features/patient/service/logic.go:68.22,70.3 
 github.com/KamarRS-App/KamarRS-App/features/patient/service/logic.go:76.88,78.16 2 1
 github.com/KamarRS-App/KamarRS-App/features/patient/service/logic.go:81.2,81.18 1 1
 github.com/KamarRS-App/KamarRS-App/features/patient/service/logic.go:78.16,80.3 1 1
+=======
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:15.67,20.2 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:23.75,25.22 2 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:28.2,28.12 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:25.22,27.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:32.83,34.19 2 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:37.2,37.18 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:34.19,36.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:41.78,43.16 2 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:46.2,46.8 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:43.16,45.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:51.86,53.22 2 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:56.2,56.12 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:53.22,55.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:61.58,63.19 2 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:66.2,66.12 1 1
+github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:63.19,65.3 1 1
+>>>>>>> bb106c7fd174b6980ddc574cf8d4726bc1f86e2f
