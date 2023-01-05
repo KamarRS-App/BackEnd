@@ -42,11 +42,6 @@ func (s *authService) LoginTeam(email string, password string) (string, teamrepo
 		return "", teamrepo.KamarRsTeam{}, err
 	}
 
-	// passCheck := helper.CheckPasswordHash(password, data.Password)
-	// if !passCheck {
-	// 	return "", teamrepo.KamarRsTeam{}, errors.New("login failed")
-	// }
-
 	return token, data, nil
 }
 
