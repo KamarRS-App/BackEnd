@@ -18,16 +18,16 @@ func New(db *gorm.DB) hospital.RepositoryInterface {
 }
 
 // Post
-func (repo *hospitalRepository) Create(input hospital.HospitalCore) (row int, err error) {
+func (repo *hospitalRepository) Create(input hospital.HospitalCore) (err error) {
 	hospitalGorm := FromCore(input)
 	tx := repo.db.Create(&hospitalGorm) // proses insert data
 	if tx.Error != nil {
-		return -1, tx.Error
+		return tx.Error
 	}
 	if tx.RowsAffected == 0 {
-		return 0, errors.New("insert failed, error query")
+		return errors.New("insert failed, error query")
 	}
-	return int(tx.RowsAffected), nil
+	return nil
 }
 
 // Get by (ID)

@@ -21,6 +21,11 @@ test-team:
 
 test-reservation:
 	go test ./features/checkupReservation/service... -coverprofile=cover.out && go tool cover -html=cover.out
+
+
+test-hospital:
+	go test ./features/hospital/service... -coverprofile=cover.out && go tool cover -html=cover.out
+
 test-doctor:
 	go test ./features/doctor/service... -coverprofile=cover.out && go tool cover -html=cover.out
 test-policlinic:

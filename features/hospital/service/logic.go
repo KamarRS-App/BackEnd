@@ -24,7 +24,7 @@ func (service *hospitalService) Create(input hospital.HospitalCore) (err error) 
 	if errValidate := service.validate.Struct(input); errValidate != nil {
 		return errValidate
 	}
-	_, errCreate := service.hospitalRepository.Create(input)
+	errCreate := service.hospitalRepository.Create(input)
 	if errCreate != nil {
 		return errors.New("failed to insert data, error query")
 	}
