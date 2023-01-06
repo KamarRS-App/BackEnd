@@ -54,7 +54,10 @@ func (service *policlinicService) GetAllbyHospitalID(pagination, limit, id int) 
 // GetAll
 func (service *policlinicService) GetAll() (data []policlinic.CorePoliclinic, err error) {
 	data, err = service.policlinicRepository.GetAll()
-	return
+	if err != nil {
+		return nil, errors.New("failed get policlinic , error logic")
+	}
+	return data, err
 
 }
 

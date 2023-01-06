@@ -85,7 +85,7 @@ func TestDelete(t *testing.T) {
 		srv := New(repo)
 		err := srv.DeleteById(int(inputData.ID))
 		assert.NotNil(t, err)
-
+		assert.Equal(t, "gagal menghapus data , querry error", err.Error())
 		repo.AssertExpectations(t)
 	})
 
@@ -116,6 +116,34 @@ func TestGetAllStaff(t *testing.T) {
 		assert.NotEqual(t, totalPage, 1)
 		assert.Nil(t, data)
 		assert.Equal(t, "failed get staff by hospital id, error logic", err.Error())
+		repo.AssertExpectations(t)
+	})
+
+}
+
+func TestGetstaffbyid(t *testing.T) {
+	repo := new(mocks.StaffRepository)
+	returnData := hospitalstaff.HospitalStaffCore{ID: 1, Nama: "teguh", Email: "teguh@mail.id", KataSandi: "qwerty", Peran: "admin", HospitalID: 1, HospitalName: "RSJIWA"}
+
+	staffID := 1
+
+	t.Run("Succes Get staff by id", func(t *testing.T) {
+		repo.On("GetStaff", staffID).Return(returnData, nil).Once() //menentukan fungsi yang akan dijalankan//
+
+		srv := New(repo) //membuat dependency injection
+		data, err := srv.GetStaff(staffID)
+		assert.Nil(t, err)
+		assert.Equal(t, data.Nama, returnData.Nama)
+		repo.AssertExpectations(t)
+	})
+
+	t.Run("Failed to Get staff by id", func(t *testing.T) {
+		repo.On("GetStaff", staffID).Return(hospitalstaff.HospitalStaffCore{}, errors.New("Gagal menampilkan data")).Once() //menentukan fungsi yang akan dijalankan//
+		srv := New(repo)
+		data, err := srv.GetStaff(staffID)
+		assert.NotNil(t, err)
+		assert.NotEqual(t, data.Nama, returnData.Nama)
+		assert.Equal(t, "gagal menampilkan data , querry error", err.Error())
 		repo.AssertExpectations(t)
 	})
 

@@ -1,4 +1,18 @@
 mode: set
+
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:17.63,22.2 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:25.69,34.71 3 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:38.2,39.22 2 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:43.2,43.12 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:34.71,36.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:39.22,41.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:47.71,50.22 2 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:54.2,54.12 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:50.22,52.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:58.77,60.16 2 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:63.2,63.8 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:60.16,62.3 1 1
+github.com/KamarRS-App/KamarRS-App/features/user/service/logic.go:67.54,70.2 2 1
 github.com/KamarRS-App/KamarRS-App/features/hospital/service/logic.go:15.71,20.2 1 1
 github.com/KamarRS-App/KamarRS-App/features/hospital/service/logic.go:23.81,24.71 1 1
 github.com/KamarRS-App/KamarRS-App/features/hospital/service/logic.go:27.2,28.22 2 1
@@ -56,3 +70,4 @@ github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:53.22,55.3 1
 github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:61.58,63.19 2 1
 github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:66.2,66.12 1 1
 github.com/KamarRS-App/KamarRS-App/features/doctor/service/logic.go:63.19,65.3 1 1
+
