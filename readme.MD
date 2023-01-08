@@ -129,12 +129,8 @@
     ```bash
     cd BackEnd/
     ```
-3. Create your environment file
+3. Create your environment in `.env` and change its variable value with your desired value
     ```bash
-    touch .env
-    ```
-4. Fill environment file
-   ```bash
    echo "
     export DB_USERNAME="YOUR DB USERNAME"
     export DB_PASSWORD="YOUR DB PASSWORD"
@@ -158,9 +154,9 @@
     export GOOGLE_PROJECT_ID="YOUR GOOGLE PROJECT ID FOR OAUTH LOGIN"
     export GOOGLE_PROJECT_ID1="GOOGLE_PROJECT_ID1 FOR CALENDAR"
     export GOOGLE_OAUTH_CLIENT_ID1="YOUR GOOGLE OAUTH CLIENT ID1 FOR CALENDAR"
-    " >> .env
+    " > .env
    ```
-3. Run Project
+4. Run Project
     ```bash
     source .env && go run main.go
     ```
