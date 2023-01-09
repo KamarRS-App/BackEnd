@@ -166,6 +166,6 @@ func (delivery *AuthDelivery) oauthGoogleCallback(c echo.Context) error {
 	// 	"name":    dataUser.Nama,
 	// }
 	// fmt.Sprintf("token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID)
-	return c.Redirect(http.StatusTemporaryRedirect, fmt.Sprintf("https://rawatinap.netlify.app/login/auth/google?token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID))
+	return c.Redirect(http.StatusTemporaryRedirect, fmt.Sprintf("https://rawatinap-rawatinap.vercel.app/login/auth/google?token=%s&nama=%s&userid=%d", token, dataUser.Nama, dataUser.ID))
 
 }
